@@ -1,0 +1,1 @@
+export const SET_EVENT_NAME = 'SET_EVENT_NAME';
