@@ -2,16 +2,12 @@ import * as actionTypes from './actions';
 
 const intialState = {
     eventName: '',
-    amountPeople: 0
+    amountPeople: 0,
+    currentPage: 0
 };
 
 const reducer = (state = intialState, action) => {
     switch (action.type) {
-        case actionTypes.SET_EVENT_NAME:
-            return {
-                ...state,
-                eventName: state.eventName
-            }
         case actionTypes.EVENT_NAME_CHANGED:
             return {
                 ...state,
@@ -21,6 +17,13 @@ const reducer = (state = intialState, action) => {
             return {
                 ...state,
                 amountPeople: action.event.target.value
+            }
+        case actionTypes.READY_TO_START:
+            return {
+                ...state,
+                eventName: state.eventName,
+                amountPeople: state.amountPeople,
+                currentPage: state.currentPage + 1
             }
     }
     return state;

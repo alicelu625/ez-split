@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import ProceedDiv from '../../shared/ProceedDiv/ProceedDiv';
 
 import * as actionTypes from '../../store/actions';
 
@@ -22,6 +23,7 @@ class Start extends Component {
                     onChange={(event) => this.props.onAmountPeopleChanged(event)}
                     value={this.props.amountPeople}
                 />
+                <ProceedDiv onClick={this.props.onReadyToStart}/>
             </div>
         );
     }
@@ -36,7 +38,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onReadyToStart: () => dispatch({type: actionTypes.SET_EVENT_NAME}),
+        onReadyToStart: () => dispatch({type: actionTypes.READY_TO_START}),
         onEventNameChanged: (event) => dispatch({type: actionTypes.EVENT_NAME_CHANGED, event: event}),
         onAmountPeopleChanged: (event) => dispatch({type: actionTypes.AMOUNT_PEOPLE_CHANGED, event: event})
     };
