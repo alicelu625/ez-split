@@ -3,11 +3,12 @@ import {connect} from 'react-redux';
 import ProceedDiv from '../../shared/ProceedDiv/ProceedDiv';
 
 import * as actionTypes from '../../store/actions';
+import classes from './Start.module.css';
 
 class Start extends Component {
     render() {
         return (
-            <div>
+            <div className={classes.Start}>
                 <h1>Split a Bill</h1>
                 <input 
                     type="text" 
@@ -23,7 +24,7 @@ class Start extends Component {
                     onChange={(event) => this.props.onAmountPeopleChanged(event)}
                     value={this.props.amountPeople}
                 />
-                <ProceedDiv onClick={this.props.onReadyToStart}/>
+                <ProceedDiv clicked={this.props.onReadyToStart}/>
             </div>
         );
     }

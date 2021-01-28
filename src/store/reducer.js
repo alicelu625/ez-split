@@ -2,7 +2,7 @@ import * as actionTypes from './actions';
 
 const intialState = {
     eventName: '',
-    amountPeople: 0,
+    amountPeople: '',
     currentPage: 0
 };
 
@@ -19,6 +19,7 @@ const reducer = (state = intialState, action) => {
                 amountPeople: action.event.target.value
             }
         case actionTypes.READY_TO_START:
+            console.log(state.currentPage);
             return {
                 ...state,
                 eventName: state.eventName,

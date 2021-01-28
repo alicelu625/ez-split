@@ -4,7 +4,9 @@ import {connect} from 'react-redux';
 class Header extends Component {
     render() {
         return (
-            <p>{this.props.eventName}</p>
+            <div>
+                <p>{this.props.eventName}</p>
+            </div>
         );
     }
 }

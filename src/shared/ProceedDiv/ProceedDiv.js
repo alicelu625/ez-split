@@ -1,9 +1,11 @@
 import React from 'react';
 
-const proceedDiv = () => {
+import classes from './ProceedDiv.module.css';
+
+const proceedDiv = (props) => {
     return (
-        <div>
-            <p>Next</p>
+        <div className={classes.ProceedDiv} onClick={props.clicked}>
+            Next
         </div>
     )
 }
