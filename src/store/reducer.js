@@ -3,7 +3,8 @@ import * as actionTypes from './actions';
 const intialState = {
     eventName: '',
     amountPeople: '',
-    currentPage: 0
+    currentPage: 0,
+    subtotal: 0
 };
 
 const reducer = (state = intialState, action) => {

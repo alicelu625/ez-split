@@ -1,3 +1,9 @@
 .AddItems {
     text-align: center;
 }
+
+.Subtotal {
+    width: 100%;
+    margin-top: 50px;
+    border-bottom: solid 1px black;
+}
