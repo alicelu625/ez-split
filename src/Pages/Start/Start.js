@@ -19,8 +19,9 @@ class Start extends Component {
                     type="number"
                     placeholder="Amount of people"
                     required
+                    onChange={(event) => this.props.onAmountPeopleChanged(event)}
+                    value={this.props.amountPeople}
                 />
-                <div><p>Submit</p></div>
             </div>
         );
     }
@@ -28,14 +29,16 @@ class Start extends Component {
 
 const mapStateToProps = state => {
     return {
-        eventName: state.eventName
+        eventName: state.eventName,
+        amountPeople: state.amountPeople
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         onReadyToStart: () => dispatch({type: actionTypes.SET_EVENT_NAME}),
-        onEventNameChanged: (event) => dispatch({type: actionTypes.EVENT_NAME_CHANGED, event: event})
+        onEventNameChanged: (event) => dispatch({type: actionTypes.EVENT_NAME_CHANGED, event: event}),
+        onAmountPeopleChanged: (event) => dispatch({type: actionTypes.AMOUNT_PEOPLE_CHANGED, event: event})
     };
 };
 

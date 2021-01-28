@@ -13,10 +13,14 @@ const reducer = (state = intialState, action) => {
                 eventName: state.eventName
             }
         case actionTypes.EVENT_NAME_CHANGED:
-            console.log(action.event.target.value);
             return {
                 ...state,
                 eventName: action.event.target.value
+            }
+        case actionTypes.AMOUNT_PEOPLE_CHANGED:
+            return {
+                ...state,
+                amountPeople: action.event.target.value
             }
     }
     return state;
