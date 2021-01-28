@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import Header from '../Header/Header';
-import ProceedDiv from '../ProceedDiv/ProceedDiv';
+import Header from '../../shared/Header/Header';
+import ProceedDiv from '../../shared/ProceedDiv/ProceedDiv';
 
 class Layout extends Component {
     render() {

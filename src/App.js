@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import Start from './Pages/Start/Start';
 import AddItems from './Pages/AddItems/AddItems';
-import Layout from './shared/Layout/Layout';
+import Layout from './hoc/Layout/Layout';
 
 class App extends Component {
   render() {
