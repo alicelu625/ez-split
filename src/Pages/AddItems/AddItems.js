@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 
-import Header from '../../shared/Header/Header';
-import ProceedDiv from '../../shared/ProceedDiv/ProceedDiv';
 import classes from './AddItems.module.css';
 
 class AddItems extends Component {

@@ -1,11 +1,10 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React from 'react';
+
+import classes from './Header.module.css';
 
 const header = (props) => {
     return (
-        <div>
-            <p>{props.eventName}</p>
-        </div>
+        <div className={classes.Header}>{props.eventName}</div>
     );
 }
 

@@ -10,7 +10,9 @@ class Start extends Component {
         return (
             <div className={classes.Start}>
                 <h1>Split a Bill</h1>
+                <div className={classes.InputsDiv}>
                 <input 
+                    className={classes.Input}
                     type="text" 
                     placeholder="Event name" 
                     required
@@ -18,13 +20,15 @@ class Start extends Component {
                     value={this.props.eventName}
                 />
                 <input 
+                    className={classes.Input}
                     type="number"
                     placeholder="Amount of people"
                     required
                     onChange={(event) => this.props.onAmountPeopleChanged(event)}
                     value={this.props.amountPeople}
                 />
-                <ProceedDiv clicked={this.props.onReadyToStart}/>
+                </div>
+                <ProceedDiv className={classes.ProceedDiv} clicked={this.props.onReadyToStart}/>
             </div>
         );
     }

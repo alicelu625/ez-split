@@ -1,4 +1,4 @@
-.ProceedDiv {
+.Header {
     position: absolute;
     width: 100vw;
     border-top: solid 1px black;
@@ -7,5 +7,5 @@
     justify-content: center;
     align-items: center;
     background-color: bisque;
-    bottom: 0;
+    top: 0;
 }

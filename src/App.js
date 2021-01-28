@@ -8,7 +8,7 @@ import Layout from './shared/Layout/Layout';
 class App extends Component {
   render() {
     let currentComponent = <Start/>
-    if (this.props.currentPage == 1) {
+    if (this.props.currentPage === 1) {
       currentComponent = <AddItems/>
     }
     return (

@@ -26,8 +26,9 @@ const reducer = (state = intialState, action) => {
                 amountPeople: state.amountPeople,
                 currentPage: state.currentPage + 1
             }
+        default:
+            return state;
     }
-    return state;
 };
 
 export default reducer;

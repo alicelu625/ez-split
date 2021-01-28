@@ -1,8 +1,18 @@
 .Start {
     text-align: center;
+    height: 100vh;
 }
 
-.ProceedDiv {
-    border-left: auto;
-    border-right: auto;
+.InputsDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 40%;
+}
+
+.Input {
+    width: 60%;
+    height: 50px;
+    text-align: center;
 }

@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import Header from '../Header/Header';
@@ -8,12 +8,12 @@ class Layout extends Component {
     render() {
         //show Header & ProceedDiv after page 1
         let afterStart = this.props.currentPage > 0
-        ? <Fragment>
+        ? <div>
             <Header eventName={this.props.eventName}/>
             {this.props.children}
             <ProceedDiv/>
-        </Fragment>
-        : this.props.children;
+        </div>
+        : <div>{this.props.children}</div>;
 
         return afterStart;
         
