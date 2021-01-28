@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 
 import Start from './Pages/Start/Start';
 import AddItems from './Pages/AddItems/AddItems';
+import Layout from './shared/Layout/Layout';
 
 class App extends Component {
   render() {
@@ -11,9 +12,9 @@ class App extends Component {
       currentComponent = <AddItems/>
     }
     return (
-      <div>
+      <Layout>
         {currentComponent}
-      </div>
+      </Layout>
     );
   }
 }

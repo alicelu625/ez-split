@@ -8,14 +8,12 @@ class AddItems extends Component {
     render() {
         return (
             <div className={classes.AddItems}>
-                <Header/>
                 <div>
                     subtotal
                 </div>
                 <div>
                     item components
                 </div>
-                <ProceedDiv/>
             </div>
         );
     }
