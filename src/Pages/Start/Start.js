@@ -8,9 +8,19 @@ class Start extends Component {
         return (
             <div>
                 <h1>Split a Bill</h1>
-                <input type="text" placeholder="Event name" required/>
-                <input type="number" placeholder="Amount of people" required/>
-                <div onClick={}><p>Submit</p></div>
+                <input 
+                    type="text" 
+                    placeholder="Event name" 
+                    required
+                    onChange={(event) => this.props.onEventNameChanged(event)}
+                    value={this.props.eventName}
+                />
+                <input 
+                    type="number"
+                    placeholder="Amount of people"
+                    required
+                />
+                <div><p>Submit</p></div>
             </div>
         );
     }
@@ -24,7 +34,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onReadyToStartHandler: () => dispatch({type: actionTypes.SET_EVENT_NAME})
+        onReadyToStart: () => dispatch({type: actionTypes.SET_EVENT_NAME}),
+        onEventNameChanged: (event) => dispatch({type: actionTypes.EVENT_NAME_CHANGED, event: event})
     };
 };
 

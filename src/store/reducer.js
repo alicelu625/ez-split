@@ -10,7 +10,13 @@ const reducer = (state = intialState, action) => {
         case actionTypes.SET_EVENT_NAME:
             return {
                 ...state,
-                eventName: action.eventName
+                eventName: state.eventName
+            }
+        case actionTypes.EVENT_NAME_CHANGED:
+            console.log(action.event.target.value);
+            return {
+                ...state,
+                eventName: action.event.target.value
             }
     }
     return state;
