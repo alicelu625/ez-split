@@ -22,13 +22,18 @@ const reducer = (state = intialState, action) => {
                 currentPage: state.currentPage + 1
             });
         case actionTypes.ADD_ITEM:
-            let updateItems = state.items.push({
+            //updatedItems = copy of items + new item
+            let updatedItems = state.items.concat({
                 name: action.name,
                 price: action.price,
                 claimers: []
             });
-            let updatedItems = updateObject(state.items, updateItems);
-            return updateObject(state, updatedItems);
+            let updatedPrice = state.subtotal + parseFloat(action.price);
+            //update state
+            return updateObject(state, {
+                items: updatedItems,
+                subtotal: updatedPrice
+            });
         case actionTypes.GO_BACK:
             return updateObject(state, {currentPage: state.currentPage - 1});
         default:
