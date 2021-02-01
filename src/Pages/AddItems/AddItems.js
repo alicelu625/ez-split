@@ -73,7 +73,8 @@ class AddItems extends Component {
 
 const mapStateToProps = state => {
     return {
-        subtotal: state.subtotal
+        subtotal: state.subtotal,
+        items: state.items
     };
 };
 
