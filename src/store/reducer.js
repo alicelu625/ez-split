@@ -29,6 +29,8 @@ const reducer = (state = intialState, action) => {
             });
             let updatedItems = updateObject(state.items, updateItems);
             return updateObject(state, updatedItems);
+        case actionTypes.GO_BACK:
+            return updateObject(state, {currentPage: state.currentPage - 1});
         default:
             return state;
     }
