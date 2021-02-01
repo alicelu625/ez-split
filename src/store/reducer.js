@@ -1,4 +1,5 @@
 import * as actionTypes from './actions';
+import {updateObject} from '../shared/utility';
 
 const intialState = {
     eventName: '',
@@ -11,32 +12,23 @@ const intialState = {
 const reducer = (state = intialState, action) => {
     switch (action.type) {
         case actionTypes.EVENT_NAME_CHANGED:
-            return {
-                ...state,
-                eventName: action.event.target.value
-            }
+            return updateObject(state, {eventName: action.event.target.value});
         case actionTypes.AMOUNT_PEOPLE_CHANGED:
-            return {
-                ...state,
-                amountPeople: action.event.target.value
-            }
+            return updateObject(state, {amountPeople: action.event.target.value});
         case actionTypes.READY_TO_START:
-            return {
-                ...state,
+            return updateObject(state, {
                 eventName: state.eventName,
                 amountPeople: state.amountPeople,
                 currentPage: state.currentPage + 1
-            }
+            });
         case actionTypes.ADD_ITEM:
-            console.log(state.items);
-            return {
-                ...state,
-                items: state.items.push({
-                    name: action.name,
-                    price: action.price,
-                    claimers: []
-                })
-            }
+            let updateItems = state.items.push({
+                name: action.name,
+                price: action.price,
+                claimers: []
+            });
+            let updatedItems = updateObject(state.items, updateItems);
+            return updateObject(state, updatedItems);
         default:
             return state;
     }
