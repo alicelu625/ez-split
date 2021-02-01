@@ -17,8 +17,6 @@ const reducer = (state = intialState, action) => {
             return updateObject(state, {amountPeople: action.event.target.value});
         case actionTypes.READY_TO_START:
             return updateObject(state, {
-                eventName: state.eventName,
-                amountPeople: state.amountPeople,
                 currentPage: state.currentPage + 1
             });
         case actionTypes.ADD_ITEM:
@@ -34,6 +32,16 @@ const reducer = (state = intialState, action) => {
                 items: updatedItems,
                 subtotal: updatedPrice
             });
+        case actionTypes.REMOVE_ITEM:
+            console.log(action.id);
+            console.log(state.items);
+            //make copy of items
+            let copyItems = [...state.items];
+            console.log(copyItems);
+            //remove element from items
+            let updatedItms = copyItems.splice(action.id, 1);
+            console.log(updatedItms);
+            return updateObject(state, {items: updatedItms});
         case actionTypes.GO_BACK:
             return updateObject(state, {currentPage: state.currentPage - 1});
         default:

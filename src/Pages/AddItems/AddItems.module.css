@@ -15,6 +15,18 @@
     align-items: center;
 }
 
+.ItemRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.RemoveItemButton {
+    margin-left: 15px;
+    width: 40px;
+    height: 40px;
+}
+
 .AddItemButton {
     margin-top: 20px;
 }

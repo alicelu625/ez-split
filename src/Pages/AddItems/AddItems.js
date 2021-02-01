@@ -62,13 +62,18 @@ class AddItems extends Component {
                     <p>Subtotal</p>
                 </div>
                 <div className={classes.Items}>
-                    {this.props.items.map((item, id) => (
-                        <Item
-                            key={id}
-                            itemName={item.name}
-                            itemPrice={item.price}
-                        />
-                    ))}
+                    {this.props.items.map((item, id) => 
+                        <div className={classes.ItemRow} key={id}>
+                            <Item
+                                itemName={item.name}
+                                itemPrice={item.price}
+                            />
+                            <button
+                                className={classes.RemoveItemButton}
+                                onClick={() => this.props.onRemoveItem(id)}
+                            >-</button>
+                        </div>
+                    )}
                 </div>
                 <div className={classes.AddItemButton} onClick={this.openModalHandler}>
                     + Add an Item
@@ -87,7 +92,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddItem: (name, price) => dispatch({type: actionTypes.ADD_ITEM, name: name, price: price})
+        onAddItem: (name, price) => dispatch({type: actionTypes.ADD_ITEM, name: name, price: price}),
+        onRemoveItem: (id) => dispatch({type: actionTypes.REMOVE_ITEM, id: id})
     }
 }
 
