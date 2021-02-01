@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import classes from './AddItems.module.css';
 import Modal from '../../shared/Modal/Modal';
 import * as actionTypes from '../../store/actions';
+import Item from './Item/Item';
 
 class AddItems extends Component {
     state = {
@@ -60,10 +61,16 @@ class AddItems extends Component {
                     <p>${this.props.subtotal.toFixed(2)}</p>
                     <p>Subtotal</p>
                 </div>
-                <div>
-                    item components
+                <div className={classes.Items}>
+                    {this.props.items.map((item, id) => (
+                        <Item
+                            key={id}
+                            itemName={item.name}
+                            itemPrice={item.price}
+                        />
+                    ))}
                 </div>
-                <div onClick={this.openModalHandler}>
+                <div className={classes.AddItemButton} onClick={this.openModalHandler}>
                     + Add an Item
                 </div>
             </div>
