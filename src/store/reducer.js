@@ -33,15 +33,11 @@ const reducer = (state = intialState, action) => {
                 subtotal: updatedPrice
             });
         case actionTypes.REMOVE_ITEM:
-            console.log(action.id);
-            console.log(state.items);
-            //make copy of items
-            let copyItems = [...state.items];
-            console.log(copyItems);
-            //remove element from items
-            let updatedItms = copyItems.splice(action.id, 1);
-            console.log(updatedItms);
-            return updateObject(state, {items: updatedItms});
+            let updatedSubtotal = state.subtotal - state.items[action.id].price
+            return updateObject(state, {
+                items: state.items.filter((_, i) => i !== action.id),
+                subtotal: updatedSubtotal
+            });
         case actionTypes.GO_BACK:
             return updateObject(state, {currentPage: state.currentPage - 1});
         default:
