@@ -3,15 +3,15 @@ import {connect} from 'react-redux';
 
 import classes from './ClaimItems.module.css';
 import Item from '../../shared/Item/Item';
+import * as actionTypes from '../../store/actions';
 
 class ClaimItems extends Component {
     state = {
-        currentPerson: this.props.persons[0]
+        currentPerson: 0
     }
 
     changePersonHandler = (id) => {
-        console.log(id);
-        this.setState({currentPerson: this.props.persons[id]});
+        this.setState({currentPerson: id});
     }
 
     render() {
@@ -26,7 +26,8 @@ class ClaimItems extends Component {
                 </div>
                 <input
                     type="text"
-                    value={this.state.currentPerson.name}
+                    value={this.props.persons[this.state.currentPerson].name}
+                    onChange={(event) => this.props.onChangeName(event, this.state.currentPerson)}
                 />
                 <div>
                     {this.props.items.map((item, id) =>
@@ -49,4 +50,10 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(ClaimItems);
+const mapDispatchToProps = dispatch => {
+    return {
+        onChangeName: (event, id) => dispatch({type: actionTypes.CHANGE_NAME, event: event, id: id})
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ClaimItems);

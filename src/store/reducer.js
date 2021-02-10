@@ -18,14 +18,12 @@ const reducer = (state = intialState, action) => {
             return updateObject(state, {amountPeople: action.event.target.value});
         case actionTypes.ON_START:
             let initialPersons = []
-            console.log(state.amountPeople);
             for (let i = 0; i < state.amountPeople; i++) {
                 initialPersons.push({
                     name: 'Person ' + i,
                     items: []
                 });
             }
-            console.log(initialPersons);
             return updateObject(state, {
                 currentPage: state.currentPage + 1,
                 persons: initialPersons
@@ -55,6 +53,9 @@ const reducer = (state = intialState, action) => {
             });
         case actionTypes.GO_BACK:
             return updateObject(state, {currentPage: state.currentPage - 1});
+        case actionTypes.CHANGE_NAME:
+            let updatedPersons = updateObject(state.persons[action.id], {name: action.event.target.value});
+            return updateObject(state, {persons: updatedPersons});
         default:
             return state;
     }

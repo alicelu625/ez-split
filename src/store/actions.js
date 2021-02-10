@@ -5,3 +5,4 @@ export const NEXT_PAGE = 'NEXT_PAGE';
 export const ADD_ITEM = 'ADD_ITEM';
 export const REMOVE_ITEM = 'REMOVE_ITEM';
 export const GO_BACK = 'GO_BACK';
+export const CHANGE_NAME = 'CHANGE_NAME';
