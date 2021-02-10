@@ -5,19 +5,28 @@ import classes from './ClaimItems.module.css';
 import Item from '../../shared/Item/Item';
 
 class ClaimItems extends Component {
+    state = {
+        currentPerson: this.props.persons[0]
+    }
+
+    changePersonHandler = (id) => {
+        console.log(id);
+        this.setState({currentPerson: this.props.persons[id]});
+    }
+
     render() {
         return (
             <div className={classes.ClaimItems}>
                 <div>
                     {this.props.persons.map((person, id) =>
-                        <div key={id}>
+                        <div key={id} className={classes.Person} onClick={() => this.changePersonHandler(id)}>
                             {person.name}
                         </div>
                     )}
                 </div>
                 <input
                     type="text"
-                    value="name"
+                    value={this.state.currentPerson.name}
                 />
                 <div>
                     {this.props.items.map((item, id) =>
