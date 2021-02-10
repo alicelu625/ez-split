@@ -45,7 +45,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onStart: () => dispatch({type: actionTypes.NEXT_PAGE}),
+        onStart: () => dispatch({type: actionTypes.ON_START}),
         onEventNameChanged: (event) => dispatch({type: actionTypes.EVENT_NAME_CHANGED, event: event}),
         onAmountPeopleChanged: (event) => dispatch({type: actionTypes.AMOUNT_PEOPLE_CHANGED, event: event})
     };

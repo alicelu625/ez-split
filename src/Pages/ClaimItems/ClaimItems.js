@@ -1,13 +1,20 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
+import classes from './ClaimItems.module.css';
 import Item from '../../shared/Item/Item';
 
 class ClaimItems extends Component {
     render() {
         return (
-            <div>
-                <div>Persons</div>
+            <div className={classes.ClaimItems}>
+                <div>
+                    {this.props.persons.map((person, id) =>
+                        <div key={id}>
+                            {person.name}
+                        </div>
+                    )}
+                </div>
                 <input
                     type="text"
                     value="name"
@@ -28,7 +35,8 @@ class ClaimItems extends Component {
 
 const mapStateToProps = state => {
     return {
-        items: state.items
+        items: state.items,
+        persons: state.persons
     }
 }
 

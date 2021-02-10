@@ -6,7 +6,8 @@ const intialState = {
     amountPeople: '',
     currentPage: 0,
     subtotal: 0,
-    items: []
+    items: [],
+    persons: []
 };
 
 const reducer = (state = intialState, action) => {
@@ -15,6 +16,20 @@ const reducer = (state = intialState, action) => {
             return updateObject(state, {eventName: action.event.target.value});
         case actionTypes.AMOUNT_PEOPLE_CHANGED:
             return updateObject(state, {amountPeople: action.event.target.value});
+        case actionTypes.ON_START:
+            let initialPersons = []
+            console.log(state.amountPeople);
+            for (let i = 0; i < state.amountPeople; i++) {
+                initialPersons.push({
+                    name: 'Person ' + i,
+                    items: []
+                });
+            }
+            console.log(initialPersons);
+            return updateObject(state, {
+                currentPage: state.currentPage + 1,
+                persons: initialPersons
+            });
         case actionTypes.NEXT_PAGE:
             return updateObject(state, {
                 currentPage: state.currentPage + 1
