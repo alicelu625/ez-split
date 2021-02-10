@@ -54,7 +54,12 @@ const reducer = (state = intialState, action) => {
         case actionTypes.GO_BACK:
             return updateObject(state, {currentPage: state.currentPage - 1});
         case actionTypes.CHANGE_NAME:
-            let updatedPersons = updateObject(state.persons[action.id], {name: action.event.target.value});
+            //update person object
+            let updatedPerson = updateObject(state.persons[action.id], {name: action.event.target.value});
+            //update persons array by replacing w/ new person object
+            let updatedPersons = [...state.persons];
+            updatedPersons[action.id] = updatedPerson;
+            //set state persons to updated persons array
             return updateObject(state, {persons: updatedPersons});
         default:
             return state;
