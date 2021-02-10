@@ -6,3 +6,5 @@ export const ADD_ITEM = 'ADD_ITEM';
 export const REMOVE_ITEM = 'REMOVE_ITEM';
 export const GO_BACK = 'GO_BACK';
 export const CHANGE_NAME = 'CHANGE_NAME';
+export const ADD_PERSON = 'ADD_PERSON';
+export const REMOVE_PERSON = 'REMOVE PERSON';

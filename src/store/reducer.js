@@ -15,12 +15,12 @@ const reducer = (state = intialState, action) => {
         case actionTypes.EVENT_NAME_CHANGED:
             return updateObject(state, {eventName: action.event.target.value});
         case actionTypes.AMOUNT_PEOPLE_CHANGED:
-            return updateObject(state, {amountPeople: action.event.target.value});
+            return updateObject(state, {amountPeople: parseInt(action.event.target.value)});
         case actionTypes.ON_START:
             let initialPersons = []
             for (let i = 0; i < state.amountPeople; i++) {
                 initialPersons.push({
-                    name: 'Person ' + i,
+                    name: i,
                     items: []
                 });
             }
@@ -61,6 +61,22 @@ const reducer = (state = intialState, action) => {
             updatedPersons[action.id] = updatedPerson;
             //set state persons to updated persons array
             return updateObject(state, {persons: updatedPersons});
+        case actionTypes.ADD_PERSON:
+            let updatedAmountPeople = state.amountPeople + 1;
+            let AddedToPersons = state.persons.concat({
+                name: state.amountPeople,
+                items: []
+            });
+            return updateObject(state, {
+                amountPeople: updatedAmountPeople,
+                persons: AddedToPersons
+            });
+        case actionTypes.REMOVE_PERSON:
+            let updatedAmtPeople = state.amountPeople - 1;
+            return updateObject(state, {
+                amountPeople: updatedAmtPeople,
+                persons: state.persons.filter((_, i) => i !== action.id)
+            });
         default:
             return state;
     }

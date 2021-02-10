@@ -14,21 +14,30 @@ class ClaimItems extends Component {
         this.setState({currentPerson: id});
     }
 
+    removePersonHandler = () => {
+        this.props.onRemovePerson(this.state.currentPerson);
+        //reset selected person to previous
+        this.setState({currentPerson: this.state.currentPerson-1});
+    }
+
     render() {
         return (
             <div className={classes.ClaimItems}>
-                <div>
+                <div className={classes.Persons}>
                     {this.props.persons.map((person, id) =>
                         <div key={id} className={classes.Person} onClick={() => this.changePersonHandler(id)}>
                             {person.name}
                         </div>
                     )}
                 </div>
+                <button onClick={this.props.onAddPerson}>Add Person</button>
+                <br/>
                 <input
                     type="text"
                     value={this.props.persons[this.state.currentPerson].name}
                     onChange={(event) => this.props.onChangeName(event, this.state.currentPerson)}
                 />
+                <button onClick={this.removePersonHandler}>-</button>
                 <div>
                     {this.props.items.map((item, id) =>
                         <Item
@@ -52,7 +61,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onChangeName: (event, id) => dispatch({type: actionTypes.CHANGE_NAME, event: event, id: id})
+        onChangeName: (event, id) => dispatch({type: actionTypes.CHANGE_NAME, event: event, id: id}),
+        onAddPerson: () => dispatch({type: actionTypes.ADD_PERSON}),
+        onRemovePerson: (id) => dispatch({type:actionTypes.REMOVE_PERSON, id: id})
     }
 }
 

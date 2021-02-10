@@ -2,7 +2,12 @@
     padding-top: 100px;
 }
 
+.Persons {
+    display: flex;
+    justify-content: space-evenly;
+}
+
 .Person {
     border: solid 1px black;
-    width: 50%;
+    width: 30px;
 }
