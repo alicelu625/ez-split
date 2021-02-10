@@ -15,7 +15,7 @@ const reducer = (state = intialState, action) => {
             return updateObject(state, {eventName: action.event.target.value});
         case actionTypes.AMOUNT_PEOPLE_CHANGED:
             return updateObject(state, {amountPeople: action.event.target.value});
-        case actionTypes.READY_TO_START:
+        case actionTypes.NEXT_PAGE:
             return updateObject(state, {
                 currentPage: state.currentPage + 1
             });

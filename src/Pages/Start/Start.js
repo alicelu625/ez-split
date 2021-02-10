@@ -28,7 +28,9 @@ class Start extends Component {
                     value={this.props.amountPeople}
                 />
                 </div>
-                <ProceedDiv className={classes.ProceedDiv} clicked={this.props.onReadyToStart}/>
+                <ProceedDiv className={classes.ProceedDiv} clicked={this.props.onStart}>
+                    Start
+                </ProceedDiv>
             </div>
         );
     }
@@ -43,7 +45,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onReadyToStart: () => dispatch({type: actionTypes.READY_TO_START}),
+        onStart: () => dispatch({type: actionTypes.NEXT_PAGE}),
         onEventNameChanged: (event) => dispatch({type: actionTypes.EVENT_NAME_CHANGED, event: event}),
         onAmountPeopleChanged: (event) => dispatch({type: actionTypes.AMOUNT_PEOPLE_CHANGED, event: event})
     };

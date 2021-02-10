@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import classes from './AddItems.module.css';
 import Modal from '../../shared/Modal/Modal';
 import * as actionTypes from '../../store/actions';
-import Item from './Item/Item';
+import Item from '../../shared/Item/Item';
 
 class AddItems extends Component {
     state = {

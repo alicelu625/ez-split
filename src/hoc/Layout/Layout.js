@@ -12,7 +12,7 @@ class Layout extends Component {
         ? <div>
             <Header eventName={this.props.eventName} backClicked={this.props.onGoBack}/>
             {this.props.children}
-            <ProceedDiv/>
+            <ProceedDiv clicked={this.props.onNextPage}>Next</ProceedDiv>
         </div>
         : <div>{this.props.children}</div>;
 
@@ -30,7 +30,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onGoBack: () => dispatch({type: actionTypes.GO_BACK})
+        onGoBack: () => dispatch({type: actionTypes.GO_BACK}),
+        onNextPage: () => dispatch({type: actionTypes.NEXT_PAGE})
     }
 }
 
