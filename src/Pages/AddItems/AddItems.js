@@ -13,22 +13,27 @@ class AddItems extends Component {
         itemPrice: ''
     }
 
+    //add items clicked
     openModalHandler = () => {
         this.setState({showModal: true});
     }
 
+    //cancel or backdrop clicked
     closeModalHandler = () => {
         this.setState({showModal: false});
     }
 
+    //change in item name input
     itemNameChangedHandler = (event) => {
         this.setState({itemName: event.target.value});
     }
 
+    //change in price input
     itemPriceChangedHandler = (event) => {
         this.setState({itemPrice: event.target.value});
     }
 
+    //save clicked after entering name & price
     saveItemHandler = () => {
         this.props.onAddItem(this.state.itemName, this.state.itemPrice);
         this.setState({showModal: false, itemName: '', itemPrice: ''});
@@ -66,7 +71,7 @@ class AddItems extends Component {
                         <div className={classes.ItemRow} key={id}>
                             <Item
                                 itemName={item.name}
-                                itemPrice={item.price}
+                                itemPrice={item.price.toFixed(2)}
                             />
                             <button
                                 className={classes.RemoveItemButton}

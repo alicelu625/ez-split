@@ -10,10 +10,12 @@ class ClaimItems extends Component {
         currentPerson: 0
     }
 
+    //selected person
     changePersonHandler = (id) => {
         this.setState({currentPerson: id});
     }
 
+    //remove selected person
     removePersonHandler = () => {
         this.props.onRemovePerson(this.state.currentPerson);
         //reset selected person to previous
