@@ -47,7 +47,10 @@ class ClaimItems extends Component {
                                 itemName={item.name}
                                 itemPrice={item.price.toFixed(2)}
                             />
-                            <button className={classes.ClaimButton}>Claim</button>
+                            <button 
+                                className={classes.ClaimButton}
+                                onClick={() => this.props.onClaimItem(this.state.currentPerson, id)}
+                            >Claim</button>
                         </div>
                     )}
                 </div>
@@ -67,7 +70,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onChangeName: (event, id) => dispatch({type: actionTypes.CHANGE_NAME, event: event, id: id}),
         onAddPerson: () => dispatch({type: actionTypes.ADD_PERSON}),
-        onRemovePerson: (id) => dispatch({type:actionTypes.REMOVE_PERSON, id: id})
+        onRemovePerson: (id) => dispatch({type:actionTypes.REMOVE_PERSON, id: id}),
+        onClaimItem: (personId, itemId) => dispatch({type:actionTypes.CLAIM_ITEM, personId: personId, itemId: itemId})
     }
 }
 

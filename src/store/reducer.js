@@ -87,6 +87,28 @@ const reducer = (state = intialState, action) => {
                 amountPeople: updatedAmtPeople,
                 persons: state.persons.filter((_, i) => i !== action.id)
             });
+        case actionTypes.CLAIM_ITEM:
+            //update person.items array
+            let personItems = state.persons[action.personId].items.concat(state.items[action.itemId].name);
+            //update person object
+            let updatePerson = updateObject(state.persons[action.personId], {items: personItems});
+            //update persons array by replacing w/ new person object
+            let updatePersons = [...state.persons];
+            updatePersons[action.personId] = updatePerson;
+
+            //update items.claimers array
+            let itemClaimers = state.items[action.itemId].claimers.concat(state.persons[action.personId].name);
+            //update item object
+            let updateItem = updateObject(state.items[action.itemId], {claimers: itemClaimers});
+            //update items array by replacing w/ new item object
+            let updateItems = [...state.items];
+            updateItems[action.itemId] = updateItem;
+
+            //set state persons to updated persons array & items to updated items array
+            return updateObject(state, {
+                persons: updatePersons,
+                items: updateItems
+            });
         default:
             return state;
     }
