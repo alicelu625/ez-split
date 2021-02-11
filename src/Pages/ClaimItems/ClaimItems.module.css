@@ -11,3 +11,13 @@
     border: solid 1px black;
     width: 30px;
 }
+
+.ItemsDiv {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.ClaimButton {
+    height: 50px;
+}
