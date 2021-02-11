@@ -1,4 +1,4 @@
-.Item {
+.RegularItem {
     display: flex;
     justify-content: space-between;
     width: 60vw;
@@ -6,4 +6,27 @@
     padding-right: 10px;
     border: solid 1px black;
     margin-top: 10px;
+}
+
+.ClaimedItem {
+    width: 60vw;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: solid 1px black;
+    margin-top: 10px;
+}
+
+.ItemInfo {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Persons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.Person {
+    border: solid 1px black;
+    width: 30px;
 }

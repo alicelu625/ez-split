@@ -46,6 +46,8 @@ class ClaimItems extends Component {
                             <Item
                                 itemName={item.name}
                                 itemPrice={item.price.toFixed(2)}
+                                currentPage={this.props.currentPage}
+                                claimers={this.props.items[id].persons}
                             />
                             <button 
                                 className={classes.ClaimButton}
@@ -62,7 +64,8 @@ class ClaimItems extends Component {
 const mapStateToProps = state => {
     return {
         items: state.items,
-        persons: state.persons
+        persons: state.persons,
+        currentPage: state.currentPage
     }
 }
 

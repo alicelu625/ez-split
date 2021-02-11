@@ -39,7 +39,7 @@ const reducer = (state = intialState, action) => {
             let updatedItems = state.items.concat({
                 name: action.name,
                 price: parseFloat(action.price),
-                claimers: []
+                persons: []
             });
             //update price
             let updatedPrice = state.subtotal + parseFloat(action.price);
@@ -97,9 +97,9 @@ const reducer = (state = intialState, action) => {
             updatePersons[action.personId] = updatePerson;
 
             //update items.claimers array
-            let itemClaimers = state.items[action.itemId].claimers.concat(state.persons[action.personId].name);
+            let itemClaimers = state.items[action.itemId].persons.concat(state.persons[action.personId].name);
             //update item object
-            let updateItem = updateObject(state.items[action.itemId], {claimers: itemClaimers});
+            let updateItem = updateObject(state.items[action.itemId], {persons: itemClaimers});
             //update items array by replacing w/ new item object
             let updateItems = [...state.items];
             updateItems[action.itemId] = updateItem;

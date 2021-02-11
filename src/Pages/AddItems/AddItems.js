@@ -72,6 +72,8 @@ class AddItems extends Component {
                             <Item
                                 itemName={item.name}
                                 itemPrice={item.price.toFixed(2)}
+                                currentPage={this.props.currentPage}
+                                claimers={this.props.items[id].claimers}
                             />
                             <button
                                 className={classes.RemoveItemButton}
@@ -91,7 +93,8 @@ class AddItems extends Component {
 const mapStateToProps = state => {
     return {
         subtotal: state.subtotal,
-        items: state.items
+        items: state.items,
+        currentPage: state.currentPage
     };
 };
 
