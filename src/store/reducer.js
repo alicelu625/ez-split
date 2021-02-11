@@ -88,21 +88,45 @@ const reducer = (state = intialState, action) => {
                 persons: state.persons.filter((_, i) => i !== action.id)
             });
         case actionTypes.CLAIM_ITEM:
-            //update person.items array
-            let personItems = state.persons[action.personId].items.concat(state.items[action.itemId].name);
-            //update person object
-            let updatePerson = updateObject(state.persons[action.personId], {items: personItems});
-            //update persons array by replacing w/ new person object
             let updatePersons = [...state.persons];
-            updatePersons[action.personId] = updatePerson;
-
-            //update items.claimers array
-            let itemClaimers = state.items[action.itemId].persons.concat(state.persons[action.personId].name);
-            //update item object
-            let updateItem = updateObject(state.items[action.itemId], {persons: itemClaimers});
-            //update items array by replacing w/ new item object
             let updateItems = [...state.items];
-            updateItems[action.itemId] = updateItem;
+            //if person hasn't claimed item yet, add to lists
+            if(!state.persons[action.personId].items.includes(state.items[action.itemId].name)) {
+                //add item to person.items array
+                let personItems = state.persons[action.personId].items.concat(state.items[action.itemId].name);
+                //update person object
+                let updatePerson = updateObject(state.persons[action.personId], {items: personItems});
+                //update persons array by replacing w/ new person object
+                updatePersons[action.personId] = updatePerson;
+
+                //add person to items.persons array
+                let itemClaimers = state.items[action.itemId].persons.concat(state.persons[action.personId].name);
+                //update item object
+                let updateItem = updateObject(state.items[action.itemId], {persons: itemClaimers});
+                //update items array by replacing w/ new item object
+                updateItems[action.itemId] = updateItem;
+            }
+            //if person already claimed item, remove from lists
+            else {
+                console.log('here');
+                //remove item from person.items array
+                let personItems = state.persons[action.personId].items.filter((item) => item !== state.items[action.itemId].name);
+                //update person object
+                let updatePerson = updateObject(state.persons[action.personId], {items: personItems});
+                //update persons array by replacing w/ new person object
+                let updatePersons = [...state.persons];
+                updatePersons[action.personId] = updatePerson;
+                
+                //remove person from items.claimers array
+                let itemClaimers = state.items[action.itemId].persons.filter((person) => person !== state.persons[action.personId].name);
+                //update item object
+                let updateItem = updateObject(state.items[action.itemId], {persons: itemClaimers});
+                //update items array by replacing w/ new item object
+                let updateItems = [...state.items];
+                updateItems[action.itemId] = updateItem;
+            }
+
+            console.log(updateItems);
 
             //set state persons to updated persons array & items to updated items array
             return updateObject(state, {
