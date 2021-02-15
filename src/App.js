@@ -5,6 +5,7 @@ import Start from './Pages/Start/Start';
 import AddItems from './Pages/AddItems/AddItems';
 import Layout from './hoc/Layout/Layout';
 import ClaimItems from './Pages/ClaimItems/ClaimItems';
+import Tax from './Pages/Tax/Tax';
 
 class App extends Component {
   render() {
@@ -15,7 +16,9 @@ class App extends Component {
     else if (this.props.currentPage === 2) {
       currentComponent = <ClaimItems/>
     }
-    
+    else if (this.props.currentPage === 3) {
+      currentComponent = <Tax/>
+    }
     return (
       <Layout>
         {currentComponent}

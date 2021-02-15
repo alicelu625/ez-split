@@ -6,6 +6,7 @@ import Item from '../../shared/Item/Item';
 import * as actionTypes from '../../store/actions';
 
 class ClaimItems extends Component {
+    //local state
     state = {
         currentPerson: 0
     }

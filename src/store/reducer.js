@@ -39,7 +39,8 @@ const reducer = (state = intialState, action) => {
             let updatedItems = state.items.concat({
                 name: action.name,
                 price: parseFloat(action.price),
-                persons: []
+                persons: [],
+                taxed: false
             });
             //update price
             let updatedPrice = state.subtotal + parseFloat(action.price);
@@ -92,18 +93,18 @@ const reducer = (state = intialState, action) => {
             let updateItems = [...state.items];
             //if person hasn't claimed item yet, add to lists
             if(!state.persons[action.personId].items.includes(state.items[action.itemId].name)) {
-                //add item to person.items array
+                //add item to person.items array - persons[1].items
                 let personItems = state.persons[action.personId].items.concat(state.items[action.itemId].name);
-                //update person object
+                //update person object - persons[1]
                 let updatePerson = updateObject(state.persons[action.personId], {items: personItems});
-                //update persons array by replacing w/ new person object
+                //update persons array by replacing w/ new person object - persons
                 updatePersons[action.personId] = updatePerson;
 
-                //add person to items.persons array
+                //add person to items.persons array - items[1].persons
                 let itemClaimers = state.items[action.itemId].persons.concat(state.persons[action.personId].name);
-                //update item object
+                //update item object - items[1]
                 let updateItem = updateObject(state.items[action.itemId], {persons: itemClaimers});
-                //update items array by replacing w/ new item object
+                //update items array by replacing w/ new item object - items
                 updateItems[action.itemId] = updateItem;
             }
             //if person already claimed item, remove from lists
