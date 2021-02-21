@@ -107,6 +107,10 @@ const reducer = (state = intialState, action) => {
                 //update items array by replacing w/ new item object - items
                 updateItems[action.itemId] = updateItem;
             }
+        // case actionTypes.TAX_ITEM:
+            // let currentItems = [...state.items];
+
+            // updateItems[action.itemId] = updateItem;
             //if person already claimed item, remove from lists
             else {
                 console.log('here');
