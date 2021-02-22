@@ -1,5 +1,6 @@
 import * as actionTypes from './actions';
 import {updateObject} from '../shared/utility';
+import { act } from 'react-dom/test-utils';
 
 const intialState = {
     eventName: '',
@@ -135,21 +136,19 @@ const reducer = (state = intialState, action) => {
             });
             case actionTypes.TAX_ITEM:
                 // Create copy of the items we currently have in state 
-                let currentItems = [...state.items];
-                // console.log(currentItems)
+                let currentItems = [...state.items]
                 // Updated the item with the following id, given the itemId (action.itemId)
-                let updatedTaxItem = updateObject(currentItems[action.itemId], {taxed: !currentItems[action.itemId].taxed}); 
-                
-                currentItems[action.itemId] = updatedTaxItem
-                console.log("updated item: " + JSON.stringify(updatedTaxItem))
-                // let updatedTaxItems = updateObject(currentItems, {updatedTaxItem})
+                let updatedTaxItem = updateObject(currentItems[action.itemId], {taxed: !currentItems[action.itemId].taxed})                
                 // updated that in the items list 
+                currentItems[action.itemId] = updatedTaxItem
                 return updateObject(state, {items: currentItems})
-                
-                // return 
-                // updateItems[action.itemId] = updateItem;
-                // if person already claimed item, remove from lists
-                // return {state, {items: //whatever updated items}}
+            case actionTypes.SELECT_ALL_ITEMS:
+                let currentItemsSelectAll = [...state.items]
+                let itemsToTrue = currentItemsSelectAll.map((item) => updateObject(item, {taxed: true}))
+                console.log(itemsToTrue)
+                // For each of those items, set their values to true 
+
+                return updateObject(state.items, {items: itemsToTrue})
             default:
             return state;
     }

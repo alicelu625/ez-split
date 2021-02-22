@@ -6,8 +6,8 @@ import Item from '../../shared/Item/Item';
 import * as actionTypes from '../../store/actions';
 
 class Tax extends Component {
-    handleChange = (tempBoo) => {
-        console.log("pressed checkbox")
+    handleClick() {
+        console.log("hello world!")
     }
     render() {
         return (
@@ -18,7 +18,7 @@ class Tax extends Component {
                 <p> Items </p>
                 </div>
                 <div>
-                <button> Select all </button>
+                <button onClick={() => this.props.onSelectAll()}> Select all </button>
                 </div>
                 </div>
                 {this.props.items.map((item, id) => 
@@ -56,7 +56,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onTaxItem: (itemId) => dispatch({type: actionTypes.TAX_ITEM, itemId: itemId})
+        onTaxItem: (itemId) => dispatch({type: actionTypes.TAX_ITEM, itemId: itemId}),
+        onSelectAll: () => dispatch({type: actionTypes.SELECT_ALL_ITEMS})
     }
 }
 
