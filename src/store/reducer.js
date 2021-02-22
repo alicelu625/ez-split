@@ -107,11 +107,6 @@ const reducer = (state = intialState, action) => {
                 //update items array by replacing w/ new item object - items
                 updateItems[action.itemId] = updateItem;
             }
-        // case actionTypes.TAX_ITEM:
-            // let currentItems = [...state.items];
-
-            // updateItems[action.itemId] = updateItem;
-            //if person already claimed item, remove from lists
             else {
                 console.log('here');
                 //remove item from person.items array
@@ -130,15 +125,32 @@ const reducer = (state = intialState, action) => {
                 let updateItems = [...state.items];
                 updateItems[action.itemId] = updateItem;
             }
-
+            
             console.log(updateItems);
-
+            
             //set state persons to updated persons array & items to updated items array
             return updateObject(state, {
                 persons: updatePersons,
                 items: updateItems
             });
-        default:
+            case actionTypes.TAX_ITEM:
+                // Create copy of the items we currently have in state 
+                let currentItems = [...state.items];
+                // console.log(currentItems)
+                // Updated the item with the following id, given the itemId (action.itemId)
+                let updatedTaxItem = updateObject(currentItems[action.itemId], {taxed: !currentItems[action.itemId].taxed}); 
+                
+                currentItems[action.itemId] = updatedTaxItem
+                console.log("updated item: " + JSON.stringify(updatedTaxItem))
+                // let updatedTaxItems = updateObject(currentItems, {updatedTaxItem})
+                // updated that in the items list 
+                return updateObject(state, {items: currentItems})
+                
+                // return 
+                // updateItems[action.itemId] = updateItem;
+                // if person already claimed item, remove from lists
+                // return {state, {items: //whatever updated items}}
+            default:
             return state;
     }
 };

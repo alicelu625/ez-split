@@ -34,8 +34,7 @@ class Tax extends Component {
                         <div>
 
                     {/* Change radio to checkbox */}
-                    <input type ="checkbox" checked={this.props.items[id].taxed} onChange={() => this.props.onTaxItem}/>
-                    {console.log(this.props.items[id] + "taxed: " + this.props.items[id].taxed)}
+                    <input type ="checkbox" checked={this.props.items[id].taxed} onChange={() => this.props.onTaxItem(id)}/>
                             </div>
 
                 </div>
