@@ -1,6 +1,5 @@
 import * as actionTypes from './actions';
 import {updateObject} from '../shared/utility';
-import { act } from 'react-dom/test-utils';
 
 const intialState = {
     eventName: '',
@@ -84,10 +83,16 @@ const reducer = (state = intialState, action) => {
         case actionTypes.REMOVE_PERSON:
             //subtract from amount of people
             let updatedAmtPeople = state.amountPeople - 1;
+            //remove person from each item.persons
+            let itemsRemovedPerson = [...state.items];
+            itemsRemovedPerson.forEach(item => {
+                item.persons = item.persons.filter(itemName => itemName !== state.persons[action.id].name);
+            });
             //update persons excluding removed person
             return updateObject(state, {
                 amountPeople: updatedAmtPeople,
-                persons: state.persons.filter((_, i) => i !== action.id)
+                persons: state.persons.filter((_, i) => i !== action.id),
+                items: itemsRemovedPerson
             });
         case actionTypes.CLAIM_ITEM:
             let updatePersons = [...state.persons];
@@ -109,7 +114,6 @@ const reducer = (state = intialState, action) => {
                 updateItems[action.itemId] = updateItem;
             }
             else {
-                console.log('here');
                 //remove item from person.items array
                 let personItems = state.persons[action.personId].items.filter((item) => item !== state.items[action.itemId].name);
                 //update person object
@@ -126,8 +130,6 @@ const reducer = (state = intialState, action) => {
                 let updateItems = [...state.items];
                 updateItems[action.itemId] = updateItem;
             }
-            
-            console.log(updateItems);
             
             //set state persons to updated persons array & items to updated items array
             return updateObject(state, {
