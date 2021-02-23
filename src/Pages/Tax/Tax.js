@@ -24,23 +24,19 @@ class Tax extends Component {
                 {this.props.items.map((item, id) => 
                 <div key = {id} className={classes.itemSliver}>
                     <div>
-                    <Item
-                    itemName={item.name}
-                    itemPrice={item.price.toFixed(2)}
-                    currentPage={this.props.currentPage}
-                    claimers={this.props.items[id].persons}                    
-                    />
-                        </div>
-                        <div>
-
-                    {/* Change radio to checkbox */}
-                    <input type ="checkbox" checked={this.props.items[id].taxed} onChange={() => this.props.onTaxItem(id)}/>
-                            </div>
-
+                        <Item
+                            itemName={item.name}
+                            itemPrice={item.price.toFixed(2)}
+                            currentPage={this.props.currentPage}
+                            claimers={this.props.items[id].persons}            
+                        />
+                    </div>
+                    <div>
+                        {/* Change radio to checkbox */}
+                        <input type ="checkbox" checked={this.props.items[id].taxed} onChange={() => this.props.onTaxItem(id)}/>
+                    </div>
                 </div>
                 )}
-
-
             </div>
         )
     }
