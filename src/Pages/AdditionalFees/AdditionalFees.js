@@ -13,6 +13,7 @@ class AdditionalFees extends Component {
         return(
             <div className={classes.AdditionalFees}>
                 <p> Hello world</p> 
+                {console.log(this.props.currentPage)}
             </div>
         )
     }
