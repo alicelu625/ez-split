@@ -26,6 +26,7 @@ class AdditionalFees extends Component {
         addFeeAmount: ''
     }
 
+    //fee amount inline change
     feeChanged = (event, id) => {
         //make copy of fees array
         let fees = [...this.state.fees];
@@ -52,16 +53,19 @@ class AdditionalFees extends Component {
         this.setState({showModal: false});
     }
 
+    //name change in add fee modal
     addFeeNameChangedHandler = (event) => {
         this.setState({addFeeName: event.target.value});
     }
 
+    //amount change in add fee modal
     addFeeAmountChangedHandler = (event) => {
         this.setState({addFeeAmount: event.target.value});
     }
 
     //finished inputting add fee
     addFeeHandler = () => {
+        //new fee object
         let newFee = {
             name: this.state.addFeeName,
             amount: this.state.addFeeAmount
@@ -69,7 +73,9 @@ class AdditionalFees extends Component {
 
         //find way to update grandtotal
 
+        //add new fee object to array of fees objects
         let updatedFees = [...this.state.fees].concat(newFee);
+        //update fees array & reset modal input states
         this.setState({
             fees: updatedFees,
             addFeeName: '',
