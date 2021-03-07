@@ -1,8 +1,31 @@
 .AdditionalFees {
+    position: relative;
+    height: 100vh;
+}
+
+.Fees {
     padding-top: 100px;
     margin: 0 auto;
-    width: 50%;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.Fee {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    border: solid 1px black;
+    padding: 0px 10px;
+}
+
+.Total {
+    width: 90vw;
+    display: flex;
+    justify-content: space-between;
+    border: solid 1px black;
+    padding: 0px 10px;
+    position: absolute;
+    bottom: 50px;
 }
