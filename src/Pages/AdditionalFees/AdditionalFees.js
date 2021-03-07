@@ -50,7 +50,11 @@ class AdditionalFees extends Component {
 
     //cancel or backdrop clicked
     closeModalHandler = () => {
-        this.setState({showModal: false});
+        this.setState({
+            showModal: false,
+            addFeeName: '',
+            addFeeAmount: ''
+        });
     }
 
     //name change in add fee modal
@@ -63,7 +67,7 @@ class AdditionalFees extends Component {
         this.setState({addFeeAmount: event.target.value});
     }
 
-    //finished inputting add fee
+    //save clicked on modal upon adding fee
     addFeeHandler = () => {
         //new fee object
         let newFee = {
