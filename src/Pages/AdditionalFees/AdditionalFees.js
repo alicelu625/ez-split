@@ -10,27 +10,36 @@ import * as actionTypes from '../../store/actions';
 
 class AdditionalFees extends Component {
     state = {
-        tax: 0.00,
-        tip: 0.00,
+        fees: [
+            {
+                name: 'tax',
+                amount: '0.00'
+            },
+            {
+                name: 'tip',
+                amount: '0.00'
+            }
+        ],
         grandTotal: this.props.subtotal,
         showModal: false,
-        addedFee: ''
+        addFeeName: '',
+        addFeeAmount: ''
     }
 
-    taxChanged = (event) => {
-        //problem: type conversions
-        //problem: grandtotal is changing permanently
-        console.log(typeof(this.state.grandTotal));
-        console.log(parseFloat(event.target.value));
-        let newTotal = this.state.grandTotal + parseFloat(event.target.value);
-        this.setState({
-            tax: event.target.value,
-            grandTotal: newTotal
-        });
-    }
+    feeChanged = (event, id) => {
+        //make copy of fees array
+        let fees = [...this.state.fees];
+        //make copy of fee object
+        let fee = {...fees[id]};
+        //update amount
+        fee.amount = event.target.value;
+        //set object to updated object
+        fees[id] = fee;
 
-    tipChanged = (event) => {
-        this.setState({tip: event.target.value});
+        //find way to update grandtotal
+
+        //update state to new updated copy
+        this.setState({fees});
     }
 
     //add additional fees clicked
@@ -43,27 +52,55 @@ class AdditionalFees extends Component {
         this.setState({showModal: false});
     }
 
-    //change in price input
-    addedFeeChangedHandler = (event) => {
-        this.setState({addedFee: event.target.value});
+    addFeeNameChangedHandler = (event) => {
+        this.setState({addFeeName: event.target.value});
+    }
+
+    addFeeAmountChangedHandler = (event) => {
+        this.setState({addFeeAmount: event.target.value});
+    }
+
+    //finished inputting add fee
+    addFeeHandler = () => {
+        let newFee = {
+            name: this.state.addFeeName,
+            amount: this.state.addFeeAmount
+        }
+
+        //find way to update grandtotal
+
+        let updatedFees = [...this.state.fees].concat(newFee);
+        this.setState({
+            fees: updatedFees,
+            addFeeName: '',
+            addFeeAmount: '',
+            showModal: false
+        });
     }
 
     render() {
         return(
             <div className={classes.AdditionalFees}>
                 <Modal showModal={this.state.showModal} closeModal={this.closeModalHandler}>
-                    <p>Fee Name: <input type="text" placeholder="Name of fee"/></p>
+                    <p>Fee Name:
+                        <input
+                            type="text" 
+                            placeholder="Name of fee" 
+                            value={this.state.addFeeName}
+                            onChange={this.addFeeNameChangedHandler}
+                        />
+                    </p>
                     <p>$
                         <input 
                             type="text"
                             placeholder="0.00"
-                            onChange={this.addedFeeChangedHandler}
-                            value={this.state.addedFee}
+                            value={this.state.addFeeAmount}
+                            onChange={this.addFeeAmountChangedHandler}
                         />
                     </p>
                     <div>
                         <button onClick={this.closeModalHandler}>Cancel</button>
-                        <button onClick={this.saveItemHandler}>Save</button>
+                        <button onClick={this.addFeeHandler}>Save</button>
                     </div>
                 </Modal>
                 <div className={classes.Fees}>
@@ -71,14 +108,12 @@ class AdditionalFees extends Component {
                         <p>Subtotal</p>
                         <p>${this.props.subtotal}</p>
                     </div>
-                    <div className={classes.Fee}>
-                        <p>Tax</p>
-                        <p>$<input value={this.state.tax} onChange={this.taxChanged}/></p>
-                    </div>
-                    <div className={classes.Fee}>
-                        <p>Tip</p>
-                        <p>$<input value={this.state.tip} onChange={this.tipChanged}/></p>
-                    </div>
+                    {this.state.fees.map((fee, id) =>
+                        <div className={classes.Fee} key={id}>
+                            <p>{fee.name}</p>
+                            <p>$<input value={fee.amount} onChange={(event) => this.feeChanged(event, id)}/></p>
+                        </div>
+                    )}
                     <div>
                         <button onClick={this.openModalHandler}>+ Additional Fees</button>
                     </div>
