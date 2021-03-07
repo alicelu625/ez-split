@@ -138,19 +138,18 @@ const reducer = (state = intialState, action) => {
             });
         case actionTypes.TAX_ITEM:
             // Create copy of the items we currently have in state 
-            let currentItems = [...state.items]
+            let currentItems = [...state.items];
             // Updated the item with the following id, given the itemId (action.itemId)
-            let updatedTaxItem = updateObject(currentItems[action.itemId], {taxed: !currentItems[action.itemId].taxed})                
+            let updatedTaxItem = updateObject(currentItems[action.itemId], {taxed: !currentItems[action.itemId].taxed});            
             // updated that in the items list 
-            currentItems[action.itemId] = updatedTaxItem
-            return updateObject(state, {items: currentItems})
+            currentItems[action.itemId] = updatedTaxItem;
+            return updateObject(state, {items: currentItems});
         case actionTypes.SELECT_ALL_ITEMS:
-            let currentItemsSelectAll = [...state.items]
-            let itemsToTrue = currentItemsSelectAll.map((item) => updateObject(item, {taxed: true}))
-            console.log(itemsToTrue)
+            let currentItemsSelectAll = [...state.items];
+            let itemsToTrue = currentItemsSelectAll.map((item) => updateObject(item, {taxed: true}));
             // For each of those items, set their values to true 
             //original: return updateObject(state.items, {items: itemsToTrue})
-            return updateObject(state, {items: itemsToTrue})
+            return updateObject(state, {items: itemsToTrue});
         default:
             return state;
     }
