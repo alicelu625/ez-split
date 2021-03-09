@@ -37,10 +37,31 @@ class AdditionalFees extends Component {
         //set object to updated object
         fees[id] = fee;
 
-        //find way to update grandtotal
-
         //update state to new updated copy
         this.setState({fees});
+    }
+
+    //when user leaves input field
+    updateTotal = (event, id) => {
+        let newTotal = this.state.grandTotal;
+
+        //if input is not empty or value is not 0, get updated grandtotal
+        if (event.target.value !== '' && parseFloat(event.target.value) > 0) {
+            //start with subtotal
+            newTotal = this.props.subtotal;
+            //go through each fee amounts
+            for (let i = 0; i < this.state.fees.length; i++) {
+                //if not selected fee, add to new total
+                if (i !== id) {
+                    newTotal = newTotal + parseFloat(this.state.fees[i].amount);
+                }
+            }
+            //add current fee
+            newTotal = newTotal + parseFloat(event.target.value);
+        }
+
+        //update state with new total
+        this.setState({grandTotal: newTotal.toFixed(2)});
     }
 
     //add additional fees clicked
@@ -75,7 +96,16 @@ class AdditionalFees extends Component {
             amount: this.state.addFeeAmount
         }
 
-        //find way to update grandtotal
+        //update grand total
+        let newTotal = this.state.grandTotal;
+        //start with subtotal
+        newTotal = this.props.subtotal;
+        //go through each fee amounts, add to new total
+        for (let i = 0; i < this.state.fees.length; i++) {
+            newTotal = newTotal + parseFloat(this.state.fees[i].amount);
+        }
+        //add new fee amount
+        newTotal = newTotal + parseFloat(this.state.addFeeAmount);
 
         //add new fee object to array of fees objects
         let updatedFees = [...this.state.fees].concat(newFee);
@@ -84,6 +114,7 @@ class AdditionalFees extends Component {
             fees: updatedFees,
             addFeeName: '',
             addFeeAmount: '',
+            grandTotal: newTotal.toFixed(2),
             showModal: false
         });
     }
@@ -121,7 +152,7 @@ class AdditionalFees extends Component {
                     {this.state.fees.map((fee, id) =>
                         <div className={classes.Fee} key={id}>
                             <p>{fee.name}</p>
-                            <p>$<input value={fee.amount} onChange={(event) => this.feeChanged(event, id)}/></p>
+                            <p>$<input value={fee.amount} onBlur={(event) => this.updateTotal(event, id)} onChange={(event) => this.feeChanged(event, id)}/></p>
                         </div>
                     )}
                     <div>
