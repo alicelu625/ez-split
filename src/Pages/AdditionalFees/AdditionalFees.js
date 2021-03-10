@@ -182,7 +182,7 @@ class AdditionalFees extends Component {
                     <p>${this.state.grandTotal}</p>
                 </div>
                 <ProceedDiv
-                    onClick={() =>
+                    clicked={() =>
                         this.props.onSplit(
                             this.state.fees,
                             this.state.grandTotal

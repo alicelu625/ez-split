@@ -43,7 +43,7 @@ const reducer = (state = intialState, action) => {
                 price: action.price,
                 persons: [],
                 taxed: false,
-                // splitPrice:
+                splitPrice: "",
             })
             //update price
             let updatedPrice =
@@ -185,8 +185,19 @@ const reducer = (state = intialState, action) => {
             // For each of those items, set their values to true
             //original: return updateObject(state.items, {items: itemsToTrue})
             return updateObject(state, { items: itemsToTrue })
-        // case actionTypes.ON_SPLIT:
-        //     return updateObject(state, { items: no })
+        case actionTypes.ON_SPLIT:
+            let itemsToSplit = [...state.items]
+            // Calculates the split price per item depending on how many claimed it
+            for (let i = 0; i < itemsToSplit.length; i++) {
+                let newItem = updateObject(itemsToSplit[i], {
+                    splitPrice:
+                        itemsToSplit[i].price / itemsToSplit[i].persons.length,
+                })
+
+                itemsToSplit[i] = newItem
+            }
+            console.log(itemsToSplit)
+            return updateObject(state, { items: itemsToSplit })
         default:
             return state
     }
