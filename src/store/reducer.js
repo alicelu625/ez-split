@@ -1,5 +1,6 @@
 import * as actionTypes from "./actions"
-import { updateObject } from "../shared/utility"
+import {updateObject} from "../shared/utility"
+import {act} from "react-dom/test-utils"
 
 const intialState = {
     eventName: "",
@@ -7,16 +8,16 @@ const intialState = {
     currentPage: 0,
     subtotal: "0.00",
     items: [],
-    persons: [],
+    persons: []
 }
 
 const reducer = (state = intialState, action) => {
     switch (action.type) {
         case actionTypes.EVENT_NAME_CHANGED:
-            return updateObject(state, { eventName: action.event.target.value })
+            return updateObject(state, {eventName: action.event.target.value})
         case actionTypes.AMOUNT_PEOPLE_CHANGED:
             return updateObject(state, {
-                amountPeople: parseInt(action.event.target.value),
+                amountPeople: parseInt(action.event.target.value)
             })
         case actionTypes.ON_START:
             let initialPersons = []
@@ -24,17 +25,17 @@ const reducer = (state = intialState, action) => {
             for (let i = 0; i < state.amountPeople; i++) {
                 initialPersons.push({
                     name: i,
-                    items: [],
+                    items: []
                 })
             }
             //set persons state to created array
             return updateObject(state, {
                 currentPage: state.currentPage + 1,
-                persons: initialPersons,
+                persons: initialPersons
             })
         case actionTypes.NEXT_PAGE:
             return updateObject(state, {
-                currentPage: state.currentPage + 1,
+                currentPage: state.currentPage + 1
             })
         case actionTypes.ADD_ITEM:
             //updatedItems = copy of items + new item
@@ -44,6 +45,7 @@ const reducer = (state = intialState, action) => {
                 persons: [],
                 taxed: false,
                 splitPrice: "",
+                splitFees: []
             })
             //update price
             let updatedPrice =
@@ -51,7 +53,7 @@ const reducer = (state = intialState, action) => {
             //update state
             return updateObject(state, {
                 items: updatedItems,
-                subtotal: updatedPrice.toFixed(2),
+                subtotal: updatedPrice.toFixed(2)
             })
         case actionTypes.REMOVE_ITEM:
             //update subtotal
@@ -61,32 +63,32 @@ const reducer = (state = intialState, action) => {
             //update items excluding removed item & update subtotal object
             return updateObject(state, {
                 items: state.items.filter((_, i) => i !== action.id),
-                subtotal: updatedSubtotal.toFixed(2),
+                subtotal: updatedSubtotal.toFixed(2)
             })
         case actionTypes.GO_BACK:
-            return updateObject(state, { currentPage: state.currentPage - 1 })
+            return updateObject(state, {currentPage: state.currentPage - 1})
         case actionTypes.CHANGE_NAME:
             //update person object
             let updatedPerson = updateObject(state.persons[action.id], {
-                name: action.event.target.value,
+                name: action.event.target.value
             })
             //update persons array by replacing w/ new person object
             let updatedPersons = [...state.persons]
             updatedPersons[action.id] = updatedPerson
             //set state persons to updated persons array
-            return updateObject(state, { persons: updatedPersons })
+            return updateObject(state, {persons: updatedPersons})
         case actionTypes.ADD_PERSON:
             //add to amount of people
             let updatedAmountPeople = state.amountPeople + 1
             //add person object to persons array
             let AddedToPersons = state.persons.concat({
                 name: state.amountPeople,
-                items: [],
+                items: []
             })
             //update states
             return updateObject(state, {
                 amountPeople: updatedAmountPeople,
-                persons: AddedToPersons,
+                persons: AddedToPersons
             })
         case actionTypes.REMOVE_PERSON:
             //subtract from amount of people
@@ -102,7 +104,7 @@ const reducer = (state = intialState, action) => {
             return updateObject(state, {
                 amountPeople: updatedAmtPeople,
                 persons: state.persons.filter((_, i) => i !== action.id),
-                items: itemsRemovedPerson,
+                items: itemsRemovedPerson
             })
         case actionTypes.CLAIM_ITEM:
             let updatePersons = [...state.persons]
@@ -120,7 +122,7 @@ const reducer = (state = intialState, action) => {
                 //update person object - persons[1]
                 let updatePerson = updateObject(
                     state.persons[action.personId],
-                    { items: personItems }
+                    {items: personItems}
                 )
                 //update persons array by replacing w/ new person object - persons
                 updatePersons[action.personId] = updatePerson
@@ -131,7 +133,7 @@ const reducer = (state = intialState, action) => {
                 )
                 //update item object - items[1]
                 let updateItem = updateObject(state.items[action.itemId], {
-                    persons: itemClaimers,
+                    persons: itemClaimers
                 })
                 //update items array by replacing w/ new item object - items
                 updateItems[action.itemId] = updateItem
@@ -143,7 +145,7 @@ const reducer = (state = intialState, action) => {
                 //update person object
                 let updatePerson = updateObject(
                     state.persons[action.personId],
-                    { items: personItems }
+                    {items: personItems}
                 )
                 //update persons array by replacing w/ new person object
                 let updatePersons = [...state.persons]
@@ -155,7 +157,7 @@ const reducer = (state = intialState, action) => {
                 )
                 //update item object
                 let updateItem = updateObject(state.items[action.itemId], {
-                    persons: itemClaimers,
+                    persons: itemClaimers
                 })
                 //update items array by replacing w/ new item object
                 let updateItems = [...state.items]
@@ -165,39 +167,56 @@ const reducer = (state = intialState, action) => {
             //set state persons to updated persons array & items to updated items array
             return updateObject(state, {
                 persons: updatePersons,
-                items: updateItems,
+                items: updateItems
             })
         case actionTypes.TAX_ITEM:
             // Create copy of the items we currently have in state
             let currentItems = [...state.items]
             // Updated the item with the following id, given the itemId (action.itemId)
             let updatedTaxItem = updateObject(currentItems[action.itemId], {
-                taxed: !currentItems[action.itemId].taxed,
+                taxed: !currentItems[action.itemId].taxed
             })
             // updated that in the items list
             currentItems[action.itemId] = updatedTaxItem
-            return updateObject(state, { items: currentItems })
+            return updateObject(state, {items: currentItems})
         case actionTypes.SELECT_ALL_ITEMS:
             let currentItemsSelectAll = [...state.items]
             let itemsToTrue = currentItemsSelectAll.map((item) =>
-                updateObject(item, { taxed: true })
+                updateObject(item, {taxed: true})
             )
             // For each of those items, set their values to true
             //original: return updateObject(state.items, {items: itemsToTrue})
-            return updateObject(state, { items: itemsToTrue })
+            return updateObject(state, {items: itemsToTrue})
         case actionTypes.ON_SPLIT:
+            let feePercentages = []
+            action.fees.forEach((fee) => {
+                let currentFeePercentage =
+                    ((parseFloat(state.subtotal) + parseFloat(fee.amount)) /
+                        parseFloat(state.subtotal) -
+                        1) *
+                    100
+                feePercentages.push({
+                    name: fee.name,
+                    percentage: currentFeePercentage
+                })
+                console.log(currentFeePercentage)
+            })
+            console.log(feePercentages)
             let itemsToSplit = [...state.items]
             // Calculates the split price per item depending on how many claimed it
             for (let i = 0; i < itemsToSplit.length; i++) {
                 let newItem = updateObject(itemsToSplit[i], {
                     splitPrice:
-                        itemsToSplit[i].price / itemsToSplit[i].persons.length,
+                        itemsToSplit[i].price / itemsToSplit[i].persons.length
                 })
-
+                let setMap = new Map()
+                setMap.set("Tax", "32")
+                updateObject(itemsToSplit[i], {splitFees: setMap})
+                // itemsToSplit.splitFees.set
                 itemsToSplit[i] = newItem
             }
             console.log(itemsToSplit)
-            return updateObject(state, { items: itemsToSplit })
+            return updateObject(state, {items: itemsToSplit})
         default:
             return state
     }
