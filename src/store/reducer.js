@@ -207,19 +207,19 @@ const reducer = (state = intialState, action) => {
             // Calculates the split price per item depending on how many claimed it
             for (let i = 0; i < itemsToSplit.length; i++) {
                 //calculate split price = item price / # people who claimed item
-                let itemSplitPrice = itemsToSplit[i].price / itemsToSplit[i].persons.length;
+                let itemSplitPrice = parseFloat(itemsToSplit[i].price) / parseFloat(itemsToSplit[i].persons.length);
                 
                 //calculate split fees for each item
                 //hashmap to store item split fees
                 let itemFeesMap = new Map();
                 feePercentages.forEach(fee => {
                     let feeAmount = fee.percentage * parseFloat(itemsToSplit[i].splitPrice);
-                    itemFeesMap.set(fee.name, feeAmount);
+                    itemFeesMap.set(fee.name, feeAmount.toFixed(2));
                 });
 
                 //update item object
                 let newItem = updateObject(itemsToSplit[i], {
-                    splitPrice: itemSplitPrice,
+                    splitPrice: itemSplitPrice.toFixed(2),
                     splitFees: itemFeesMap
                 })
 
