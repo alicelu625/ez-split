@@ -99,7 +99,7 @@ class AdditionalFees extends Component {
         //update grand total
         let newTotal = this.state.grandTotal
         //start with subtotal
-        newTotal = this.props.subtotal
+        newTotal = parseFloat(this.props.subtotal);
         //go through each fee amounts, add to new total
         for (let i = 0; i < this.state.fees.length; i++) {
             newTotal = newTotal + parseFloat(this.state.fees[i].amount)

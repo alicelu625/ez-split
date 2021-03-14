@@ -188,34 +188,51 @@ const reducer = (state = intialState, action) => {
             //original: return updateObject(state.items, {items: itemsToTrue})
             return updateObject(state, {items: itemsToTrue})
         case actionTypes.ON_SPLIT:
+            //calculate fee percentages
             let feePercentages = []
             action.fees.forEach((fee) => {
+                // % = (subtotal + fee amount) / subtotal) - 1
                 let currentFeePercentage =
-                    ((parseFloat(state.subtotal) + parseFloat(fee.amount)) /
-                        parseFloat(state.subtotal) -
-                        1) *
-                    100
+                    (parseFloat(state.subtotal) + parseFloat(fee.amount)) /
+                        parseFloat(state.subtotal) - 1
+                //push object to array
                 feePercentages.push({
                     name: fee.name,
                     percentage: currentFeePercentage
                 })
-                console.log(currentFeePercentage)
             })
-            console.log(feePercentages)
+
+            //make copy of items array
             let itemsToSplit = [...state.items]
             // Calculates the split price per item depending on how many claimed it
             for (let i = 0; i < itemsToSplit.length; i++) {
+                //calculate split price = item price / # people who claimed item
+                let itemSplitPrice = itemsToSplit[i].price / itemsToSplit[i].persons.length;
+                
+                //calculate split fees for each item
+                //hashmap to store item split fees
+                let itemFeesMap = new Map();
+                feePercentages.forEach(fee => {
+                    let feeAmount = fee.percentage * parseFloat(itemsToSplit[i].splitPrice);
+                    itemFeesMap.set(fee.name, feeAmount);
+                });
+
+                //update item object
                 let newItem = updateObject(itemsToSplit[i], {
-                    splitPrice:
-                        itemsToSplit[i].price / itemsToSplit[i].persons.length
+                    splitPrice: itemSplitPrice,
+                    splitFees: itemFeesMap
                 })
-                let setMap = new Map()
-                setMap.set("Tax", "32")
-                updateObject(itemsToSplit[i], {splitFees: setMap})
-                // itemsToSplit.splitFees.set
+
+                //update itemsToSplit with new item
                 itemsToSplit[i] = newItem
+
+                //calculate split fees for each person
+                //for each item in persons.item, add corresponding item.splitFees to person.splitFees
+
+                
             }
-            console.log(itemsToSplit)
+            console.log(itemsToSplit);
+
             return updateObject(state, {items: itemsToSplit})
         default:
             return state
