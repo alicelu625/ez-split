@@ -1,6 +1,5 @@
 import * as actionTypes from "./actions"
 import {updateObject} from "../shared/utility"
-import {act} from "react-dom/test-utils"
 
 const intialState = {
     eventName: "",
@@ -25,7 +24,8 @@ const reducer = (state = intialState, action) => {
             for (let i = 0; i < state.amountPeople; i++) {
                 initialPersons.push({
                     name: i,
-                    items: []
+                    items: [],
+                    splitFees: []
                 })
             }
             //set persons state to created array
@@ -83,7 +83,8 @@ const reducer = (state = intialState, action) => {
             //add person object to persons array
             let AddedToPersons = state.persons.concat({
                 name: state.amountPeople,
-                items: []
+                items: [],
+                splitFees: []
             })
             //update states
             return updateObject(state, {
@@ -181,11 +182,10 @@ const reducer = (state = intialState, action) => {
             return updateObject(state, {items: currentItems})
         case actionTypes.SELECT_ALL_ITEMS:
             let currentItemsSelectAll = [...state.items]
+            //set taxed to true for all items
             let itemsToTrue = currentItemsSelectAll.map((item) =>
                 updateObject(item, {taxed: true})
             )
-            // For each of those items, set their values to true
-            //original: return updateObject(state.items, {items: itemsToTrue})
             return updateObject(state, {items: itemsToTrue})
         case actionTypes.ON_SPLIT:
             //calculate fee percentages
