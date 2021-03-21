@@ -1,0 +1,76 @@
+---SCENERIO
+Items: item1, item2, item3 (claimed by all)
+Persons: person1, person2
+Fees: tax, tip (applied to all items)
+
+item1.splitFees: [{tax: 0.20}, {tip: 0.30}]
+item2.splitFees: [{tax: 0.10}, {tip: 0.05}]
+person.splitFees: [{tax: 0.20 + 0.10}, {tip: 0.30 + 0.05}]
+
+---NOT USING THIS ONE
+item1.claimers: person1, person2
+	add tax & tip to update person1.splitFees
+	add tax & tip to update person2.splitFees
+item2.claimers: person1, person2
+	add tax & tip to update person1.splitFees
+	add tax & tip to update person2.splitFees
+item3.claimers: person1, person2
+	add tax & tip to update person1.splitFees
+	add tax & tip to update person2.splitFees
+
+---USING THIS ONE
+person1.items: item1, item2, item3
+	add item 1 tax & tip to update person1.splitFees
+	add item 2 tax & tip to update person1.splitFees
+	add item 3 tax & tip to update person1.splitFees
+person2.items: item1, item2, item3
+	add item 1 tax & tip to update person2.splitFees
+	add item 2 tax & tip to update person2.splitFees
+	add item 3 tax & tip to update person2.splitFees
+
+
+---PSEUDO CODE
+English: update invidiual person's splitFees by adding each claimed items splitFees
+English: make temp splitFees map
+for each person in persons
+	English: set temp map (tempSplitFees)
+	English: initialize initialTotalFeeAmount = 0 here?
+	for each item in person.items
+		for each splitFee in item.split
+			English: check if tempSplitFees have the fee name yet
+				English: yes --> set intialTotalFeeAmount to what's already on it
+				initialTotalFeeAmount = tempSplitFees.get(splitFee.name)
+			English: add the variable for initial fee amount to item's fee amount
+			tempSplitFees.set(splitFee.name, initalTotalFeeAmount + splitFee.amount)
+	English: update person object with temporary splitFees map we made
+
+---TRIAL RUN:
+person1
+new map tempSplitFees = []
+initialTotalFeeAmount = 0
+
+person1.item1
+
+person1.item1.tax
+check if tempSplitFees have tax yet
+	--> no --> do nothing
+tempSplitFees=[{tax:0.20}]
+person1.item1.tip
+check if tempSplitFees have tip yet
+	--> no --> do nothing
+tempSplitFees=[{tax:0.20}, {tip: 0.30}]
+
+person1.item2
+
+person1.item2.tax
+check if tempSplitFees have tax yet
+	--> yes --> initialTotalFeeAmount = 0.20
+tempSplitFees=[{tax:0.20 + 0.10}, {tip: 0.30}]
+tempSplitFees=[{tax:0.30}, {tip: 0.30}]
+person1.item2.tip
+check if tempSplitFees have tip yet
+	--> yes --> initialTotalFeeAmount = 0.30
+tempSplitFees=[{tax:0.30}, {tip: 0.30 + 0.05}]
+tempSplitFees=[{tax:0.30}, {tip: 0.35}]
+
+update person.splitFees with tempSplitFees
