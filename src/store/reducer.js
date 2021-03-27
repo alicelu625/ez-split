@@ -1,5 +1,6 @@
 import * as actionTypes from "./actions"
 import {updateObject} from "../shared/utility"
+import {fireEvent} from "@testing-library/dom"
 
 const intialState = {
     eventName: "",
@@ -194,7 +195,8 @@ const reducer = (state = intialState, action) => {
                 // % = (subtotal + fee amount) / subtotal) - 1
                 let currentFeePercentage =
                     (parseFloat(state.subtotal) + parseFloat(fee.amount)) /
-                        parseFloat(state.subtotal) - 1
+                        parseFloat(state.subtotal) -
+                    1
                 //push object to array
                 feePercentages.push({
                     name: fee.name,
@@ -207,15 +209,18 @@ const reducer = (state = intialState, action) => {
             // Calculates the split price per item depending on how many claimed it
             for (let i = 0; i < itemsToSplit.length; i++) {
                 //calculate split price = item price / # people who claimed item
-                let itemSplitPrice = parseFloat(itemsToSplit[i].price) / parseFloat(itemsToSplit[i].persons.length);
-                
+                let itemSplitPrice =
+                    parseFloat(itemsToSplit[i].price) /
+                    parseFloat(itemsToSplit[i].persons.length)
+
                 //calculate split fees for each item
                 //hashmap to store item split fees
-                let itemFeesMap = new Map();
-                feePercentages.forEach(fee => {
-                    let feeAmount = fee.percentage * parseFloat(itemsToSplit[i].splitPrice);
-                    itemFeesMap.set(fee.name, feeAmount.toFixed(2));
-                });
+                let itemFeesMap = new Map()
+                feePercentages.forEach((fee) => {
+                    let feeAmount =
+                        fee.percentage * parseFloat(itemsToSplit[i].splitPrice)
+                    itemFeesMap.set(fee.name, feeAmount.toFixed(2))
+                })
 
                 //update item object
                 let newItem = updateObject(itemsToSplit[i], {
@@ -228,10 +233,31 @@ const reducer = (state = intialState, action) => {
 
                 //calculate split fees for each person
                 //for each item in persons.item, add corresponding item.splitFees to person.splitFees
-
-                
             }
-            console.log(itemsToSplit);
+            for (let i = 0; i < state.persons.length; i++) {
+                console.log(
+                    "calculating split fees for ",
+                    state.persons[i].name
+                )
+                // For each state.persons[i], iterate through their list of items
+                for (let j = 0; j < state.persons[i].items.length; j++) {
+                    // For current item
+                    const itemInfo = state.items.find(
+                        (item) => state.persons[i].items[j] === item.name
+                    )
+                    console.log(itemInfo)
+                    // Obtain split fees array from state.items[]
+                    // console.log(sta)
+                }
+                // For each fee, add value onto a temporary array
+                // Once the loop is finished, add that array onto the total split fees
+                // for state.persons
+            }
+            console.log(
+                "item's we're working with: ",
+                state.items,
+                typeof state.items
+            )
 
             return updateObject(state, {items: itemsToSplit})
         default:
