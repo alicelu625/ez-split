@@ -34,9 +34,11 @@ English: update invidiual person's splitFees by adding each claimed items splitF
 English: make temp splitFees map
 for each person in persons
 	English: set temp map (tempSplitFees)
-	English: initialize initialTotalFeeAmount = 0 here?
+	
 	for each item in person.items
 		for each splitFee in item.split
+			//below line added on 3/26
+			English: initialize initialTotalFeeAmount = 0 
 			English: check if tempSplitFees have the fee name yet
 				English: yes --> set intialTotalFeeAmount to what's already on it
 				initialTotalFeeAmount = tempSplitFees.get(splitFee.name)
@@ -74,3 +76,7 @@ tempSplitFees=[{tax:0.30}, {tip: 0.30 + 0.05}]
 tempSplitFees=[{tax:0.30}, {tip: 0.35}]
 
 update person.splitFees with tempSplitFees
+
+EDITS: 
+3/26/21
+CORRECTION: initialFeeAmount initialization is supposed to be in the innermost loop, not in the  outer loop 
