@@ -204,7 +204,7 @@ const reducer = (state = intialState, action) => {
                 })
             })
 
-            //make copy of items array
+            //////// CALCULATING SPLIT PRICE FOR EVERY ITEM ////////
             let itemsToSplit = [...state.items]
             // Calculates the split price per item depending on how many claimed it
             for (let i = 0; i < itemsToSplit.length; i++) {
@@ -212,55 +212,41 @@ const reducer = (state = intialState, action) => {
                 let itemSplitPrice =
                     parseFloat(itemsToSplit[i].price) /
                     parseFloat(itemsToSplit[i].persons.length)
-
-                //calculate split fees for each item
-                //hashmap to store item split fees
                 let itemFeesMap = new Map()
                 feePercentages.forEach((fee) => {
                     let feeAmount =
                         fee.percentage * parseFloat(itemsToSplit[i].splitPrice)
                     itemFeesMap.set(fee.name, feeAmount.toFixed(2))
                 })
-
-                //update item object
                 let newItem = updateObject(itemsToSplit[i], {
                     splitPrice: itemSplitPrice.toFixed(2),
                     splitFees: itemFeesMap
                 })
-
-                //update itemsToSplit with new item
                 itemsToSplit[i] = newItem
-
-                //calculate split fees for each person
-                //for each item in persons.item, add corresponding item.splitFees to person.splitFees
             }
+
+            //////// CALCULATING SPLIT FEES (TAX TIP) FOR EACH PERSON ////////
             for (let i = 0; i < state.persons.length; i++) {
-                console.log(
-                    "calculating split fees for ",
-                    state.persons[i].name
-                )
-                // For each state.persons[i], iterate through their list of items
+                let splitFeesToUpdate = new Map()
                 for (let j = 0; j < state.persons[i].items.length; j++) {
                     // For current item,
                     const itemInfo = state.items.find(
                         (item) => state.persons[i].items[j] === item.name
                     )
-                    console.log(
-                        `split fees for ${itemInfo.name} : ${itemInfo.splitFees}`
-                    )
-                    // Obtain split fees array from state.items[]
-                    // console.log(sta)
-                }
-                // For each fee, add value onto a temporary array
-                // Once the loop is finished, add that array onto the total split fees
-                // for state.persons
-            }
-            console.log(
-                "item's we're working with: ",
-                state.items,
-                typeof state.items
-            )
 
+                    console.log(itemInfo.splitFees)
+                    // Obtain split fees array from state.items[]
+                    itemInfo.splitFees.forEach((feeValue, feeName) => {
+                        let initalFeeAmount = 0
+                        if (splitFeesToUpdate.has(feeName))
+                            initalFeeAmount = feeValue
+                        splitFeesToUpdate.set(
+                            feeName,
+                            initalFeeAmount + feeValue
+                        )
+                    })
+                }
+            }
             return updateObject(state, {items: itemsToSplit})
         default:
             return state
