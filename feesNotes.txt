@@ -74,3 +74,7 @@ tempSplitFees=[{tax:0.30}, {tip: 0.30 + 0.05}]
 tempSplitFees=[{tax:0.30}, {tip: 0.35}]
 
 update person.splitFees with tempSplitFees
+
+EDITS: 
+3/26/21
+CORRECTION: initialFeeAmount initialization is supposed to be in the innermost loop, not in the  outer loop 
