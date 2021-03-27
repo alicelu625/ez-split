@@ -241,11 +241,13 @@ const reducer = (state = intialState, action) => {
                 )
                 // For each state.persons[i], iterate through their list of items
                 for (let j = 0; j < state.persons[i].items.length; j++) {
-                    // For current item
+                    // For current item,
                     const itemInfo = state.items.find(
                         (item) => state.persons[i].items[j] === item.name
                     )
-                    console.log(itemInfo)
+                    console.log(
+                        `split fees for ${itemInfo.name} : ${itemInfo.splitFees}`
+                    )
                     // Obtain split fees array from state.items[]
                     // console.log(sta)
                 }
