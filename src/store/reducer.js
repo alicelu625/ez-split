@@ -226,13 +226,13 @@ const reducer = (state = intialState, action) => {
             }
 
             //////// CALCULATING SPLIT FEES (TAX TIP) FOR EACH PERSON ////////
-
             state.persons.forEach((person) => {
                 let splitFeesToUpdate = new Map()
                 person.items.forEach((item) => {
                     const itemInfo = state.items.find(
                         (stateItem) => item === stateItem.name
                     )
+                    // For each split fee in item
                     itemInfo.splitFees.forEach((feeValue, feeName) => {
                         let initalFeeAmount = 0
                         if (splitFeesToUpdate.has(feeName))
@@ -243,6 +243,16 @@ const reducer = (state = intialState, action) => {
                         )
                     })
                 })
+                // Update splitfees for that particular person
+                // console.log(
+                //     "pre update: ",
+                //     person.splitFees,
+                //     typeof person,
+                //     typeof person.splitFees,
+                //     person
+                // )
+                updateObject(person, {splitFees: splitFeesToUpdate})
+                // console.log("post update: ", person.splitFees)
             })
             return updateObject(state, {items: itemsToSplit})
         default:
