@@ -13,8 +13,7 @@ class Tax extends Component {
                 <div className={classes.itemSliver}>
                     <p> Items </p>
                     <button onClick={() => this.props.onSelectAll()}>
-                        {" "}
-                        Select all{" "}
+                        Select all
                     </button>
                 </div>
                 {this.props.items.map((item, id) => (

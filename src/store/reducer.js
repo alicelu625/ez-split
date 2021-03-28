@@ -1,14 +1,15 @@
 import * as actionTypes from "./actions"
 import {updateObject} from "../shared/utility"
-import {fireEvent} from "@testing-library/dom"
 
 const intialState = {
     eventName: "",
     amountPeople: "",
     currentPage: 0,
     subtotal: "0.00",
+    taxedItemSubtotal: "0.00",
     items: [],
-    persons: []
+    persons: [],
+    total: "0.00"
 }
 
 const reducer = (state = intialState, action) => {
@@ -26,7 +27,8 @@ const reducer = (state = intialState, action) => {
                 initialPersons.push({
                     name: i,
                     items: [],
-                    splitFees: []
+                    splitFees: [],
+                    total: "0.00"
                 })
             }
             //set persons state to created array
@@ -174,29 +176,47 @@ const reducer = (state = intialState, action) => {
         case actionTypes.TAX_ITEM:
             // Create copy of the items we currently have in state
             let currentItems = [...state.items]
+            let taxedSubtotal = state.taxedItemSubtotal;
+            
+            //update subtotal for taxed items
+            if (!currentItems[action.itemId].taxed === true) {
+                taxedSubtotal = parseFloat(state.taxedItemSubtotal) + parseFloat(currentItems[action.itemId].price)
+            }
+            else {
+                taxedSubtotal = parseFloat(state.taxedItemSubtotal) - parseFloat(currentItems[action.itemId].price)
+            }
             // Updated the item with the following id, given the itemId (action.itemId)
             let updatedTaxItem = updateObject(currentItems[action.itemId], {
                 taxed: !currentItems[action.itemId].taxed
             })
             // updated that in the items list
             currentItems[action.itemId] = updatedTaxItem
-            return updateObject(state, {items: currentItems})
+            return updateObject(state, {
+                items: currentItems,
+                taxedItemSubtotal: taxedSubtotal.toFixed(2)
+            })
         case actionTypes.SELECT_ALL_ITEMS:
             let currentItemsSelectAll = [...state.items]
             //set taxed to true for all items
-            let itemsToTrue = currentItemsSelectAll.map((item) =>
-                updateObject(item, {taxed: true})
-            )
-            return updateObject(state, {items: itemsToTrue})
+            let itemsToTrue = currentItemsSelectAll.map((item) => {
+                //mark item taxed
+                return updateObject(item, {taxed: true})
+            })
+            return updateObject(state, {
+                items: itemsToTrue,
+                taxedItemSubtotal: state.subtotal
+            })
         case actionTypes.ON_SPLIT:
             //calculate fee percentages
             let feePercentages = []
             action.fees.forEach((fee) => {
-                // % = (subtotal + fee amount) / subtotal) - 1
+                // % = fee amount / subtotal
                 let currentFeePercentage =
-                    (parseFloat(state.subtotal) + parseFloat(fee.amount)) /
-                        parseFloat(state.subtotal) -
-                    1
+                    parseFloat(fee.amount) / parseFloat(state.subtotal)
+                //if fee is tax, use subtotal of taxed items instead
+                if (fee.name === "tax") {
+                    currentFeePercentage = parseFloat(fee.amount) / parseFloat(state.taxedItemSubtotal)
+                }
                 //push object to array
                 feePercentages.push({
                     name: fee.name,
@@ -207,39 +227,56 @@ const reducer = (state = intialState, action) => {
             //////// CALCULATING SPLIT PRICE FOR EVERY ITEM ////////
             let itemsToSplit = [...state.items]
             // Calculates the split price per item depending on how many claimed it
-            for (let i = 0; i < itemsToSplit.length; i++) {
+            let itemsWithSplit = itemsToSplit.map(item => {
                 //calculate split price = item price / # people who claimed item
                 let itemSplitPrice =
-                    parseFloat(itemsToSplit[i].price) /
-                    parseFloat(itemsToSplit[i].persons.length)
+                    parseFloat(item.price) /
+                    parseFloat(item.persons.length)
+                //store item fees
                 let itemFeesMap = new Map()
+                //calculate fee amount for each fee
                 feePercentages.forEach((fee) => {
+                    //calculate fee amount = item split price * fee%
                     let feeAmount =
-                        fee.percentage * parseFloat(itemsToSplit[i].splitPrice)
+                        fee.percentage * parseFloat(itemSplitPrice)
+                    //if calculating tax & item is not taxed, then set amount to 0
+                    if (fee.name === "tax" && item.taxed === false) {
+                        feeAmount = 0;
+                    }
+                    //update item fee
                     itemFeesMap.set(fee.name, feeAmount.toFixed(2))
                 })
-                let newItem = updateObject(itemsToSplit[i], {
+                //update item object
+                return updateObject(item, {
                     splitPrice: itemSplitPrice.toFixed(2),
                     splitFees: itemFeesMap
-                })
-                itemsToSplit[i] = newItem
-            }
-
+                });
+            })
             //////// CALCULATING SPLIT FEES (TAX TIP) FOR EACH PERSON ////////
-            state.persons.forEach((person) => {
+            let personsWithFees = state.persons.map((person) => {
+                let personTotal = 0;
+                //split fees for each person
                 let splitFeesToUpdate = new Map()
+                //for each item that the person claimed
                 person.items.forEach((item) => {
-                    const itemInfo = state.items.find(
-                        (stateItem) => item === stateItem.name
+                    //find item object
+                    const itemInfo = itemsWithSplit.find(
+                        (tempItem) => item === tempItem.name
                     )
+                    //add item price to person total amount
+                    personTotal = personTotal + parseFloat(itemInfo.price);
                     // For each split fee in item
-                    itemInfo.splitFees.forEach((feeValue, feeName) => {
-                        let initalFeeAmount = 0
-                        if (splitFeesToUpdate.has(feeName))
-                            initalFeeAmount = feeValue
+                    action.fees.forEach( fee => {
+                        let initialFeeAmount = 0
+                        let newFeeAmount = parseFloat(itemInfo.splitFees.get(fee.name))
+                        personTotal = personTotal + newFeeAmount
+                        if (splitFeesToUpdate.has(fee.name)) {
+                            initialFeeAmount = parseFloat(splitFeesToUpdate.get(fee.name))
+                        }
+                        //update split fee total
                         splitFeesToUpdate.set(
-                            feeName,
-                            initalFeeAmount + feeValue
+                            fee.name,
+                            (initialFeeAmount + newFeeAmount).toFixed(2)
                         )
                     })
                 })
@@ -251,10 +288,20 @@ const reducer = (state = intialState, action) => {
                 //     typeof person.splitFees,
                 //     person
                 // )
-                updateObject(person, {splitFees: splitFeesToUpdate})
+                return updateObject(person, {
+                    splitFees: splitFeesToUpdate,
+                    total: personTotal.toFixed(2)
+                })
                 // console.log("post update: ", person.splitFees)
             })
-            return updateObject(state, {items: itemsToSplit})
+            console.log("items", itemsWithSplit);
+            console.log("persons", personsWithFees);
+            console.log("total", action.grandTotal);
+            return updateObject(state, {
+                items: itemsWithSplit,
+                persons: personsWithFees,
+                total: action.grandTotal
+            })
         default:
             return state
     }

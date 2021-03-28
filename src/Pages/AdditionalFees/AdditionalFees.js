@@ -48,7 +48,7 @@ class AdditionalFees extends Component {
         //if input is not empty or value is not 0, get updated grandtotal
         if (event.target.value !== "" && parseFloat(event.target.value) > 0) {
             //start with subtotal
-            newTotal = this.props.subtotal
+            newTotal = parseFloat(this.props.subtotal)
             //go through each fee amounts
             for (let i = 0; i < this.state.fees.length; i++) {
                 //if not selected fee, add to new total
