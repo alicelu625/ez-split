@@ -223,6 +223,7 @@ const reducer = (state = intialState, action) => {
                     percentage: currentFeePercentage
                 })
             })
+            console.log('fee percentages', feePercentages);
 
             //////// CALCULATING SPLIT PRICE FOR EVERY ITEM ////////
             let itemsToSplit = [...state.items]
@@ -244,14 +245,15 @@ const reducer = (state = intialState, action) => {
                         feeAmount = 0;
                     }
                     //update item fee
-                    itemFeesMap.set(fee.name, feeAmount.toFixed(2))
+                    itemFeesMap.set(fee.name, feeAmount)
                 })
                 //update item object
                 return updateObject(item, {
-                    splitPrice: itemSplitPrice.toFixed(2),
+                    splitPrice: itemSplitPrice,
                     splitFees: itemFeesMap
                 });
             })
+            console.log('items w/ split', itemsWithSplit);
             //////// CALCULATING SPLIT FEES (TAX TIP) FOR EACH PERSON ////////
             let personsWithFees = state.persons.map((person) => {
                 let personTotal = 0;
@@ -264,19 +266,19 @@ const reducer = (state = intialState, action) => {
                         (tempItem) => item === tempItem.name
                     )
                     //add item price to person total amount
-                    personTotal = personTotal + parseFloat(itemInfo.price);
+                    personTotal = personTotal + itemInfo.splitPrice;
                     // For each split fee in item
                     action.fees.forEach( fee => {
                         let initialFeeAmount = 0
-                        let newFeeAmount = parseFloat(itemInfo.splitFees.get(fee.name))
+                        let newFeeAmount = itemInfo.splitFees.get(fee.name)
                         personTotal = personTotal + newFeeAmount
                         if (splitFeesToUpdate.has(fee.name)) {
-                            initialFeeAmount = parseFloat(splitFeesToUpdate.get(fee.name))
+                            initialFeeAmount = splitFeesToUpdate.get(fee.name)
                         }
                         //update split fee total
                         splitFeesToUpdate.set(
                             fee.name,
-                            (initialFeeAmount + newFeeAmount).toFixed(2)
+                            initialFeeAmount + newFeeAmount
                         )
                     })
                 })
