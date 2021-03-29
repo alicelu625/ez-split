@@ -9,6 +9,7 @@ const intialState = {
     taxedItemSubtotal: "0.00",
     items: [],
     persons: [],
+    fees: [],
     total: "0.00"
 }
 
@@ -300,8 +301,10 @@ const reducer = (state = intialState, action) => {
             console.log("persons", personsWithFees);
             console.log("total", action.grandTotal);
             return updateObject(state, {
+                currentPage: state.currentPage + 1,
                 items: itemsWithSplit,
                 persons: personsWithFees,
+                fees: action.fees,
                 total: action.grandTotal
             })
         default:
