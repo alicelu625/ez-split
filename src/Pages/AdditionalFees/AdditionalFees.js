@@ -1,29 +1,27 @@
-import React, { Component } from "react"
-import { connect } from "react-redux"
+import React, {Component} from "react"
+import {connect} from "react-redux"
 
 import classes from "./AdditionalFees.module.css"
 import Modal from "../../shared/Modal/Modal"
 import ProceedDiv from "../../shared/ProceedDiv/ProceedDiv"
 import * as actionTypes from "../../store/actions"
 
-// export default connect(mapStateToProps)
-
 class AdditionalFees extends Component {
     state = {
         fees: [
             {
                 name: "tax",
-                amount: "0.00",
+                amount: "0.00"
             },
             {
                 name: "tip",
-                amount: "0.00",
-            },
+                amount: "0.00"
+            }
         ],
         grandTotal: this.props.subtotal,
         showModal: false,
         addFeeName: "",
-        addFeeAmount: "",
+        addFeeAmount: ""
     }
 
     //fee amount inline change
@@ -31,14 +29,14 @@ class AdditionalFees extends Component {
         //make copy of fees array
         let fees = [...this.state.fees]
         //make copy of fee object
-        let fee = { ...fees[id] }
+        let fee = {...fees[id]}
         //update amount
         fee.amount = event.target.value
         //set object to updated object
         fees[id] = fee
 
         //update state to new updated copy
-        this.setState({ fees })
+        this.setState({fees})
     }
 
     //when user leaves input field
@@ -61,12 +59,12 @@ class AdditionalFees extends Component {
         }
 
         //update state with new total
-        this.setState({ grandTotal: newTotal.toFixed(2) })
+        this.setState({grandTotal: newTotal.toFixed(2)})
     }
 
     //add additional fees clicked
     openModalHandler = () => {
-        this.setState({ showModal: true })
+        this.setState({showModal: true})
     }
 
     //cancel or backdrop clicked
@@ -74,18 +72,18 @@ class AdditionalFees extends Component {
         this.setState({
             showModal: false,
             addFeeName: "",
-            addFeeAmount: "",
+            addFeeAmount: ""
         })
     }
 
     //name change in add fee modal
     addFeeNameChangedHandler = (event) => {
-        this.setState({ addFeeName: event.target.value })
+        this.setState({addFeeName: event.target.value})
     }
 
     //amount change in add fee modal
     addFeeAmountChangedHandler = (event) => {
-        this.setState({ addFeeAmount: event.target.value })
+        this.setState({addFeeAmount: event.target.value})
     }
 
     //save clicked on modal upon adding fee
@@ -93,13 +91,13 @@ class AdditionalFees extends Component {
         //new fee object
         let newFee = {
             name: this.state.addFeeName,
-            amount: this.state.addFeeAmount,
+            amount: this.state.addFeeAmount
         }
 
         //update grand total
         let newTotal = this.state.grandTotal
         //start with subtotal
-        newTotal = parseFloat(this.props.subtotal);
+        newTotal = parseFloat(this.props.subtotal)
         //go through each fee amounts, add to new total
         for (let i = 0; i < this.state.fees.length; i++) {
             newTotal = newTotal + parseFloat(this.state.fees[i].amount)
@@ -115,7 +113,7 @@ class AdditionalFees extends Component {
             addFeeName: "",
             addFeeAmount: "",
             grandTotal: newTotal.toFixed(2),
-            showModal: false,
+            showModal: false
         })
     }
 
@@ -198,7 +196,7 @@ class AdditionalFees extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        subtotal: state.subtotal,
+        subtotal: state.subtotal
     }
 }
 
@@ -208,8 +206,8 @@ const mapDispatchToProps = (dispatch) => {
             dispatch({
                 type: actionTypes.ON_SPLIT,
                 fees: fees,
-                grandTotal: grandTotal,
-            }),
+                grandTotal: grandTotal
+            })
     }
 }
 
