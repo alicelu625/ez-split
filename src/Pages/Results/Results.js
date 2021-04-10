@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import classes from './Results.module.css';
+import * as actionTypes from '../../store/actions'
 
 class Results extends Component {
     state = {
@@ -54,7 +55,7 @@ class Results extends Component {
                     </div>
                 ))}
                 <div>Grand Total: {this.props.total}</div>
-                <button>View Receipt</button>
+                <button onClick={this.props.onNextPage}>View Receipt</button>
                 <button>Close</button>
             </div>
         )
@@ -71,4 +72,10 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Results)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onNextPage: () => dispatch({ type: actionTypes.NEXT_PAGE })
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Results)

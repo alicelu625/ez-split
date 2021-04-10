@@ -8,6 +8,7 @@ import ClaimItems from './Pages/ClaimItems/ClaimItems';
 import Tax from './Pages/Tax/Tax';
 import AdditionalFees from "./Pages/AdditionalFees/AdditionalFees";
 import Results from './Pages/Results/Results';
+import Receipt from './Pages/Receipt/Receipt';
 
 class App extends Component {
   render() {
@@ -24,6 +25,8 @@ class App extends Component {
       currentComponent = <AdditionalFees/>
     } else if (this.props.currentPage === 5) {
       currentComponent = <Results/>
+    } else if (this.props.currentPage === 6) {
+      currentComponent = <Receipt/>
     }
     return (
       <Layout>

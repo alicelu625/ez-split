@@ -19,7 +19,7 @@ class Layout extends Component {
                 <ProceedDiv clicked={this.props.onNextPage}>Next</ProceedDiv>
             </div>
         )
-        if (this.props.currentPage === 4 || this.props.currentPage === 5) {
+        if (this.props.currentPage > 3) {
             afterStart = (
                 <div>
                     <Header
