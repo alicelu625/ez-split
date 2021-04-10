@@ -4,7 +4,6 @@ import ProceedDiv from "../../shared/ProceedDiv/ProceedDiv"
 
 import * as actionTypes from "../../store/actions"
 import classes from "./Start.module.css"
-
 class Start extends Component {
     render() {
         return (
