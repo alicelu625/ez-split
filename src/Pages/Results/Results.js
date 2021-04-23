@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import classes from './Results.module.css';
+import * as actionTypes from '../../store/actions'
 
 class Results extends Component {
     state = {
@@ -12,7 +13,7 @@ class Results extends Component {
         //make copy of showDetails array
         let tempArr = [...this.state.showDetails];
         //change index to true
-        tempArr[id] = true;
+        tempArr[id] = !tempArr[id];
         //set state
         this.setState({showDetails: tempArr});
     }
@@ -31,16 +32,15 @@ class Results extends Component {
                             </div>
                             <div>
                                 {this.state.showDetails[id] === true
-                                ? <div>{person.items.forEach(item => {
+                                ? <div>{person.items.map((item, id) => {
                                     //look for item that the person claimed in items array
                                     let foundItem = this.props.items.find(findItem => item === findItem.name);
-                                    console.log(foundItem.name, foundItem.splitPrice.toFixed(2));
                                     //display the item & the split price
-                                    return <p>{foundItem.name}: {foundItem.splitPrice.toFixed(2)}</p>
+                                    return <p key={id}>{foundItem.name}: {foundItem.splitPrice.toFixed(2)}</p>
                                 })}
-                                {person.splitFees.forEach(fee => 
-                                    <p>{fee.name}: {fee.amount}</p>
-                                )}
+                                {[...person.splitFees.keys()].map((feeName, id) => {
+                                    return <p key={id}>{feeName}: {person.splitFees.get(feeName).toFixed(2)}</p>
+                                })}
                                 </div>
                                 : null
                                 }
@@ -55,7 +55,7 @@ class Results extends Component {
                     </div>
                 ))}
                 <div>Grand Total: {this.props.total}</div>
-                <button>View Receipt</button>
+                <button onClick={this.props.onNextPage}>View Receipt</button>
                 <button>Close</button>
             </div>
         )
@@ -72,4 +72,10 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Results)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onNextPage: () => dispatch({ type: actionTypes.NEXT_PAGE })
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Results)
