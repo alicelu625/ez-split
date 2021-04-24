@@ -1,6 +1,13 @@
 import React, {Component} from "react"
 import {connect} from "react-redux"
 import ProceedDiv from "../../shared/ProceedDiv/ProceedDiv"
+import {makeStyles} from "@material-ui/core/styles"
+import Button from "@material-ui/core/Button"
+// import { Grid, Paper } from "@material-ui/core/styles"
+
+// const useStyles = makeStyle((theme) => ({
+
+// }))
 
 import * as actionTypes from "../../store/actions"
 import classes from "./Start.module.css"
@@ -9,6 +16,10 @@ class Start extends Component {
         return (
             <div className={classes.Start}>
                 <h1>ezSplit</h1>
+                {/* <Button color="primary" variant="contained">
+                    {" "}
+                    Yeehaw{" "}
+                </Button> */}
                 <div className={classes.InputsDiv}>
                     <input
                         className={classes.Input}
