@@ -1,13 +1,16 @@
-import React from 'react';
-
-import classes from './ProceedDiv.module.css';
+import React from "react"
+import Button from "@material-ui/core/Button"
+import classes from "./ProceedDiv.module.css"
 
 const proceedDiv = (props) => {
     return (
-        <div className={classes.ProceedDiv} onClick={props.clicked}>
+        <Button color="primary" variant="contained" onClick={props.clicked}>
             {props.children}
-        </div>
+        </Button>
+        // <div className={classes.ProceedDiv} >
+
+        // </div>
     )
 }
 
-export default proceedDiv;
+export default proceedDiv

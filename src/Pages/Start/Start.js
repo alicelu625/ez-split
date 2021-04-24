@@ -16,10 +16,7 @@ class Start extends Component {
         return (
             <div className={classes.Start}>
                 <h1>ezSplit</h1>
-                {/* <Button color="primary" variant="contained">
-                    {" "}
-                    Yeehaw{" "}
-                </Button> */}
+
                 <div className={classes.InputsDiv}>
                     <input
                         className={classes.Input}
@@ -43,7 +40,7 @@ class Start extends Component {
                     />
                 </div>
                 <ProceedDiv
-                    className={classes.ProceedDiv}
+                    className={classes.proceedButton}
                     clicked={this.props.onStart}
                 >
                     Start

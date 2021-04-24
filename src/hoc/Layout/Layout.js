@@ -1,5 +1,5 @@
-import React, { Component } from "react"
-import { connect } from "react-redux"
+import React, {Component} from "react"
+import {connect} from "react-redux"
 
 import Header from "../../shared/Header/Header"
 import ProceedDiv from "../../shared/ProceedDiv/ProceedDiv"
@@ -40,14 +40,14 @@ class Layout extends Component {
 const mapStateToProps = (state) => {
     return {
         eventName: state.eventName,
-        currentPage: state.currentPage,
+        currentPage: state.currentPage
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onGoBack: () => dispatch({ type: actionTypes.GO_BACK }),
-        onNextPage: () => dispatch({ type: actionTypes.NEXT_PAGE }),
+        onGoBack: () => dispatch({type: actionTypes.GO_BACK}),
+        onNextPage: () => dispatch({type: actionTypes.NEXT_PAGE})
     }
 }
 
