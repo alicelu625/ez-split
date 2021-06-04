@@ -5,8 +5,8 @@ const intialState = {
     eventName: "",
     amountPeople: "",
     currentPage: 0,
-    subtotal: "0.00",
-    taxedItemSubtotal: "0.00",
+    subtotal: 0,
+    taxedItemSubtotal: 0,
     items: [],
     persons: [],
     fees: [],
@@ -45,7 +45,7 @@ const reducer = (state = intialState, action) => {
             //updatedItems = copy of items + new item
             let updatedItems = state.items.concat({
                 name: action.name,
-                price: action.price,
+                price: parseFloat(action.price),
                 persons: [],
                 taxed: false,
                 splitPrice: "",
@@ -53,21 +53,19 @@ const reducer = (state = intialState, action) => {
             })
             //update price
             let updatedPrice =
-                parseFloat(state.subtotal) + parseFloat(action.price)
+                state.subtotal + parseFloat(action.price)
             //update state
             return updateObject(state, {
                 items: updatedItems,
-                subtotal: updatedPrice.toFixed(2)
+                subtotal: updatedPrice
             })
         case actionTypes.REMOVE_ITEM:
             //update subtotal
-            let updatedSubtotal =
-                parseFloat(state.subtotal) -
-                parseFloat(state.items[action.id].price)
+            let updatedSubtotal = state.subtotal - parseFloat(state.items[action.id].price)
             //update items excluding removed item & update subtotal object
             return updateObject(state, {
                 items: state.items.filter((_, i) => i !== action.id),
-                subtotal: updatedSubtotal.toFixed(2)
+                subtotal: updatedSubtotal
             })
         case actionTypes.GO_BACK:
             return updateObject(state, {currentPage: state.currentPage - 1})
@@ -181,10 +179,10 @@ const reducer = (state = intialState, action) => {
             
             //update subtotal for taxed items
             if (!currentItems[action.itemId].taxed === true) {
-                taxedSubtotal = parseFloat(state.taxedItemSubtotal) + parseFloat(currentItems[action.itemId].price)
+                taxedSubtotal = state.taxedItemSubtotal + currentItems[action.itemId].price
             }
             else {
-                taxedSubtotal = parseFloat(state.taxedItemSubtotal) - parseFloat(currentItems[action.itemId].price)
+                taxedSubtotal = state.taxedItemSubtotal - currentItems[action.itemId].price
             }
             // Updated the item with the following id, given the itemId (action.itemId)
             let updatedTaxItem = updateObject(currentItems[action.itemId], {
@@ -194,7 +192,7 @@ const reducer = (state = intialState, action) => {
             currentItems[action.itemId] = updatedTaxItem
             return updateObject(state, {
                 items: currentItems,
-                taxedItemSubtotal: taxedSubtotal.toFixed(2)
+                taxedItemSubtotal: taxedSubtotal
             })
         case actionTypes.SELECT_ALL_ITEMS:
             let currentItemsSelectAll = [...state.items]

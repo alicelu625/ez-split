@@ -13,11 +13,11 @@ class AdditionalFees extends Component {
         fees: [
             {
                 name: "tax",
-                amount: "0.00",
+                amount: 0,
             },
             {
                 name: "tip",
-                amount: "0.00",
+                amount: 0,
             },
         ],
         grandTotal: this.props.subtotal,
@@ -48,20 +48,20 @@ class AdditionalFees extends Component {
         //if input is not empty or value is not 0, get updated grandtotal
         if (event.target.value !== "" && parseFloat(event.target.value) > 0) {
             //start with subtotal
-            newTotal = parseFloat(this.props.subtotal)
+            newTotal = this.props.subtotal
             //go through each fee amounts
             for (let i = 0; i < this.state.fees.length; i++) {
                 //if not selected fee, add to new total
                 if (i !== id) {
-                    newTotal = newTotal + parseFloat(this.state.fees[i].amount)
+                    newTotal = newTotal + this.state.fees[i].amount
                 }
             }
             //add current fee
-            newTotal = parseFloat(newTotal) + parseFloat(event.target.value)
+            newTotal = newTotal + parseFloat(event.target.value)
         }
 
         //update state with new total
-        this.setState({ grandTotal: newTotal.toFixed(2) })
+        this.setState({ grandTotal: newTotal})
     }
 
     //add additional fees clicked
@@ -73,8 +73,8 @@ class AdditionalFees extends Component {
     closeModalHandler = () => {
         this.setState({
             showModal: false,
-            addFeeName: "",
-            addFeeAmount: "",
+            addFeeName: 0,
+            addFeeAmount: 0,
         })
     }
 
@@ -93,16 +93,16 @@ class AdditionalFees extends Component {
         //new fee object
         let newFee = {
             name: this.state.addFeeName,
-            amount: this.state.addFeeAmount,
+            amount: parseFloat(this.state.addFeeAmount)
         }
 
         //update grand total
         let newTotal = this.state.grandTotal
         //start with subtotal
-        newTotal = parseFloat(this.props.subtotal);
+        newTotal = this.props.subtotal;
         //go through each fee amounts, add to new total
         for (let i = 0; i < this.state.fees.length; i++) {
-            newTotal = newTotal + parseFloat(this.state.fees[i].amount)
+            newTotal = newTotal + this.state.fees[i].amount
         }
         //add new fee amount
         newTotal = newTotal + parseFloat(this.state.addFeeAmount)
@@ -114,7 +114,7 @@ class AdditionalFees extends Component {
             fees: updatedFees,
             addFeeName: "",
             addFeeAmount: "",
-            grandTotal: newTotal.toFixed(2),
+            grandTotal: newTotal,
             showModal: false,
         })
     }
@@ -152,7 +152,7 @@ class AdditionalFees extends Component {
                 <div className={classes.Fees}>
                     <div className={classes.Fee}>
                         <p>Subtotal</p>
-                        <p>${this.props.subtotal}</p>
+                        <p>${this.props.subtotal.toFixed(2)}</p>
                     </div>
                     {this.state.fees.map((fee, id) => (
                         <div className={classes.Fee} key={id}>
@@ -179,7 +179,7 @@ class AdditionalFees extends Component {
                 </div>
                 <div className={classes.Total}>
                     <p>Grandtotal</p>
-                    <p>${this.state.grandTotal}</p>
+                    <p>${this.state.grandTotal.toFixed(2)}</p>
                 </div>
                 <ProceedDiv
                     clicked={() =>

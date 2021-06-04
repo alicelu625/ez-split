@@ -20,7 +20,7 @@ class Tax extends Component {
                     <div key={id} className={classes.itemSliver}>
                         <Item
                             itemName={item.name}
-                            itemPrice={item.price}
+                            itemPrice={item.price.toFixed(2)}
                             currentPage={this.props.currentPage}
                             claimers={item.persons}
                         />

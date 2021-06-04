@@ -8,7 +8,7 @@ import * as actionTypes from "../../store/actions"
 class ClaimItems extends Component {
     //local state
     state = {
-        currentPerson: 0,
+        currentPerson: 0
     }
 
     //selected person
@@ -52,7 +52,7 @@ class ClaimItems extends Component {
                         <div key={id} className={classes.ItemsDiv}>
                             <Item
                                 itemName={item.name}
-                                itemPrice={item.price}
+                                itemPrice={item.price.toFixed(2)}
                                 currentPage={this.props.currentPage}
                                 claimers={this.props.items[id].persons}
                             />

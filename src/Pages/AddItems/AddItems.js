@@ -69,7 +69,7 @@ class AddItems extends Component {
                     </div>
                 </Modal>
                 <div className={classes.Subtotal}>
-                    <p>${this.props.subtotal}</p>
+                    <p>${this.props.subtotal.toFixed(2)}</p>
                     <p>Subtotal</p>
                 </div>
                 <div className={classes.Items}>
@@ -77,7 +77,7 @@ class AddItems extends Component {
                         <div className={classes.ItemRow} key={id}>
                             <Item
                                 itemName={item.name}
-                                itemPrice={item.price}
+                                itemPrice={item.price.toFixed(2)}
                                 currentPage={this.props.currentPage}
                                 claimers={this.props.items[id].claimers}
                             />
