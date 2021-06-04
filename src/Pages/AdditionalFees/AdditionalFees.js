@@ -13,11 +13,11 @@ class AdditionalFees extends Component {
         fees: [
             {
                 name: "tax",
-                amount: 0,
+                amount: "0.00",
             },
             {
                 name: "tip",
-                amount: 0,
+                amount: "0.00",
             },
         ],
         grandTotal: this.props.subtotal,
@@ -53,7 +53,7 @@ class AdditionalFees extends Component {
             for (let i = 0; i < this.state.fees.length; i++) {
                 //if not selected fee, add to new total
                 if (i !== id) {
-                    newTotal = newTotal + this.state.fees[i].amount
+                    newTotal = newTotal + parseFloat(this.state.fees[i].amount)
                 }
             }
             //add current fee
@@ -102,7 +102,7 @@ class AdditionalFees extends Component {
         newTotal = this.props.subtotal;
         //go through each fee amounts, add to new total
         for (let i = 0; i < this.state.fees.length; i++) {
-            newTotal = newTotal + this.state.fees[i].amount
+            newTotal = newTotal + parseFloat(this.state.fees[i].amount)
         }
         //add new fee amount
         newTotal = newTotal + parseFloat(this.state.addFeeAmount)
@@ -173,7 +173,7 @@ class AdditionalFees extends Component {
                     ))}
                     <div>
                         <button onClick={this.openModalHandler}>
-                            + Additional Fees
+                            + Add more fees
                         </button>
                     </div>
                 </div>
