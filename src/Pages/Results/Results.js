@@ -28,7 +28,7 @@ class Results extends Component {
                             <div>
                                 {person.name}
                                 <button onClick={() => this.showDetailsHandler(id)}>Show details</button>
-                                {person.total}
+                                {(Math.round( person.total * 100 ) / 100).toFixed(2)}
                             </div>
                             <div>
                                 {this.state.showDetails[id] === true
@@ -48,13 +48,13 @@ class Results extends Component {
                         </div>
                     ))}
                 </div>
-                <div>Subtotal: {this.props.subtotal}</div>
+                <div>Subtotal: {this.props.subtotal.toFixed(2)}</div>
                 {this.props.fees.map((fee, id) => (
                     <div key={id}>
                         {fee.name}: {fee.amount}
                     </div>
                 ))}
-                <div>Grand Total: {this.props.total}</div>
+                <div>Grand Total: {this.props.total.toFixed(2)}</div>
                 <button onClick={this.props.onNextPage}>View Receipt</button>
                 <button>Close</button>
             </div>

@@ -10,7 +10,7 @@ const intialState = {
     items: [],
     persons: [],
     fees: [],
-    total: "0.00"
+    total: 0
 }
 
 const reducer = (state = intialState, action) => {
@@ -29,7 +29,7 @@ const reducer = (state = intialState, action) => {
                     name: i,
                     items: [],
                     splitFees: [],
-                    total: "0.00"
+                    total: 0
                 })
             }
             //set persons state to created array
@@ -48,7 +48,7 @@ const reducer = (state = intialState, action) => {
                 price: parseFloat(action.price),
                 persons: [],
                 taxed: false,
-                splitPrice: "",
+                splitPrice: 0,
                 splitFees: []
             })
             //update price
@@ -61,7 +61,7 @@ const reducer = (state = intialState, action) => {
             })
         case actionTypes.REMOVE_ITEM:
             //update subtotal
-            let updatedSubtotal = state.subtotal - parseFloat(state.items[action.id].price)
+            let updatedSubtotal = state.subtotal - state.items[action.id].price
             //update items excluding removed item & update subtotal object
             return updateObject(state, {
                 items: state.items.filter((_, i) => i !== action.id),
@@ -211,10 +211,10 @@ const reducer = (state = intialState, action) => {
             action.fees.forEach((fee) => {
                 // % = fee amount / subtotal
                 let currentFeePercentage =
-                    parseFloat(fee.amount) / parseFloat(state.subtotal)
+                    parseFloat(fee.amount) / state.subtotal
                 //if fee is tax, use subtotal of taxed items instead
                 if (fee.name === "tax") {
-                    currentFeePercentage = parseFloat(fee.amount) / parseFloat(state.taxedItemSubtotal)
+                    currentFeePercentage = parseFloat(fee.amount) / state.taxedItemSubtotal
                 }
                 //push object to array
                 feePercentages.push({
@@ -230,15 +230,14 @@ const reducer = (state = intialState, action) => {
             let itemsWithSplit = itemsToSplit.map(item => {
                 //calculate split price = item price / # people who claimed item
                 let itemSplitPrice =
-                    parseFloat(item.price) /
-                    parseFloat(item.persons.length)
+                    parseFloat(item.price) / item.persons.length
                 //store item fees
                 let itemFeesMap = new Map()
                 //calculate fee amount for each fee
                 feePercentages.forEach((fee) => {
                     //calculate fee amount = item split price * fee%
                     let feeAmount =
-                        fee.percentage * parseFloat(itemSplitPrice)
+                        fee.percentage * itemSplitPrice
                     //if calculating tax & item is not taxed, then set amount to 0
                     if (fee.name === "tax" && item.taxed === false) {
                         feeAmount = 0;
@@ -291,7 +290,7 @@ const reducer = (state = intialState, action) => {
                 // )
                 return updateObject(person, {
                     splitFees: splitFeesToUpdate,
-                    total: personTotal.toFixed(2)
+                    total: personTotal
                 })
                 // console.log("post update: ", person.splitFees)
             })

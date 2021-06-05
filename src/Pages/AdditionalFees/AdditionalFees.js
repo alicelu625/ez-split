@@ -6,8 +6,6 @@ import Modal from "../../shared/Modal/Modal"
 import ProceedDiv from "../../shared/ProceedDiv/ProceedDiv"
 import * as actionTypes from "../../store/actions"
 
-// export default connect(mapStateToProps)
-
 class AdditionalFees extends Component {
     state = {
         fees: [
@@ -23,7 +21,7 @@ class AdditionalFees extends Component {
         grandTotal: this.props.subtotal,
         showModal: false,
         addFeeName: "",
-        addFeeAmount: "",
+        addFeeAmount: ""
     }
 
     //fee amount inline change
@@ -60,8 +58,18 @@ class AdditionalFees extends Component {
             newTotal = newTotal + parseFloat(event.target.value)
         }
 
-        //update state with new total
-        this.setState({ grandTotal: newTotal})
+        //update fee to 2 decimal places string
+        //make copy of fees array
+        let fees = [...this.state.fees]
+        //make copy of fee object
+        let fee = { ...fees[id] }
+        //update amount
+        fee.amount = parseFloat(event.target.value).toFixed(2)
+        //set object to updated object
+        fees[id] = fee
+
+        //update state with new total & fees
+        this.setState({ grandTotal: newTotal, fees: fees})
     }
 
     //add additional fees clicked
@@ -160,6 +168,7 @@ class AdditionalFees extends Component {
                             <p>
                                 $
                                 <input
+                                    type="text"
                                     value={fee.amount}
                                     onBlur={(event) =>
                                         this.updateTotal(event, id)
