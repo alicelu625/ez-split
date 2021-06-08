@@ -18,8 +18,9 @@ const reducer = (state = intialState, action) => {
     switch (action.type) {
         case actionTypes.ON_START:
             let initialPersons = []
+            let amountPeople = parseInt(action.amountPeople);
             //create person objects = to amountPeople & push to array
-            for (let i = 0; i < state.amountPeople; i++) {
+            for (let i = 0; i < amountPeople; i++) {
                 initialPersons.push({
                     name: i,
                     items: [],
@@ -32,7 +33,7 @@ const reducer = (state = intialState, action) => {
                 currentPage: state.currentPage + 1,
                 persons: initialPersons,
                 eventName: action.eventName,
-                amountPeople: parseInt(action.amountPeople)
+                amountPeople: amountPeople
             })
         case actionTypes.NEXT_PAGE:
             return updateObject(state, {
