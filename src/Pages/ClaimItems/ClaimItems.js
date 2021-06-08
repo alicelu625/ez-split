@@ -19,8 +19,15 @@ class ClaimItems extends Component {
     //remove selected person
     removePersonHandler = () => {
         this.props.onRemovePerson(this.state.currentPerson)
-        //reset selected person to previous
-        this.setState({ currentPerson: this.state.currentPerson - 1 })
+
+        //if 1st person removed, reset selected person to next person
+        if (this.state.currentPerson == 0) {
+            this.setState({currentPerson: this.state.currentPerson})
+        }
+        //if not 1st person removed, reset selected person to previous person
+        else {
+            this.setState({ currentPerson: this.state.currentPerson - 1 })
+        }
     }
 
     render() {
