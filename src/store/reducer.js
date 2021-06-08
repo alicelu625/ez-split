@@ -4,6 +4,7 @@ import {updateObject} from "../shared/utility"
 const intialState = {
     eventName: "",
     amountPeople: "",
+    personIndex: 0,
     currentPage: 0,
     subtotal: 0,
     taxedItemSubtotal: 0,
@@ -15,12 +16,6 @@ const intialState = {
 
 const reducer = (state = intialState, action) => {
     switch (action.type) {
-        case actionTypes.EVENT_NAME_CHANGED:
-            return updateObject(state, {eventName: action.event.target.value})
-        case actionTypes.AMOUNT_PEOPLE_CHANGED:
-            return updateObject(state, {
-                amountPeople: parseInt(action.event.target.value)
-            })
         case actionTypes.ON_START:
             let initialPersons = []
             //create person objects = to amountPeople & push to array
@@ -30,12 +25,14 @@ const reducer = (state = intialState, action) => {
                     items: [],
                     splitFees: [],
                     total: 0
-                })
+                });
             }
             //set persons state to created array
             return updateObject(state, {
                 currentPage: state.currentPage + 1,
-                persons: initialPersons
+                persons: initialPersons,
+                eventName: action.eventName,
+                amountPeople: parseInt(action.amountPeople)
             })
         case actionTypes.NEXT_PAGE:
             return updateObject(state, {

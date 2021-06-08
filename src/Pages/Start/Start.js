@@ -6,6 +6,19 @@ import * as actionTypes from '../../store/actions';
 import classes from './Start.module.css';
 
 class Start extends Component {
+    state = {
+        eventName: "",
+        amountPeople: ""
+    }
+
+    nameChangedHandler = (event) => {
+        this.setState({eventName: event.target.value});
+    }
+
+    amountPeopleChangedHandler = (event) => {
+        this.setState({amountPeople: event.target.value});
+    }
+
     render() {
         return (
             <div className={classes.Start}>
@@ -16,19 +29,19 @@ class Start extends Component {
                     type="text" 
                     placeholder="Event name" 
                     required
-                    onChange={(event) => this.props.onEventNameChanged(event)}
-                    value={this.props.eventName}
+                    onChange={(event) => this.nameChangedHandler(event)}
+                    value={this.state.eventName}
                 />
                 <input 
                     className={classes.Input}
                     type="number"
                     placeholder="Amount of people"
                     required
-                    onChange={(event) => this.props.onAmountPeopleChanged(event)}
-                    value={this.props.amountPeople}
+                    onChange={(event) => this.amountPeopleChangedHandler(event)}
+                    value={this.state.amountPeople}
                 />
                 </div>
-                <ProceedDiv className={classes.ProceedDiv} clicked={this.props.onStart}>
+                <ProceedDiv className={classes.ProceedDiv} clicked={() => this.props.onStart(this.state.eventName, this.state.amountPeople)}>
                     Start
                 </ProceedDiv>
             </div>
@@ -45,9 +58,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onStart: () => dispatch({type: actionTypes.ON_START}),
-        onEventNameChanged: (event) => dispatch({type: actionTypes.EVENT_NAME_CHANGED, event: event}),
-        onAmountPeopleChanged: (event) => dispatch({type: actionTypes.AMOUNT_PEOPLE_CHANGED, event: event})
+        onStart: (eventName, amountPeople) => dispatch({type: actionTypes.ON_START, eventName: eventName, amountPeople: amountPeople})
     };
 };
 
