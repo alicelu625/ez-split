@@ -38,6 +38,10 @@ class AddItems extends Component {
             return;
         }
 
+        //note for caret position
+        let original_len = val.length;
+        let caret_position = event.target.selectionStart;
+
         //if decimal entered
         if (val.indexOf(".") >= 0) {
             //position of decimal
@@ -62,7 +66,16 @@ class AddItems extends Component {
             //add commas to # & remove all non-digits
             val = val.replace(/\D/g, "");
         }
-        this.setState({ itemPrice: val });
+
+        //set caret to last position
+        let new_length = val.length;
+        caret_position = new_length - original_len + caret_position;
+
+        //update state & set caret
+        this.setState({ itemPrice: val },
+            () => {
+                this.refs.input.selectionStart = this.refs.input.selectionEnd = caret_position;
+            });
     }
 
     //save clicked after entering name & price
@@ -87,6 +100,7 @@ class AddItems extends Component {
                     <p>
                         $
                         <input
+                            ref="input"
                             type="text"
                             placeholder="0.00"
                             onChange={(event) =>
