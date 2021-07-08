@@ -28,13 +28,51 @@ class AddItems extends Component {
         this.setState({ itemName: event.target.value })
     }
 
+    //function for formatting number
+    formatNumber = (n) => {
+        return n.replace(/\D/g, "");
+    }
+
     //change in price input
     itemPriceChangedHandler = (event) => {
-        this.setState({ itemPrice: event.target.value })
+        let val = event.target.value;
+
+        //no validation needed for empty string
+        if (val === "") {
+            this.setState({ itemPrice: event.target.value });
+            return;
+        }
+
+        //if decimal entered
+        if (val.indexOf(".") >= 0) {
+            //position of decimal
+            let dec_position = val.indexOf(".");
+
+            //split # by decimal 
+            let left = val.substring(0, dec_position);
+            let right = val.substring(dec_position);
+
+            //validate numbers
+            left = this.formatNumber(left);
+            right = this.formatNumber(right);
+
+            //limit right side to only 2 digits
+            right = right.substring(0,2);
+
+            //join number
+            val = left + "." + right;
+        }
+        //if no decimal entered
+        else {
+            //add commas to # & remove all non-digits
+            val = this.formatNumber(val);
+        }
+        this.setState({ itemPrice: val });
     }
 
     //save clicked after entering name & price
     saveItemHandler = () => {
+        console.log("hi" + this.state.itemPrice)
         this.props.onAddItem(this.state.itemName, this.state.itemPrice)
         this.setState({ showModal: false, itemName: "", itemPrice: "" })
     }
