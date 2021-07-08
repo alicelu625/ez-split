@@ -86,7 +86,6 @@ class AdditionalFees extends Component {
         //set caret to last position
         let new_length = val.length;
         caret_position = new_length - original_len + caret_position;
-        console.log(caret_position);
 
         //update state to new updated copy & set caret
         this.setState({ fees },
