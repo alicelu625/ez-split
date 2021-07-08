@@ -30,8 +30,49 @@ class AdditionalFees extends Component {
         let fees = [...this.state.fees]
         //make copy of fee object
         let fee = { ...fees[id] }
+
+        //validate input
+        let val = event.target.value;
+
+        //no validation needed for empty string
+        if (val === "") {
+            //update amount
+            fee.amount = event.target.value
+            //set object to updated object
+            fees[id] = fee
+
+            //update state to new updated copy
+            this.setState({ fees })
+            return;
+        }
+
+        //if decimal entered
+        if (val.indexOf(".") >= 0) {
+            //position of decimal
+            let dec_position = val.indexOf(".");
+
+            //split # by decimal 
+            let left = val.substring(0, dec_position);
+            let right = val.substring(dec_position);
+
+            //validate numbers
+            left = left.replace(/\D/g, "").replace(/\b0+/g, '');
+            right = right.replace(/\D/g, "");
+
+            //limit right side to only 2 digits
+            right = right.substring(0,2);
+
+            //join number
+            val = left + "." + right;
+        }
+        //if no decimal entered
+        else {
+            //add commas to # & remove all non-digits
+            val = val.replace(/\D/g, "").replace(/\b0+/g, '');
+        }
+
         //update amount
-        fee.amount = event.target.value
+        fee.amount = val
         //set object to updated object
         fees[id] = fee
 
@@ -93,7 +134,39 @@ class AdditionalFees extends Component {
 
     //amount change in add fee modal
     addFeeAmountChangedHandler = (event) => {
-        this.setState({ addFeeAmount: event.target.value })
+        let val = event.target.value;
+
+        //no validation needed for empty string
+        if (val === "") {
+            this.setState({ addFeeAmount: event.target.value });
+            return;
+        }
+
+        //if decimal entered
+        if (val.indexOf(".") >= 0) {
+            //position of decimal
+            let dec_position = val.indexOf(".");
+
+            //split # by decimal 
+            let left = val.substring(0, dec_position);
+            let right = val.substring(dec_position);
+
+            //validate numbers
+            left = left.replace(/\D/g, "");
+            right = right.replace(/\D/g, "");
+
+            //limit right side to only 2 digits
+            right = right.substring(0,2);
+
+            //join number
+            val = left + "." + right;
+        }
+        //if no decimal entered
+        else {
+            //add commas to # & remove all non-digits
+            val = val.replace(/\D/g, "");
+        }
+        this.setState({ addFeeAmount: val });
     }
 
     //save clicked on modal upon adding fee

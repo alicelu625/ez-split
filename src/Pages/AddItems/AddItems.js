@@ -28,11 +28,6 @@ class AddItems extends Component {
         this.setState({ itemName: event.target.value })
     }
 
-    //function for formatting number
-    formatNumber = (n) => {
-        return n.replace(/\D/g, "");
-    }
-
     //change in price input
     itemPriceChangedHandler = (event) => {
         let val = event.target.value;
@@ -53,8 +48,8 @@ class AddItems extends Component {
             let right = val.substring(dec_position);
 
             //validate numbers
-            left = this.formatNumber(left);
-            right = this.formatNumber(right);
+            left = left.replace(/\D/g, "");
+            right = right.replace(/\D/g, "");
 
             //limit right side to only 2 digits
             right = right.substring(0,2);
@@ -65,14 +60,13 @@ class AddItems extends Component {
         //if no decimal entered
         else {
             //add commas to # & remove all non-digits
-            val = this.formatNumber(val);
+            val = val.replace(/\D/g, "");
         }
         this.setState({ itemPrice: val });
     }
 
     //save clicked after entering name & price
     saveItemHandler = () => {
-        console.log("hi" + this.state.itemPrice)
         this.props.onAddItem(this.state.itemName, this.state.itemPrice)
         this.setState({ showModal: false, itemName: "", itemPrice: "" })
     }
