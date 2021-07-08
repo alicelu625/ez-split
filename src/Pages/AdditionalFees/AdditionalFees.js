@@ -46,6 +46,10 @@ class AdditionalFees extends Component {
             return;
         }
 
+        //note for caret position
+        let original_len = val.length;
+        let caret_position = event.target.selectionStart;
+
         //if decimal entered
         if (val.indexOf(".") >= 0) {
             //position of decimal
@@ -79,8 +83,16 @@ class AdditionalFees extends Component {
         //set object to updated object
         fees[id] = fee
 
-        //update state to new updated copy
-        this.setState({ fees })
+        //set caret to last position
+        let new_length = val.length;
+        caret_position = new_length - original_len + caret_position;
+        console.log(caret_position);
+
+        //update state to new updated copy & set caret
+        this.setState({ fees },
+            () => {
+                this.refs.input1.selectionStart = this.refs.input1.selectionEnd = caret_position;
+            });
     }
 
     //when user leaves input field
@@ -145,6 +157,10 @@ class AdditionalFees extends Component {
             return;
         }
 
+        //note for caret position
+        let original_len = val.length;
+        let caret_position = event.target.selectionStart;
+
         //if decimal entered
         if (val.indexOf(".") >= 0) {
             //position of decimal
@@ -169,7 +185,17 @@ class AdditionalFees extends Component {
             //add commas to # & remove all non-digits
             val = val.replace(/\D/g, "");
         }
-        this.setState({ addFeeAmount: val });
+
+        //set caret to last position
+        let new_length = val.length;
+        caret_position = new_length - original_len + caret_position;
+        console.log(caret_position);
+
+        //update state & set caret
+        this.setState({ addFeeAmount: val },
+            () => {
+                this.refs.input2.selectionStart = this.refs.input2.selectionEnd = caret_position;
+            });
     }
 
     //save clicked on modal upon adding fee
@@ -213,6 +239,7 @@ class AdditionalFees extends Component {
                     <p>
                         Fee Name:
                         <input
+                            ref="input2"
                             type="text"
                             placeholder="Name of fee"
                             value={this.state.addFeeName}
@@ -244,6 +271,7 @@ class AdditionalFees extends Component {
                             <p>
                                 $
                                 <input
+                                    ref="input1"
                                     type="text"
                                     value={fee.amount}
                                     onBlur={(event) =>
