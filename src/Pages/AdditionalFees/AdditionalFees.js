@@ -56,7 +56,10 @@ class AdditionalFees extends Component {
             let right = val.substring(dec_position);
 
             //validate numbers
-            left = left.replace(/\D/g, "").replace(/\b0+/g, '');
+            left = left.replace(/\D/g, "");
+            if (left.length > 1) {
+                left = left.replace(/\b0+/g, '');
+            }
             right = right.replace(/\D/g, "");
 
             //limit right side to only 2 digits
