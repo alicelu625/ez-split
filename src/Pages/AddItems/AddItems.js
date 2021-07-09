@@ -30,7 +30,52 @@ class AddItems extends Component {
 
     //change in price input
     itemPriceChangedHandler = (event) => {
-        this.setState({ itemPrice: event.target.value })
+        let val = event.target.value;
+
+        //no validation needed for empty string
+        if (val === "") {
+            this.setState({ itemPrice: event.target.value });
+            return;
+        }
+
+        //note for caret position
+        let original_len = val.length;
+        let caret_position = event.target.selectionStart;
+
+        //if decimal entered
+        if (val.indexOf(".") >= 0) {
+            //position of decimal
+            let dec_position = val.indexOf(".");
+
+            //split # by decimal 
+            let left = val.substring(0, dec_position);
+            let right = val.substring(dec_position);
+
+            //validate numbers
+            left = left.replace(/\D/g, "");
+            right = right.replace(/\D/g, "");
+
+            //limit right side to only 2 digits
+            right = right.substring(0,2);
+
+            //join number
+            val = left + "." + right;
+        }
+        //if no decimal entered
+        else {
+            //add commas to # & remove all non-digits
+            val = val.replace(/\D/g, "");
+        }
+
+        //set caret to last position
+        let new_length = val.length;
+        caret_position = new_length - original_len + caret_position;
+
+        //update state & set caret
+        this.setState({ itemPrice: val },
+            () => {
+                this.refs.input.selectionStart = this.refs.input.selectionEnd = caret_position;
+            });
     }
 
     //save clicked after entering name & price
@@ -55,6 +100,7 @@ class AddItems extends Component {
                     <p>
                         $
                         <input
+                            ref="input"
                             type="text"
                             placeholder="0.00"
                             onChange={(event) =>
