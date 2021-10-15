@@ -46,8 +46,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onTaxItem: (itemId) =>
-            dispatch({ type: actionTypes.TAX_ITEM, itemId: itemId }),
+        onTaxItem: (selectedItem) =>
+            dispatch({ type: actionTypes.TAX_ITEM, selectedItem: selectedItem }),
         onSelectAll: () => dispatch({ type: actionTypes.SELECT_ALL_ITEMS }),
     }
 }
