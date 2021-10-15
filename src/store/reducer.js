@@ -4,7 +4,8 @@ import {updateObject} from "../shared/utility"
 const intialState = {
     eventName: "",
     amountPeople: "",
-    personIndex: 0,
+    personId: 0,
+    itemId: 0,
     currentPage: 0,
     subtotal: 0,
     taxedItemSubtotal: 0,
@@ -22,7 +23,8 @@ const reducer = (state = intialState, action) => {
             //create person objects = to amountPeople & push to array
             for (let i = 0; i < amountPeople; i++) {
                 initialPersons.push({
-                    name: i,
+                    personId: i,
+                    name: "Person " + i,
                     items: [],
                     splitFees: [],
                     total: 0
@@ -32,6 +34,7 @@ const reducer = (state = intialState, action) => {
             return updateObject(state, {
                 currentPage: state.currentPage + 1,
                 persons: initialPersons,
+                personId: amountPeople,
                 eventName: action.eventName,
                 amountPeople: amountPeople
             })
@@ -40,8 +43,10 @@ const reducer = (state = intialState, action) => {
                 currentPage: state.currentPage + 1
             })
         case actionTypes.ADD_ITEM:
+            let itemNum = state.itemId;
             //updatedItems = copy of items + new item
             let updatedItems = state.items.concat({
+                itemId: itemNum,
                 name: action.name,
                 price: parseFloat(action.price),
                 persons: [],
@@ -54,6 +59,7 @@ const reducer = (state = intialState, action) => {
                 state.subtotal + parseFloat(action.price)
             //update state
             return updateObject(state, {
+                itemId: itemNum + 1,
                 items: updatedItems,
                 subtotal: updatedPrice
             })
@@ -80,14 +86,17 @@ const reducer = (state = intialState, action) => {
         case actionTypes.ADD_PERSON:
             //add to amount of people
             let updatedAmountPeople = state.amountPeople + 1
+            //get new person index
             //add person object to persons array
             let AddedToPersons = state.persons.concat({
-                name: state.amountPeople,
+                personId: state.personId,
+                name: "Person " + state.personId,
                 items: [],
                 splitFees: []
             })
             //update states
             return updateObject(state, {
+                personId: state.personId + 1,
                 amountPeople: updatedAmountPeople,
                 persons: AddedToPersons
             })
@@ -98,7 +107,7 @@ const reducer = (state = intialState, action) => {
             let itemsRemovedPerson = [...state.items]
             itemsRemovedPerson.forEach((item) => {
                 item.persons = item.persons.filter(
-                    (itemName) => itemName !== state.persons[action.id].name
+                    (personId) => personId !== state.persons[action.id].personId
                 )
             })
             //update persons excluding removed person
@@ -112,57 +121,57 @@ const reducer = (state = intialState, action) => {
             let updateItems = [...state.items]
             //if person hasn't claimed item yet, add to lists
             if (
-                !state.persons[action.personId].items.includes(
-                    state.items[action.itemId].name
+                !state.persons[action.selectedPerson].items.includes(
+                    state.items[action.selectedItem].itemId
                 )
             ) {
                 //add item to person.items array - persons[1].items
-                let personItems = state.persons[action.personId].items.concat(
-                    state.items[action.itemId].name
+                let personItems = state.persons[action.selectedPerson].items.concat(
+                    state.items[action.selectedItem].itemId
                 )
                 //update person object - persons[1]
                 let updatePerson = updateObject(
-                    state.persons[action.personId],
+                    state.persons[action.selectedPerson],
                     {items: personItems}
                 )
                 //update persons array by replacing w/ new person object - persons
-                updatePersons[action.personId] = updatePerson
+                updatePersons[action.selectedPerson] = updatePerson
 
                 //add person to items.persons array - items[1].persons
-                let itemClaimers = state.items[action.itemId].persons.concat(
-                    state.persons[action.personId].name
+                let itemClaimers = state.items[action.selectedItem].persons.concat(
+                    state.persons[action.selectedPerson].personId
                 )
                 //update item object - items[1]
-                let updateItem = updateObject(state.items[action.itemId], {
+                let updateItem = updateObject(state.items[action.selectedItem], {
                     persons: itemClaimers
                 })
                 //update items array by replacing w/ new item object - items
-                updateItems[action.itemId] = updateItem
+                updateItems[action.selectedItem] = updateItem
             } else {
                 //remove item from person.items array
-                let personItems = state.persons[action.personId].items.filter(
-                    (item) => item !== state.items[action.itemId].name
+                let personItems = state.persons[action.selectedPerson].items.filter(
+                    (item) => item !== state.items[action.selectedItem].itemId
                 )
                 //update person object
                 let updatePerson = updateObject(
-                    state.persons[action.personId],
+                    state.persons[action.selectedPerson],
                     {items: personItems}
                 )
                 //update persons array by replacing w/ new person object
                 let updatePersons = [...state.persons]
-                updatePersons[action.personId] = updatePerson
+                updatePersons[action.selectedPerson] = updatePerson
 
                 //remove person from items.claimers array
-                let itemClaimers = state.items[action.itemId].persons.filter(
-                    (person) => person !== state.persons[action.personId].name
+                let itemClaimers = state.items[action.selectedItem].persons.filter(
+                    (person) => person !== state.persons[action.selectedPerson].personId
                 )
                 //update item object
-                let updateItem = updateObject(state.items[action.itemId], {
+                let updateItem = updateObject(state.items[action.selectedItem], {
                     persons: itemClaimers
                 })
                 //update items array by replacing w/ new item object
                 let updateItems = [...state.items]
-                updateItems[action.itemId] = updateItem
+                updateItems[action.selectedItem] = updateItem
             }
 
             //set state persons to updated persons array & items to updated items array
@@ -176,18 +185,18 @@ const reducer = (state = intialState, action) => {
             let taxedSubtotal = state.taxedItemSubtotal;
             
             //update subtotal for taxed items
-            if (!currentItems[action.itemId].taxed === true) {
-                taxedSubtotal = state.taxedItemSubtotal + currentItems[action.itemId].price
+            if (!currentItems[action.selectedItem].taxed === true) {
+                taxedSubtotal = state.taxedItemSubtotal + currentItems[action.selectedItem].price
             }
             else {
-                taxedSubtotal = state.taxedItemSubtotal - currentItems[action.itemId].price
+                taxedSubtotal = state.taxedItemSubtotal - currentItems[action.selectedItem].price
             }
-            // Updated the item with the following id, given the itemId (action.itemId)
-            let updatedTaxItem = updateObject(currentItems[action.itemId], {
-                taxed: !currentItems[action.itemId].taxed
+            // Updated the item with the following id, given the selectedItem (action.selectedItem)
+            let updatedTaxItem = updateObject(currentItems[action.selectedItem], {
+                taxed: !currentItems[action.selectedItem].taxed
             })
             // updated that in the items list
-            currentItems[action.itemId] = updatedTaxItem
+            currentItems[action.selectedItem] = updatedTaxItem
             return updateObject(state, {
                 items: currentItems,
                 taxedItemSubtotal: taxedSubtotal
@@ -259,7 +268,7 @@ const reducer = (state = intialState, action) => {
                 person.items.forEach((item) => {
                     //find item object
                     const itemInfo = itemsWithSplit.find(
-                        (tempItem) => item === tempItem.name
+                        (tempItem) => item === tempItem.itemId
                     )
                     //add item price to person total amount
                     personTotal = personTotal + itemInfo.splitPrice;

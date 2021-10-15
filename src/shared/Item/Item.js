@@ -17,9 +17,12 @@ const item = (props) => {
                 <p>${props.itemPrice}</p>
             </div>
             <div className={classes.Persons}>
-                {props.claimers.map((person, id) =>
-                    <div key={id} className={classes.Person}>{person}</div>
-                )}
+                {props.claimers.map((person, id) => {
+                    //look for person name in persons array
+                    let foundPerson = props.persons.find(findPerson => person === findPerson.personId);
+                    //display the item & the split price
+                    return <div key={id} className={classes.Person}>{foundPerson.name}</div>
+                })}
             </div>
         </div>
     }

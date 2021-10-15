@@ -34,7 +34,7 @@ class Results extends Component {
                                 {this.state.showDetails[id] === true
                                 ? <div>{person.items.map((item, id) => {
                                     //look for item that the person claimed in items array
-                                    let foundItem = this.props.items.find(findItem => item === findItem.name);
+                                    let foundItem = this.props.items.find(findItem => item === findItem.itemId);
                                     //display the item & the split price
                                     return <p key={id}>{foundItem.name}: {foundItem.splitPrice.toFixed(2)}</p>
                                 })}
