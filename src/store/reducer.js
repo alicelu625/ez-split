@@ -152,25 +152,25 @@ const reducer = (state = intialState, action) => {
                 let personItems = state.persons[action.selectedPerson].items.filter(
                     (item) => item !== state.items[action.selectedItem].itemId
                 )
+
                 //update person object
                 let updatePerson = updateObject(
                     state.persons[action.selectedPerson],
                     {items: personItems}
                 )
                 //update persons array by replacing w/ new person object
-                let updatePersons = [...state.persons]
                 updatePersons[action.selectedPerson] = updatePerson
 
                 //remove person from items.claimers array
                 let itemClaimers = state.items[action.selectedItem].persons.filter(
                     (person) => person !== state.persons[action.selectedPerson].personId
                 )
+
                 //update item object
                 let updateItem = updateObject(state.items[action.selectedItem], {
                     persons: itemClaimers
                 })
                 //update items array by replacing w/ new item object
-                let updateItems = [...state.items]
                 updateItems[action.selectedItem] = updateItem
             }
 
