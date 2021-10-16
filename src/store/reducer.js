@@ -44,11 +44,15 @@ const reducer = (state = intialState, action) => {
             });
         case actionTypes.ADD_ITEM:
             let itemNum = state.itemId;
+            let price = 0;
+            if (action.price !== "") {
+                price = parseFloat(action.price);
+            }
             //updatedItems = copy of items + new item
             let updatedItems = state.items.concat({
                 itemId: itemNum,
                 name: action.name,
-                price: parseFloat(action.price),
+                price: price,
                 persons: [],
                 taxed: false,
                 splitPrice: 0,
@@ -56,7 +60,7 @@ const reducer = (state = intialState, action) => {
             });
             //update price
             let updatedPrice =
-                state.subtotal + parseFloat(action.price);
+                state.subtotal + price;
             //update state
             return updateObject(state, {
                 itemId: itemNum + 1,
