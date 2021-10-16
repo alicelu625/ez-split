@@ -13,20 +13,20 @@ class ClaimItems extends Component {
 
     //selected person
     changePersonHandler = (id) => {
-        this.setState({ currentPerson: id })
+        this.setState({ currentPerson: id });
     }
 
     //remove selected person
     removePersonHandler = () => {
-        this.props.onRemovePerson(this.state.currentPerson)
+        this.props.onRemovePerson(this.state.currentPerson);
 
         //if 1st person removed, reset selected person to next person
         if (this.state.currentPerson === 0) {
-            this.setState({currentPerson: this.state.currentPerson})
+            this.setState({currentPerson: this.state.currentPerson});
         }
         //if not 1st person removed, reset selected person to previous person
         else {
-            this.setState({ currentPerson: this.state.currentPerson - 1 })
+            this.setState({ currentPerson: this.state.currentPerson - 1 });
         }
     }
 
@@ -107,4 +107,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClaimItems)
+export default connect(mapStateToProps, mapDispatchToProps)(ClaimItems);

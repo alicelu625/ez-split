@@ -52,4 +52,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Tax)
+export default connect(mapStateToProps, mapDispatchToProps)(Tax);
