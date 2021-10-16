@@ -27,9 +27,9 @@ class AdditionalFees extends Component {
     //fee amount inline change
     feeChanged = (event, id) => {
         //make copy of fees array
-        let fees = [...this.state.fees]
+        let fees = [...this.state.fees];
         //make copy of fee object
-        let fee = { ...fees[id] }
+        let fee = { ...fees[id] };
 
         //validate input
         let val = event.target.value;
@@ -37,12 +37,12 @@ class AdditionalFees extends Component {
         //no validation needed for empty string
         if (val === "") {
             //update amount
-            fee.amount = event.target.value
+            fee.amount = event.target.value;
             //set object to updated object
-            fees[id] = fee
+            fees[id] = fee;
 
             //update state to new updated copy
-            this.setState({ fees })
+            this.setState({ fees });
             return;
         }
 
@@ -79,9 +79,9 @@ class AdditionalFees extends Component {
         }
 
         //update amount
-        fee.amount = val
+        fee.amount = val;
         //set object to updated object
-        fees[id] = fee
+        fees[id] = fee;
 
         //set caret to last position
         let new_length = val.length;
@@ -96,40 +96,40 @@ class AdditionalFees extends Component {
 
     //when user leaves input field
     updateTotal = (event, id) => {
-        let newTotal = this.state.grandTotal
+        let newTotal = this.state.grandTotal;
 
         //if input is not empty or value is not 0, get updated grandtotal
         if (event.target.value !== "" && parseFloat(event.target.value) > 0) {
             //start with subtotal
-            newTotal = this.props.subtotal
+            newTotal = this.props.subtotal;
             //go through each fee amounts
             for (let i = 0; i < this.state.fees.length; i++) {
                 //if not selected fee, add to new total
                 if (i !== id) {
-                    newTotal = newTotal + parseFloat(this.state.fees[i].amount)
+                    newTotal = newTotal + parseFloat(this.state.fees[i].amount);
                 }
             }
             //add current fee
-            newTotal = newTotal + parseFloat(event.target.value)
+            newTotal = newTotal + parseFloat(event.target.value);
         }
 
         //update fee to 2 decimal places string
         //make copy of fees array
-        let fees = [...this.state.fees]
+        let fees = [...this.state.fees];
         //make copy of fee object
-        let fee = { ...fees[id] }
+        let fee = { ...fees[id] };
         //update amount
-        fee.amount = parseFloat(event.target.value).toFixed(2)
+        fee.amount = parseFloat(event.target.value).toFixed(2);
         //set object to updated object
-        fees[id] = fee
+        fees[id] = fee;
 
         //update state with new total & fees
-        this.setState({ grandTotal: newTotal, fees: fees})
+        this.setState({ grandTotal: newTotal, fees: fees});
     }
 
     //add additional fees clicked
     openModalHandler = () => {
-        this.setState({ showModal: true })
+        this.setState({ showModal: true });
     }
 
     //cancel or backdrop clicked
@@ -138,12 +138,12 @@ class AdditionalFees extends Component {
             showModal: false,
             addFeeName: 0,
             addFeeAmount: 0,
-        })
+        });
     }
 
     //name change in add fee modal
     addFeeNameChangedHandler = (event) => {
-        this.setState({ addFeeName: event.target.value })
+        this.setState({ addFeeName: event.target.value });
     }
 
     //amount change in add fee modal
@@ -203,21 +203,21 @@ class AdditionalFees extends Component {
         let newFee = {
             name: this.state.addFeeName,
             amount: parseFloat(this.state.addFeeAmount)
-        }
+        };
 
         //update grand total
-        let newTotal = this.state.grandTotal
+        let newTotal = this.state.grandTotal;
         //start with subtotal
         newTotal = this.props.subtotal;
         //go through each fee amounts, add to new total
         for (let i = 0; i < this.state.fees.length; i++) {
-            newTotal = newTotal + parseFloat(this.state.fees[i].amount)
+            newTotal = newTotal + parseFloat(this.state.fees[i].amount);
         }
         //add new fee amount
-        newTotal = newTotal + parseFloat(this.state.addFeeAmount)
+        newTotal = newTotal + parseFloat(this.state.addFeeAmount);
 
         //add new fee object to array of fees objects
-        let updatedFees = [...this.state.fees].concat(newFee)
+        let updatedFees = [...this.state.fees].concat(newFee);
         //update fees array & reset modal input states
         this.setState({
             fees: updatedFees,
@@ -225,7 +225,7 @@ class AdditionalFees extends Component {
             addFeeAmount: "",
             grandTotal: newTotal,
             showModal: false,
-        })
+        });
     }
 
     render() {
@@ -325,4 +325,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdditionalFees)
+export default connect(mapStateToProps, mapDispatchToProps)(AdditionalFees);

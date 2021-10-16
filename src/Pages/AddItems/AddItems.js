@@ -15,17 +15,17 @@ class AddItems extends Component {
 
     //add items clicked
     openModalHandler = () => {
-        this.setState({ showModal: true })
+        this.setState({ showModal: true });
     }
 
     //cancel or backdrop clicked
     closeModalHandler = () => {
-        this.setState({ showModal: false })
+        this.setState({ showModal: false });
     }
 
     //change in item name input
     itemNameChangedHandler = (event) => {
-        this.setState({ itemName: event.target.value })
+        this.setState({ itemName: event.target.value });
     }
 
     //change in price input
@@ -80,8 +80,8 @@ class AddItems extends Component {
 
     //save clicked after entering name & price
     saveItemHandler = () => {
-        this.props.onAddItem(this.state.itemName, this.state.itemPrice)
-        this.setState({ showModal: false, itemName: "", itemPrice: "" })
+        this.props.onAddItem(this.state.itemName, this.state.itemPrice);
+        this.setState({ showModal: false, itemName: "", itemPrice: "" });
     }
 
     render() {
@@ -164,4 +164,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddItems)
+export default connect(mapStateToProps, mapDispatchToProps)(AddItems);
