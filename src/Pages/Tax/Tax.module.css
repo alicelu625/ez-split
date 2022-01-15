@@ -7,7 +7,15 @@
     align-items: center;
 }
 
-.itemSliver{
+.Items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    height: 65vh;
+}
+
+.Item{
     display: flex;
     flex-direction: row;
     justify-content: space-between;

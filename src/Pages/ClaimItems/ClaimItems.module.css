@@ -12,7 +12,15 @@
     width: 30px;
 }
 
-.ItemsDiv {
+.Items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    height: 65vh;
+}
+
+.Item {
     display: flex;
     justify-content: space-around;
     align-items: center;
