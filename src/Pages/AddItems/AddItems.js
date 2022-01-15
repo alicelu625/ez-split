@@ -13,6 +13,22 @@ class AddItems extends Component {
         itemPrice: "",
     }
 
+    //scroll to bottom of list of items
+    scrollToBottom = () => {
+        this.itemsRef.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    //scroll to bottom of list of items
+    componentDidMount () {
+        this.scrollToBottom();
+    }
+
+    //scroll to bottom of list of items when new item added
+    componentDidUpdate () {
+        this.scrollToBottom();
+    }
+    
+
     //add items clicked
     openModalHandler = () => {
         this.setState({ showModal: true });
@@ -131,6 +147,7 @@ class AddItems extends Component {
                             </button>
                         </div>
                     ))}
+                    <div ref={(el) => {this.itemsRef = el;}}></div>
                 </div>
                 <div
                     className={classes.AddItemButton}
