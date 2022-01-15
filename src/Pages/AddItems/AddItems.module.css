@@ -1,18 +1,21 @@
 .AddItems {
     text-align: center;
+    margin-top: 50px;
 }
 
 .Subtotal {
-    width: 100%;
-    padding-top: 50px;
-    border-bottom: solid 1px black;
-    margin-bottom: 10px;
+    border-top: solid 1px black;
+    padding: 15px 20px 0px 20px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .Items {
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: auto;
+    height: 65vh;
 }
 
 .ItemRow {

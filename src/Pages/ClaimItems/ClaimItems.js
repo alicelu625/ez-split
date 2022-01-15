@@ -54,9 +54,9 @@ class ClaimItems extends Component {
                     }
                 />
                 <button onClick={this.removePersonHandler}>-</button>
-                <div>
+                <div className={classes.Items}>
                     {this.props.items.map((item, id) => (
-                        <div key={id} className={classes.ItemsDiv}>
+                        <div key={id} className={classes.Item}>
                             <Item
                                 itemName={item.name}
                                 itemPrice={item.price.toFixed(2)}

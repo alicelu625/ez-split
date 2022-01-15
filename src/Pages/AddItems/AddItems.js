@@ -13,6 +13,22 @@ class AddItems extends Component {
         itemPrice: "",
     }
 
+    //scroll to bottom of list of items
+    scrollToBottom = () => {
+        this.itemsRef.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    //scroll to bottom of list of items
+    componentDidMount () {
+        this.scrollToBottom();
+    }
+
+    //scroll to bottom of list of items when new item added
+    componentDidUpdate () {
+        this.scrollToBottom();
+    }
+    
+
     //add items clicked
     openModalHandler = () => {
         this.setState({ showModal: true });
@@ -114,10 +130,6 @@ class AddItems extends Component {
                         <button onClick={this.saveItemHandler}>Save</button>
                     </div>
                 </Modal>
-                <div className={classes.Subtotal}>
-                    <p>${this.props.subtotal.toFixed(2)}</p>
-                    <p>Subtotal</p>
-                </div>
                 <div className={classes.Items}>
                     {this.props.items.map((item, id) => (
                         <div className={classes.ItemRow} key={id}>
@@ -135,12 +147,17 @@ class AddItems extends Component {
                             </button>
                         </div>
                     ))}
+                    <div ref={(el) => {this.itemsRef = el;}}></div>
                 </div>
                 <div
                     className={classes.AddItemButton}
                     onClick={this.openModalHandler}
                 >
                     + Add an Item
+                </div>
+                <div className={classes.Subtotal}>
+                    <p>Subtotal</p>
+                    <p>${this.props.subtotal.toFixed(2)}</p>
                 </div>
             </div>
         )

@@ -230,7 +230,7 @@ class AdditionalFees extends Component {
 
     render() {
         return (
-            <div className={classes.AdditionalFees}>
+            <div>
                 <Modal
                     showModal={this.state.showModal}
                     closeModal={this.closeModalHandler}

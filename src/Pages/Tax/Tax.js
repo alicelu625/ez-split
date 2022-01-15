@@ -10,14 +10,15 @@ class Tax extends Component {
         return (
             <div className={classes.Tax}>
                 <p> Select items that were taxed </p>
-                <div className={classes.itemSliver}>
+                <div className={classes.Item}>
                     <p> Items </p>
                     <button onClick={() => this.props.onSelectAll()}>
                         Select all
                     </button>
                 </div>
+                <div className={classes.Items}>
                 {this.props.items.map((item, id) => (
-                    <div key={id} className={classes.itemSliver}>
+                    <div key={id} className={classes.Item}>
                         <Item
                             itemName={item.name}
                             itemPrice={item.price.toFixed(2)}
@@ -31,6 +32,7 @@ class Tax extends Component {
                         />
                     </div>
                 ))}
+                </div>
             </div>
         )
     }
