@@ -8,7 +8,9 @@ import classes from './Start.module.css';
 class Start extends Component {
     state = {
         eventName: "",
-        amountPeople: ""
+        amountPeople: "",
+        eventNameEmpty: false,
+        amountPeopleEmpty: false
     }
 
     nameChangedHandler = (event) => {
@@ -17,6 +19,22 @@ class Start extends Component {
 
     amountPeopleChangedHandler = (event) => {
         this.setState({amountPeople: event.target.value});
+    }
+
+    // Check inputs when "Start" is pressed
+    checkInput = () => {
+        // check if event name field is empty
+        if (this.state.eventName === "") {
+            this.setState({eventNameEmpty: true});
+        }
+        // check if amount of people field is empty
+        if (this.state.amountPeople === "") {
+            this.setState({amountPeopleEmpty: true});
+        }
+
+        if (this.state.eventNameEmpty === false && this.state.amountPeopleEmpty === false) {
+            this.props.onStart(this.state.eventName, this.state.amountPeople);
+        }
     }
 
     render() {
@@ -31,6 +49,7 @@ class Start extends Component {
                     onChange={(event) => this.nameChangedHandler(event)}
                     value={this.state.eventName}
                 />
+                <p></p>
                 <input 
                     className={classes.Input}
                     type="number"
@@ -39,7 +58,7 @@ class Start extends Component {
                     onChange={(event) => this.amountPeopleChangedHandler(event)}
                     value={this.state.amountPeople}
                 />
-                <ProceedDiv className={classes.ProceedDiv} clicked={() => this.props.onStart(this.state.eventName, this.state.amountPeople)}>
+                <ProceedDiv className={classes.ProceedDiv} clicked={this.checkInput}>
                     Start
                 </ProceedDiv>
             </div>
