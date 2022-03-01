@@ -27,8 +27,8 @@ class Start extends Component {
         let checkFail = false;
 
         // check if event name field is empty
-        if (this.state.eventName === "") {
-            this.setState({eventNameEmpty: true});
+        if (this.state.eventName.trim() === "") {
+            this.setState({eventNameEmpty: true, eventName: ""});
             checkFail = true;
         }
         // check if amount of people field is empty
