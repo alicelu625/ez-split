@@ -8,15 +8,39 @@ import classes from './Start.module.css';
 class Start extends Component {
     state = {
         eventName: "",
-        amountPeople: ""
+        amountPeople: "",
+        eventNameEmpty: false,
+        amountPeopleEmpty: false
     }
 
+    // Input handlers
     nameChangedHandler = (event) => {
-        this.setState({eventName: event.target.value});
+        this.setState({eventName: event.target.value, eventNameEmpty: false});
     }
 
     amountPeopleChangedHandler = (event) => {
-        this.setState({amountPeople: event.target.value});
+        this.setState({amountPeople: event.target.value, amountPeopleEmpty: false});
+    }
+
+    // Check inputs when "Start" is pressed
+    checkInput = () => {
+        let checkFail = false;
+
+        // check if event name field is empty
+        if (this.state.eventName.trim() === "") {
+            this.setState({eventNameEmpty: true, eventName: ""});
+            checkFail = true;
+        }
+        // check if amount of people field is empty
+        if (this.state.amountPeople === "") {
+            this.setState({amountPeopleEmpty: true});
+            checkFail = true;
+        }
+
+        // if check did not fail, proceed to next step
+        if (checkFail === false) {
+            this.props.onStart(this.state.eventName, this.state.amountPeople);
+        }
     }
 
     render() {
@@ -31,6 +55,10 @@ class Start extends Component {
                     onChange={(event) => this.nameChangedHandler(event)}
                     value={this.state.eventName}
                 />
+                {this.state.eventNameEmpty === true ? 
+                    <p className={classes.ErrorMessage}>Event name is required.</p>
+                    : null
+                }
                 <input 
                     className={classes.Input}
                     type="number"
@@ -39,7 +67,11 @@ class Start extends Component {
                     onChange={(event) => this.amountPeopleChangedHandler(event)}
                     value={this.state.amountPeople}
                 />
-                <ProceedDiv className={classes.ProceedDiv} clicked={() => this.props.onStart(this.state.eventName, this.state.amountPeople)}>
+                {this.state.amountPeopleEmpty === true ? 
+                    <p className={classes.ErrorMessage}>Amount of people is required.</p>
+                    : null
+                }
+                <ProceedDiv className={classes.ProceedDiv} clicked={this.checkInput}>
                     Start
                 </ProceedDiv>
             </div>
