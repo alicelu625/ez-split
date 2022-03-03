@@ -33,3 +33,9 @@
 .AddItemButton {
     margin-top: 20px;
 }
+
+.ErrorMessage {
+    color: red;
+    margin-top: 0px;
+    font-size: 14px;
+}
