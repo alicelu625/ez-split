@@ -1,11 +1,21 @@
 .ProceedDiv {
-    position: absolute;
     width: 100vw;
-    border-top: solid 1px black;
+    position: absolute;
+    bottom: 30px;
+}
+
+.ProceedButton {
+    width: 60%;
     height: 50px;
+    margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: bisque;
-    bottom: 0;
+}
+
+@media (min-width: 768px) {
+    .ProceedDiv {
+        width: 70vw;
+    }
 }
