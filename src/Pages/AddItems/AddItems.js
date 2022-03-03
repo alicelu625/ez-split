@@ -11,6 +11,7 @@ class AddItems extends Component {
         showModal: false,
         itemName: "",
         itemPrice: "",
+        itemNameEmpty: false
     }
 
     //scroll to bottom of list of items
@@ -41,7 +42,7 @@ class AddItems extends Component {
 
     //change in item name input
     itemNameChangedHandler = (event) => {
-        this.setState({ itemName: event.target.value });
+        this.setState({ itemName: event.target.value, itemNameEmpty: false });
     }
 
     //change in price input
@@ -94,7 +95,25 @@ class AddItems extends Component {
             });
     }
 
-    //save clicked after entering name & price
+    //check input when "Save" is pressed
+    checkInput = () => {
+        let checkFail = false;
+
+        // check if item name field is empty
+        if (this.state.itemName.trim() === "") {
+            console.log("empty");
+            this.setState({itemNameEmpty: true, itemName: ""});
+            checkFail = true;
+        }
+
+        // if check did not fail, proceed to save item
+        if (checkFail === false) {
+            this.saveItemHandler();
+        }
+    }
+
+
+    //save item name & price, reset modal
     saveItemHandler = () => {
         this.props.onAddItem(this.state.itemName, this.state.itemPrice);
         this.setState({ showModal: false, itemName: "", itemPrice: "" });
@@ -113,6 +132,10 @@ class AddItems extends Component {
                         onChange={(event) => this.itemNameChangedHandler(event)}
                         value={this.state.itemName}
                     />
+                    {this.state.itemNameEmpty === true ? 
+                        <p className={classes.ErrorMessage}>Item name is required.</p>
+                        : null
+                    }
                     <p>
                         $
                         <input
@@ -127,7 +150,7 @@ class AddItems extends Component {
                     </p>
                     <div>
                         <button onClick={this.closeModalHandler}>Cancel</button>
-                        <button onClick={this.saveItemHandler}>Save</button>
+                        <button onClick={this.checkInput}>Save</button>
                     </div>
                 </Modal>
                 <div className={classes.Items}>
