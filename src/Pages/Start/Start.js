@@ -48,7 +48,7 @@ class Start extends Component {
             <div className={classes.Start}>
                 <p className={classes.Brand}>ez split</p>
                 <div className={classes.Intro}>
-                    <h1>Split a Bill</h1>
+                    <h1 style={{marginTop:'0px'}}>Split a Bill</h1>
                     <p>Taxes, tips, we got you covered</p>
                 </div>
                 <div className={classes.InputFields}>
@@ -80,7 +80,7 @@ class Start extends Component {
                     }
                 </div>
                 <ProceedDiv className={classes.ProceedDiv} clicked={this.checkInput}>
-                    Start
+                    LET'S START
                 </ProceedDiv>
             </div>
         );

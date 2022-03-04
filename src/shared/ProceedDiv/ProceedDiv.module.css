@@ -5,7 +5,7 @@
 }
 
 .ProceedButton {
-    width: 60%;
+    width: 70%;
     height: 50px;
     margin: auto;
     display: flex;
@@ -17,5 +17,11 @@
 @media (min-width: 768px) {
     .ProceedDiv {
         width: 70vw;
+    }
+}
+
+@media (min-width: 1024px) {
+    .ProceedDiv {
+        width: 50vw;
     }
 }

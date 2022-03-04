@@ -1,5 +1,5 @@
 .Start {
-    margin: 30px auto 0px auto;
+    margin: 0 auto;
 }
 
 .Brand {
@@ -8,6 +8,7 @@
 
 .Intro {
     text-align: center;
+    margin-top: 30px;
 }
 
 .InputFields {
@@ -19,18 +20,18 @@
 }
 
 .InputLabel {
-    width: 60%;
+    width: 70%;
     margin-bottom: 5px;
 }
 
 .Input {
-    width: 60%;
+    width: 70%;
     height: 50px;
     text-align: center;
 }
 
 .ErrorMessage {
-    width: 60%;
+    width: 70%;
     color: red;
     margin-top: 5px;
     margin-bottom: 0px;
@@ -39,5 +40,11 @@
 @media (min-width: 768px) {
     .Start {
         width: 70vw;
+    }
+}
+
+@media (min-width: 1024px) {
+    .Start {
+        width: 50vw;
     }
 }
