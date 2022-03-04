@@ -56,7 +56,7 @@ class Start extends Component {
                     <input
                         className={classes.Input}
                         type="text"
-                        placeholder="Event name"
+                        placeholder="e.g Brunch"
                         required
                         onChange={(event) => this.nameChangedHandler(event)}
                         value={this.state.eventName}
@@ -69,7 +69,7 @@ class Start extends Component {
                     <input
                         className={classes.Input}
                         type="number"
-                        placeholder="Amount of people"
+                        placeholder="e.g 3"
                         required
                         onChange={(event) => this.amountPeopleChangedHandler(event)}
                         value={this.state.amountPeople}
