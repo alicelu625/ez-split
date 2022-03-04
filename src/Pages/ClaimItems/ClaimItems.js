@@ -1,9 +1,10 @@
-import React, { Component } from "react"
-import { connect } from "react-redux"
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-import classes from "./ClaimItems.module.css"
-import Item from "../../shared/Item/Item"
-import * as actionTypes from "../../store/actions"
+import classes from "./ClaimItems.module.css";
+import Item from "../../shared/Item/Item";
+import ProceedDiv from '../../shared/ProceedDiv/ProceedDiv';
+import * as actionTypes from "../../store/actions";
 
 class ClaimItems extends Component {
     //local state
@@ -22,7 +23,7 @@ class ClaimItems extends Component {
 
         //if 1st person removed, reset selected person to next person
         if (this.state.currentPerson === 0) {
-            this.setState({currentPerson: this.state.currentPerson});
+            this.setState({ currentPerson: this.state.currentPerson });
         }
         //if not 1st person removed, reset selected person to previous person
         else {
@@ -78,6 +79,9 @@ class ClaimItems extends Component {
                         </div>
                     ))}
                 </div>
+                <ProceedDiv clicked={this.props.onNextPage}>
+                    NEXT
+                </ProceedDiv>
             </div>
         )
     }
@@ -104,6 +108,7 @@ const mapDispatchToProps = (dispatch) => {
                 selectedPerson: selectedPerson,
                 selectedItem: selectedItem
             }),
+        onNextPage: () => dispatch({ type: actionTypes.NEXT_PAGE })
     }
 }
 

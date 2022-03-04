@@ -1,9 +1,10 @@
-import React, { Component } from "react"
-import { connect } from "react-redux"
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-import classes from "./Tax.module.css"
-import Item from "../../shared/Item/Item"
-import * as actionTypes from "../../store/actions"
+import classes from "./Tax.module.css";
+import Item from "../../shared/Item/Item";
+import ProceedDiv from '../../shared/ProceedDiv/ProceedDiv';
+import * as actionTypes from "../../store/actions";
 
 class Tax extends Component {
     render() {
@@ -33,6 +34,9 @@ class Tax extends Component {
                     </div>
                 ))}
                 </div>
+                <ProceedDiv clicked={this.props.onNextPage}>
+                    NEXT
+                </ProceedDiv>
             </div>
         )
     }
@@ -51,6 +55,7 @@ const mapDispatchToProps = (dispatch) => {
         onTaxItem: (selectedItem) =>
             dispatch({ type: actionTypes.TAX_ITEM, selectedItem: selectedItem }),
         onSelectAll: () => dispatch({ type: actionTypes.SELECT_ALL_ITEMS }),
+        onNextPage: () => dispatch({ type: actionTypes.NEXT_PAGE })
     }
 }
 

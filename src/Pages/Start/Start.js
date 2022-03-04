@@ -79,7 +79,7 @@ class Start extends Component {
                         : null
                     }
                 </div>
-                <ProceedDiv className={classes.ProceedDiv} clicked={this.checkInput}>
+                <ProceedDiv clicked={this.checkInput}>
                     LET'S START
                 </ProceedDiv>
             </div>
