@@ -44,20 +44,25 @@ class ClaimItems extends Component {
                             {person.name}
                         </div>
                     ))}
+                    <button className={classes.AddPersonButton} onClick={this.props.onAddPerson}>+</button>
                 </div>
-                <button onClick={this.props.onAddPerson}>Add Person</button>
-                <br />
-                <input
-                    type="text"
-                    value={this.props.persons[this.state.currentPerson].name}
-                    onChange={(event) =>
-                        this.props.onChangeName(event, this.state.currentPerson)
-                    }
-                />
-                <button onClick={this.removePersonHandler}>-</button>
+                <div className={classes.EditPerson}>
+                    <input
+                        className={classes.PersonNameField}
+                        type="text"
+                        value={this.props.persons[this.state.currentPerson].name}
+                        onChange={(event) =>
+                            this.props.onChangeName(event, this.state.currentPerson)
+                        }
+                    />
+                    <button className={classes.RemovePersonButton} onClick={this.removePersonHandler}>-</button>
+                </div>
+
+                <p className={classes.Prompt}>Which items did <span style={{fontWeight:'bold'}}>{this.props.persons[this.state.currentPerson].name}</span> split?</p>
+                
                 <div className={classes.Items}>
                     {this.props.items.map((item, id) => (
-                        <div key={id} className={classes.Item}>
+                        <div key={id} className={classes.ItemRow}>
                             <Item
                                 itemName={item.name}
                                 itemPrice={item.price.toFixed(2)}
@@ -79,6 +84,10 @@ class ClaimItems extends Component {
                         </div>
                     ))}
                 </div>
+                <div className={classes.Subtotal}>
+                    <p className={classes.SubtotalText}>Subtotal</p>
+                    <p>${this.props.subtotal.toFixed(2)}</p>
+                </div>
                 <ProceedDiv clicked={this.props.onNextPage}>
                     NEXT
                 </ProceedDiv>
@@ -92,6 +101,7 @@ const mapStateToProps = (state) => {
         items: state.items,
         persons: state.persons,
         currentPage: state.currentPage,
+        subtotal: state.subtotal
     }
 }
 
