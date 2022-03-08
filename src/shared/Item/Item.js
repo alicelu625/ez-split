@@ -5,8 +5,8 @@ import classes from './Item.module.css';
 const item = (props) => {
     //if on AddItems or on ClaimItems but item has no claimers, show regular type
     let itemType = <div className={classes.RegularItem}>
-        <p>{props.itemName}</p>
-        <p>${props.itemPrice}</p>
+        <p className={classes.ItemName}>{props.itemName}</p>
+        <p className={classes.ItemPrice}>${props.itemPrice}</p>
     </div>
 
     //if on ClaimItems page and item has claimers, show claimedItem type

@@ -1,11 +1,27 @@
 .RegularItem {
     display: flex;
-    justify-content: space-between;
-    width: 60vw;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 70%;
     padding-left: 10px;
     padding-right: 10px;
     border: solid 1px black;
     margin-top: 10px;
+    box-shadow: 0px 4px 7px rgba(192, 192, 192, 0.25);
+    border-radius: 4px;
+    border-left: solid 8px #DB6400;
+}
+
+.ItemName {
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+
+.ItemPrice {
+    margin-top: 0px;
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 
 .ClaimedItem {
@@ -18,7 +34,7 @@
 
 .ItemInfo {
     display: flex;
-    justify-content: space-between;
+    flex-direction: space-between;
 }
 
 .Persons {

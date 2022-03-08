@@ -2,12 +2,26 @@
     position: fixed;
     z-index: 500;
     background-color: white;
-    width: 70%;
+    width: 60%;
     border: 1px solid #ccc;
-    box-shadow: 1px 1px 1px black;
     padding: 16px;
-    left: 15%;
+    left: 20%;
     top: 30%;
     box-sizing: border-box;
     transition: all 0.3s ease-out;
+    border-radius: 5px;
+}
+
+@media (min-width: 768px) {
+    .Modal {
+        width: 40%;
+        left: 30%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .Modal {
+        width: 30%;
+        left: 35%;
+    }
 }
