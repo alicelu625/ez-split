@@ -80,7 +80,7 @@ class Start extends Component {
                     }
                 </div>
                 <ProceedDiv clicked={this.checkInput}>
-                    LET'S START
+                    Let's start
                 </ProceedDiv>
             </div>
         );

@@ -188,7 +188,7 @@ class AddItems extends Component {
                     <p>${this.props.subtotal.toFixed(2)}</p>
                 </div>
                 <ProceedDiv clicked={this.props.onNextPage}>
-                    NEXT
+                    Next
                 </ProceedDiv>
             </div>
         )
