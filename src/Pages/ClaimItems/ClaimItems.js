@@ -38,14 +38,13 @@ class ClaimItems extends Component {
                     {this.props.persons.map((person, id) => (
                         <div
                             key={id}
-                            className={classes.Person}
+                            className={id === this.state.currentPerson ? classes.CurrentPerson : classes.Person}
                             onClick={() => this.changePersonHandler(id)}
                         >
                             {person.name.includes("Person") === true ?
                                 person.name.replace(/\D/g, "")
                                 : person.name.charAt(0)
                             }
-
                         </div>
                     ))}
                     <button className={classes.AddPersonButton} onClick={this.props.onAddPerson}>+</button>

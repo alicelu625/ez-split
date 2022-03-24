@@ -15,6 +15,22 @@
     background-color: #DB6400;
     color: white;
     font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.CurrentPerson {
+    border: 1px solid #DB6400;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    color: #DB6400;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .AddPersonButton {
