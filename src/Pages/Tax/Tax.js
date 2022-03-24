@@ -10,16 +10,18 @@ class Tax extends Component {
     render() {
         return (
             <div className={classes.Tax}>
-                <p> Select items that were taxed </p>
-                <div className={classes.Item}>
-                    <p> Items </p>
-                    <button onClick={() => this.props.onSelectAll()}>
+                <div className={classes.PromptAndButton}>
+                    <p className={classes.Prompt}>Which items were taxed?</p>
+                    <button 
+                        className={classes.SelectAllButton} 
+                        onClick={() => this.props.onSelectAll()}>
                         Select all
                     </button>
                 </div>
+
                 <div className={classes.Items}>
                 {this.props.items.map((item, id) => (
-                    <div key={id} className={classes.Item}>
+                    <div key={id} className={classes.ItemRow}>
                         <Item
                             itemName={item.name}
                             itemPrice={item.price.toFixed(2)}
@@ -27,6 +29,7 @@ class Tax extends Component {
                             claimers={item.persons}
                         />
                         <input
+                            className={classes.Checkbox}
                             type="checkbox"
                             checked={item.taxed}
                             onChange={() => this.props.onTaxItem(id)}

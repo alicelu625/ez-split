@@ -1,9 +1,25 @@
 .Tax {
-    padding-top: 100px;
-    margin: 0 auto;
-    width: 50%;
+    margin: 15px auto 0px auto;
+}
+
+.PromptAndButton {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 85%;
+    margin: 0 auto;
+}
+
+.SelectAllButton {
+    border: 1px solid #DB6400;
+    border-radius: 20px;
+    width: 100px;
+    height: 30px;
+    background-color: white;
+    color: #DB6400;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
@@ -13,11 +29,34 @@
     align-items: center;
     overflow-y: auto;
     height: 65vh;
+    width: 100%;
+    margin: 0 auto;
+    border-top: 1px dashed #C9C9C9;
+    border-bottom: 1px dashed #C9C9C9;
 }
 
-.Item{
+.ItemRow {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    width: 100%;
+}
+
+.Checkbox {
+    margin-top: 10px;
+    width: 20px;
+    height: 20px;
+    margin-left: 15px;
+}
+
+@media (min-width: 480px) {
+    .Tax {
+        width: 70vw;
+    }
+}
+
+@media (min-width: 768px) {
+    .Tax {
+        width: 50vw;
+    }
 }
