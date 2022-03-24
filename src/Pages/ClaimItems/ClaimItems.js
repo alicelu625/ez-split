@@ -41,7 +41,11 @@ class ClaimItems extends Component {
                             className={classes.Person}
                             onClick={() => this.changePersonHandler(id)}
                         >
-                            {person.name}
+                            {person.name.includes("Person") === true ?
+                                person.name.replace(/\D/g, "")
+                                : person.name.charAt(0)
+                            }
+
                         </div>
                     ))}
                     <button className={classes.AddPersonButton} onClick={this.props.onAddPerson}>+</button>
@@ -58,8 +62,8 @@ class ClaimItems extends Component {
                     <button className={classes.RemovePersonButton} onClick={this.removePersonHandler}>-</button>
                 </div>
 
-                <p className={classes.Prompt}>Which items did <span style={{fontWeight:'bold'}}>{this.props.persons[this.state.currentPerson].name}</span> split?</p>
-                
+                <p className={classes.Prompt}>Which items did <span style={{ fontWeight: 'bold' }}>{this.props.persons[this.state.currentPerson].name}</span> split?</p>
+
                 <div className={classes.Items}>
                     {this.props.items.map((item, id) => (
                         <div key={id} className={classes.ItemRow}>
