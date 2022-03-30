@@ -1,26 +1,98 @@
+.AdditionalFees {
+    margin: 0px auto 0px auto;
+}
+
 .Fees {
-    padding-top: 100px;
-    margin: 0 auto;
-    width: 100vw;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.Fee {
+    border-bottom: 1px dashed #C9C9C9;
+    padding: 5px 20px 0px 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.FeeName {
+    color: #DB6400;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.AddFeeButton {
+    margin-top: 20px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+    border: 0px;
+    background-color: white;
+    font-size: 16px;
+    color: #167A68;
+}
+
+.ModalContent {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.ModalInputField {
+    border: 0px;
+    border-bottom: 1px solid #000000;
+}
+
+.Buttons {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.Fee {
-    width: 90%;
-    display: flex;
-    justify-content: space-between;
-    border: solid 1px black;
-    padding: 0px 10px;
+.SaveButton {
+    margin-top: 15px;
+    width: 40%;
+    height: 30px;
+    background-color: #167A68;
+    color: white;
+    font-weight: 700;
+}
+
+.CancelButton {
+    margin-top: 15px;
+    border: 0;
+    background-color: white;
+    height: 30px;
+    color: #333333A6;
+    font-weight: 600;
+}
+
+.InputField {
+    border: 0px;
+    border-bottom: 1px solid #000000;
+    width: 64px;
+    font-size: 16px;
 }
 
 .Total {
-    width: 90vw;
+    margin: 15px auto 0px auto;
+    padding: 5px 20px 0px 20px;
     display: flex;
     justify-content: space-between;
-    border: solid 1px black;
-    padding: 0px 10px;
-    position: absolute;
-    bottom: 50px;
+    border-top: 1px dashed #C9C9C9;
+}
+
+.FixedAmount {
+    width: 78px;
+    font-size: 16px;
+}
+
+@media (min-width: 480px) {
+    .AdditionalFees {
+        width: 70vw;
+    }
+}
+
+@media (min-width: 768px) {
+    .AdditionalFees {
+        width: 50vw;
+    }
 }
