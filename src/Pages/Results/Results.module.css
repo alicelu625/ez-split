@@ -1,3 +1,15 @@
 .Results {
-    padding-top: 100px;
+    margin: 15px auto 0px auto;
+}
+
+.Header {
+    margin-left: 30px;
+    font-size: 16px;
+}
+
+.ResultItems {
+    width: 90%;
+    border: 1px solid black;
+    border-radius: 4px;
+    margin: 0 auto;
 }
