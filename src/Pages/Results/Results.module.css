@@ -9,7 +9,149 @@
 
 .ResultItems {
     width: 90%;
-    border: 1px solid black;
     border-radius: 4px;
     margin: 0 auto;
+}
+
+.PersonsItems {
+    border-bottom: 1px dashed #C9C9C9;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.PersonRow {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    justify-content: space-between;
+}
+
+.PersonNameShowDetails {
+    display: flex;
+}
+
+.Person {
+    border: 1px dashed #DB6400;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: #DB6400;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.NameShowDetails {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.PersonName {
+    font-weight: 700;
+    margin: 0px;
+}
+
+.ShowDetailsButton {
+    padding: 0px;
+    border: 0px;
+    background-color: white;
+    font-size: 16px;
+    color: #167A68;
+}
+
+.ShowTrue {
+    display: inline-block;
+    transform: rotate(90deg);
+}
+
+.ShowFalse {
+    display: inline-block;
+    transform: rotate(-90deg);
+}
+
+.Amount {
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.Details {
+    padding-left: 50px;
+    padding-bottom: 5px;
+}
+
+.DetailRow {
+    display: flex;
+    justify-content: space-between;
+}
+
+.FeesAndTotal {
+    margin: 15px;
+}
+
+.FeeItem {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.FeeName {
+    color: #747474;
+    font-size: 16px;
+}
+
+.GrandTotal {
+    margin-top: 20px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.GrandTotalText {
+    color: #DB6400;
+    font-weight: 700;
+}
+
+.Buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ViewReceiptButton {
+    margin-top: 20px;
+    width: 50%;
+    height: 36px;
+    background-color: #167A68;
+    color: white;
+    font-weight: 700;
+    border-radius: 4px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.CloseButton {
+    margin-top: 15px;
+    width: 50%;
+    border: 0;
+    background-color: white;
+    height: 30px;
+    color: #333333A6;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+@media (min-width: 480px) {
+    .Results {
+        width: 70vw;
+    }
+}
+
+@media (min-width: 768px) {
+    .Results {
+        width: 50vw;
+    }
 }
