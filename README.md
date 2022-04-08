@@ -12,6 +12,8 @@ What I'm using:
 * CSS 3 w/ mobile-first approach
 * Webpack
 
+Demo hosted via GitHub Pages: https://alicelu625.github.io/ez-split/
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 
