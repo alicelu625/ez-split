@@ -4,8 +4,10 @@ import classes from './ProceedDiv.module.css';
 
 const proceedDiv = (props) => {
     return (
-        <div className={classes.ProceedDiv} onClick={props.clicked}>
-            {props.children}
+        <div className={classes.ProceedDiv}>
+            <button className={classes.ProceedButton} onClick={props.clicked}>
+                {props.children}
+            </button>
         </div>
     )
 }

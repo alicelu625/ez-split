@@ -1,10 +1,11 @@
-import React, { Component } from "react"
-import { connect } from "react-redux"
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-import classes from "./AddItems.module.css"
-import Modal from "../../shared/Modal/Modal"
-import * as actionTypes from "../../store/actions"
-import Item from "../../shared/Item/Item"
+import classes from "./AddItems.module.css";
+import ProceedDiv from '../../shared/ProceedDiv/ProceedDiv';
+import Modal from "../../shared/Modal/Modal";
+import * as actionTypes from "../../store/actions";
+import Item from "../../shared/Item/Item";
 
 class AddItems extends Component {
     state = {
@@ -126,9 +127,11 @@ class AddItems extends Component {
                     showModal={this.state.showModal}
                     closeModal={this.closeModalHandler}
                 >
+                    <div className={classes.ModalContent}>
                     <input
+                        className={classes.InputField}
                         type="text"
-                        placeholder="Item name"
+                        placeholder="e.g. Coffee"
                         onChange={(event) => this.itemNameChangedHandler(event)}
                         value={this.state.itemName}
                     />
@@ -139,6 +142,7 @@ class AddItems extends Component {
                     <p>
                         $
                         <input
+                            className={classes.InputField}
                             ref="input"
                             type="text"
                             placeholder="0.00"
@@ -148,9 +152,10 @@ class AddItems extends Component {
                             value={this.state.itemPrice}
                         />
                     </p>
-                    <div>
-                        <button onClick={this.closeModalHandler}>Cancel</button>
-                        <button onClick={this.checkInput}>Save</button>
+                    </div>
+                    <div className={classes.Buttons}>
+                        <button className={classes.AddButton} onClick={this.checkInput}>ADD</button>
+                        <button className={classes.CancelButton} onClick={this.closeModalHandler}>CANCEL</button>
                     </div>
                 </Modal>
                 <div className={classes.Items}>
@@ -172,16 +177,19 @@ class AddItems extends Component {
                     ))}
                     <div ref={(el) => {this.itemsRef = el;}}></div>
                 </div>
-                <div
+                <button
                     className={classes.AddItemButton}
                     onClick={this.openModalHandler}
                 >
                     + Add an Item
-                </div>
+                </button>
                 <div className={classes.Subtotal}>
-                    <p>Subtotal</p>
+                    <p className={classes.SubtotalText}>Subtotal</p>
                     <p>${this.props.subtotal.toFixed(2)}</p>
                 </div>
+                <ProceedDiv clicked={this.props.onNextPage}>
+                    Next
+                </ProceedDiv>
             </div>
         )
     }
@@ -201,6 +209,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch({ type: actionTypes.ADD_ITEM, name: name, price: price }),
         onRemoveItem: (id) =>
             dispatch({ type: actionTypes.REMOVE_ITEM, id: id }),
+        onNextPage: () => dispatch({ type: actionTypes.NEXT_PAGE })
     }
 }
 

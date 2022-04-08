@@ -1,13 +1,18 @@
 .AddItems {
     text-align: center;
-    margin-top: 50px;
+    margin: 15px auto 0px auto;
 }
 
 .Subtotal {
-    border-top: solid 1px black;
-    padding: 15px 20px 0px 20px;
+    border-top: 1px dashed #C9C9C9;
+    padding: 5px 20px 0px 20px;
     display: flex;
     justify-content: space-between;
+}
+
+.SubtotalText {
+    color: #DB6400;
+    font-weight: 700;
 }
 
 .Items {
@@ -15,27 +20,81 @@
     flex-direction: column;
     align-items: center;
     overflow-y: auto;
-    height: 65vh;
+    height: 60vh;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .ItemRow {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .RemoveItemButton {
     margin-left: 15px;
     width: 40px;
     height: 40px;
+    margin-top: 10px;
 }
 
 .AddItemButton {
     margin-top: 20px;
+    margin-bottom: 15px;
+    border: 0px;
+    background-color: white;
+    font-size: 16px;
+    color: #167A68;
+}
+
+.ModalContent {
+    margin-top: 25px;
+}
+
+.InputField {
+    border: 0px;
+    border-bottom: 1px solid #000000;
 }
 
 .ErrorMessage {
     color: red;
     margin-top: 0px;
     font-size: 14px;
+}
+
+.Buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.AddButton {
+    margin-top: 15px;
+    width: 40%;
+    height: 30px;
+    background-color: #167A68;
+    color: white;
+    font-weight: 700;
+}
+
+.CancelButton {
+    margin-top: 15px;
+    border: 0;
+    background-color: white;
+    height: 30px;
+    color: #333333A6;
+    font-weight: 600;
+}
+
+@media (min-width: 480px) {
+    .AddItems {
+        width: 70vw;
+    }
+}
+
+@media (min-width: 768px) {
+    .AddItems {
+        width: 50vw;
+    }
 }

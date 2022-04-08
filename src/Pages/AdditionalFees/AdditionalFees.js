@@ -10,11 +10,11 @@ class AdditionalFees extends Component {
     state = {
         fees: [
             {
-                name: "tax",
+                name: "Tax",
                 amount: "0.00",
             },
             {
-                name: "tip",
+                name: "Tip",
                 amount: "0.00",
             },
         ],
@@ -67,7 +67,7 @@ class AdditionalFees extends Component {
             right = right.replace(/\D/g, "");
 
             //limit right side to only 2 digits
-            right = right.substring(0,2);
+            right = right.substring(0, 2);
 
             //join number
             val = left + "." + right;
@@ -124,7 +124,7 @@ class AdditionalFees extends Component {
         fees[id] = fee;
 
         //update state with new total & fees
-        this.setState({ grandTotal: newTotal, fees: fees});
+        this.setState({ grandTotal: newTotal, fees: fees });
     }
 
     //add additional fees clicked
@@ -174,7 +174,7 @@ class AdditionalFees extends Component {
             right = right.replace(/\D/g, "");
 
             //limit right side to only 2 digits
-            right = right.substring(0,2);
+            right = right.substring(0, 2);
 
             //join number
             val = left + "." + right;
@@ -230,46 +230,48 @@ class AdditionalFees extends Component {
 
     render() {
         return (
-            <div>
+            <div className={classes.AdditionalFees}>
                 <Modal
                     showModal={this.state.showModal}
                     closeModal={this.closeModalHandler}
                 >
-                    <p>
-                        Fee Name:
+                    <div className={classes.ModalContent}>
                         <input
+                            className={classes.ModalInputField}
                             ref="input2"
                             type="text"
-                            placeholder="Name of fee"
+                            placeholder="e.g. Service Fee"
                             value={this.state.addFeeName}
                             onChange={this.addFeeNameChangedHandler}
                         />
-                    </p>
-                    <p>
-                        $
-                        <input
-                            type="text"
-                            placeholder="0.00"
-                            value={this.state.addFeeAmount}
-                            onChange={this.addFeeAmountChangedHandler}
-                        />
-                    </p>
-                    <div>
-                        <button onClick={this.closeModalHandler}>Cancel</button>
-                        <button onClick={this.addFeeHandler}>Save</button>
+                        <p>
+                            $
+                            <input
+                                className={classes.ModalInputField}
+                                type="text"
+                                placeholder="0.00"
+                                value={this.state.addFeeAmount}
+                                onChange={this.addFeeAmountChangedHandler}
+                            />
+                        </p>
+                        <div className={classes.Buttons}>
+                            <button className={classes.SaveButton} onClick={this.addFeeHandler}>Save</button>
+                            <button className={classes.CancelButton} onClick={this.closeModalHandler}>Cancel</button>
+                        </div>
                     </div>
                 </Modal>
                 <div className={classes.Fees}>
                     <div className={classes.Fee}>
-                        <p>Subtotal</p>
-                        <p>${this.props.subtotal.toFixed(2)}</p>
+                        <p className={classes.FeeName}>Subtotal</p>
+                        <p className={classes.FixedAmount}>${this.props.subtotal.toFixed(2)}</p>
                     </div>
                     {this.state.fees.map((fee, id) => (
                         <div className={classes.Fee} key={id}>
-                            <p>{fee.name}</p>
+                            <p className={classes.FeeName}>{fee.name}</p>
                             <p>
                                 $
                                 <input
+                                    className={classes.InputField}
                                     ref="input1"
                                     type="text"
                                     value={fee.amount}
@@ -283,15 +285,13 @@ class AdditionalFees extends Component {
                             </p>
                         </div>
                     ))}
-                    <div>
-                        <button onClick={this.openModalHandler}>
-                            + Add more fees
-                        </button>
-                    </div>
                 </div>
+                <button className={classes.AddFeeButton} onClick={this.openModalHandler}>
+                    + Additional fees
+                </button>
                 <div className={classes.Total}>
-                    <p>Grandtotal</p>
-                    <p>${this.state.grandTotal.toFixed(2)}</p>
+                    <p className={classes.FeeName}>Grandtotal</p>
+                    <p className={classes.FixedAmount}>${this.state.grandTotal.toFixed(2)}</p>
                 </div>
                 <ProceedDiv
                     clicked={() =>

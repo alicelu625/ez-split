@@ -1,9 +1,10 @@
-import React, { Component } from "react"
-import { connect } from "react-redux"
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-import classes from "./ClaimItems.module.css"
-import Item from "../../shared/Item/Item"
-import * as actionTypes from "../../store/actions"
+import classes from "./ClaimItems.module.css";
+import Item from "../../shared/Item/Item";
+import ProceedDiv from '../../shared/ProceedDiv/ProceedDiv';
+import * as actionTypes from "../../store/actions";
 
 class ClaimItems extends Component {
     //local state
@@ -22,7 +23,7 @@ class ClaimItems extends Component {
 
         //if 1st person removed, reset selected person to next person
         if (this.state.currentPerson === 0) {
-            this.setState({currentPerson: this.state.currentPerson});
+            this.setState({ currentPerson: this.state.currentPerson });
         }
         //if not 1st person removed, reset selected person to previous person
         else {
@@ -37,26 +38,34 @@ class ClaimItems extends Component {
                     {this.props.persons.map((person, id) => (
                         <div
                             key={id}
-                            className={classes.Person}
+                            className={id === this.state.currentPerson ? classes.CurrentPerson : classes.Person}
                             onClick={() => this.changePersonHandler(id)}
                         >
-                            {person.name}
+                            {person.name.includes("Person") === true ?
+                                person.name.replace(/\D/g, "")
+                                : person.name.charAt(0)
+                            }
                         </div>
                     ))}
+                    <button className={classes.AddPersonButton} onClick={this.props.onAddPerson}>+</button>
                 </div>
-                <button onClick={this.props.onAddPerson}>Add Person</button>
-                <br />
-                <input
-                    type="text"
-                    value={this.props.persons[this.state.currentPerson].name}
-                    onChange={(event) =>
-                        this.props.onChangeName(event, this.state.currentPerson)
-                    }
-                />
-                <button onClick={this.removePersonHandler}>-</button>
+                <div className={classes.EditPerson}>
+                    <input
+                        className={classes.PersonNameField}
+                        type="text"
+                        value={this.props.persons[this.state.currentPerson].name}
+                        onChange={(event) =>
+                            this.props.onChangeName(event, this.state.currentPerson)
+                        }
+                    />
+                    <button className={classes.RemovePersonButton} onClick={this.removePersonHandler}>-</button>
+                </div>
+
+                <p className={classes.Prompt}>Which items did <span style={{ fontWeight: 'bold' }}>{this.props.persons[this.state.currentPerson].name}</span> split?</p>
+
                 <div className={classes.Items}>
                     {this.props.items.map((item, id) => (
-                        <div key={id} className={classes.Item}>
+                        <div key={id} className={classes.ItemRow}>
                             <Item
                                 itemName={item.name}
                                 itemPrice={item.price.toFixed(2)}
@@ -78,6 +87,13 @@ class ClaimItems extends Component {
                         </div>
                     ))}
                 </div>
+                <div className={classes.Subtotal}>
+                    <p className={classes.SubtotalText}>Subtotal</p>
+                    <p>${this.props.subtotal.toFixed(2)}</p>
+                </div>
+                <ProceedDiv clicked={this.props.onNextPage}>
+                    NEXT
+                </ProceedDiv>
             </div>
         )
     }
@@ -88,6 +104,7 @@ const mapStateToProps = (state) => {
         items: state.items,
         persons: state.persons,
         currentPage: state.currentPage,
+        subtotal: state.subtotal
     }
 }
 
@@ -104,6 +121,7 @@ const mapDispatchToProps = (dispatch) => {
                 selectedPerson: selectedPerson,
                 selectedItem: selectedItem
             }),
+        onNextPage: () => dispatch({ type: actionTypes.NEXT_PAGE })
     }
 }
 

@@ -1,24 +1,46 @@
 .RegularItem {
     display: flex;
-    justify-content: space-between;
-    width: 60vw;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 70%;
     padding-left: 10px;
     padding-right: 10px;
     border: solid 1px black;
     margin-top: 10px;
+    box-shadow: 0px 4px 7px rgba(192, 192, 192, 0.25);
+    border-radius: 4px;
+    border-left: solid 8px #DB6400;
+}
+
+.ItemName {
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+
+.ItemPrice {
+    margin-top: 0px;
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 
 .ClaimedItem {
-    width: 60vw;
+    width: 70%;
     padding-left: 10px;
     padding-right: 10px;
     border: solid 1px black;
     margin-top: 10px;
+    box-shadow: 0px 4px 7px rgba(192, 192, 192, 0.25);
+    border-radius: 4px;
+    border-left: solid 8px #DB6400;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .ItemInfo {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
 }
 
 .Persons {
@@ -27,6 +49,14 @@
 }
 
 .Person {
-    border: solid 1px black;
-    width: 30px;
+    border: 1px dashed #DB6400;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    background-color: #DB6400;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

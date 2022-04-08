@@ -224,7 +224,7 @@ const reducer = (state = intialState, action) => {
                 let currentFeePercentage =
                     parseFloat(fee.amount) / state.subtotal;
                 //if fee is tax, use subtotal of taxed items instead
-                if (fee.name === "tax") {
+                if (fee.name === "Tax") {
                     currentFeePercentage = parseFloat(fee.amount) / state.taxedItemSubtotal;
                 }
                 //push object to array
@@ -250,7 +250,7 @@ const reducer = (state = intialState, action) => {
                     let feeAmount =
                         fee.percentage * itemSplitPrice;
                     //if calculating tax & item is not taxed, then set amount to 0
-                    if (fee.name === "tax" && item.taxed === false) {
+                    if (fee.name === "Tax" && item.taxed === false) {
                         feeAmount = 0;
                     }
                     //update item fee
