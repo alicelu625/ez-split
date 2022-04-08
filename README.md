@@ -1,6 +1,6 @@
 ## Split a Bill (React/Redux)
 
-### *This project is  in progress*
+### *This project has been "rough launched" and in progress of fixing bugs and enhancements*
 
 It is often difficult to split a check/bill among a group of people, where everyone is paying for a different part of the check/bill (especially tax, tips, and other additional fees). In collaboration with a designer and a developer, we're developing a tool to automate the calculation of how much each person has to pay, making it easier and quicker for people to split their bills/checks for dining, groceries, etc.
 
