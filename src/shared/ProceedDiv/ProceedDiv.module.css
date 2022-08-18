@@ -30,4 +30,8 @@
     .ProceedDiv {
         width: 50vw;
     }
+
+    .ProceedButton {
+        width: 60%;
+    }
 }

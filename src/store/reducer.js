@@ -233,7 +233,6 @@ const reducer = (state = intialState, action) => {
                     percentage: currentFeePercentage
                 });
             })
-            console.log('fee percentages', feePercentages);
 
             //////// CALCULATING SPLIT PRICE FOR EVERY ITEM ////////
             let itemsToSplit = [...state.items];
@@ -262,7 +261,7 @@ const reducer = (state = intialState, action) => {
                     splitFees: itemFeesMap
                 });
             })
-            console.log('items w/ split', itemsWithSplit);
+
             //////// CALCULATING SPLIT FEES (TAX TIP) FOR EACH PERSON ////////
             let personsWithFees = state.persons.map((person) => {
                 let personTotal = 0;
@@ -298,9 +297,6 @@ const reducer = (state = intialState, action) => {
                 });
 ;
             })
-            console.log("items", itemsWithSplit);
-            console.log("persons", personsWithFees);
-            console.log("total", action.grandTotal);
             return updateObject(state, {
                 currentPage: state.currentPage + 1,
                 items: itemsWithSplit,

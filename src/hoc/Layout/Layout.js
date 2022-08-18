@@ -17,21 +17,7 @@ class Layout extends Component {
                 
             </div>
         );
-        /*
-        if (this.props.currentPage > 0) {
-            afterStart = (
-                <div>
-                    <Header
-                        eventName={this.props.eventName}
-                        backClicked={this.props.onGoBack}
-                    />
-                    {this.props.children}
-                </div>
-            );
-        } else if (this.props.currentPage === 0) {
-            afterStart = <div>{this.props.children}</div>;
-        }
-        */
+        
         return this.props.currentPage > 0 ? afterStart
             : <div>{this.props.children}</div>;
     }

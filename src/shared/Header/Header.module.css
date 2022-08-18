@@ -11,10 +11,14 @@
 .BackButton {
     position: absolute;
     left: 30px;
-    top: 25px;
+    font-size: x-large;
+    border: none;
+    color: white;
+    background: none;
 }
 
 .EventName {
     color: white;
     font-weight: bold;
+    margin-bottom: 4px;
 }
