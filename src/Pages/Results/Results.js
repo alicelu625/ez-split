@@ -36,8 +36,12 @@ class Results extends Component {
                                         </div>
                                         <div className={classes.NameShowDetails}>
                                             <p className={classes.PersonName}>{person.name}</p>
-                                            <button className={classes.ShowDetailsButton} onClick={() => this.showDetailsHandler(id)}>Show details <span className={this.state.showDetails[id] === true
-                                        ? classes.ShowTrue : classes.ShowFalse}>&#62;</span></button>
+                                            <button className={classes.ShowDetailsButton} onClick={() => this.showDetailsHandler(id)}>
+                                                {this.state.showDetails[id] === false
+                                                    ? <p style={{margin:"0px",fontSize:"12px"}}>Show Details <span className={classes.ShowTrue}>&#62;</span></p>
+                                                    : <p style={{margin:"0px",fontSize:"12px"}}>Hide Details <span className={classes.ShowFalse}>&#62;</span></p>
+                                                }
+                                            </button>
                                         </div>
                                     </div>
                                     <div className={classes.Amount}>

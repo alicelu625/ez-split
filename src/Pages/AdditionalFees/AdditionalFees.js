@@ -98,28 +98,34 @@ class AdditionalFees extends Component {
     updateTotal = (event, id) => {
         let newTotal = this.state.grandTotal;
 
-        //if input is not empty or value is not 0, get updated grandtotal
-        if (event.target.value !== "" && parseFloat(event.target.value) > 0) {
-            //start with subtotal
-            newTotal = this.props.subtotal;
-            //go through each fee amounts
-            for (let i = 0; i < this.state.fees.length; i++) {
-                //if not selected fee, add to new total
-                if (i !== id) {
-                    newTotal = newTotal + parseFloat(this.state.fees[i].amount);
-                }
-            }
-            //add current fee
-            newTotal = newTotal + parseFloat(event.target.value);
-        }
-
-        //update fee to 2 decimal places string
         //make copy of fees array
         let fees = [...this.state.fees];
         //make copy of fee object
         let fee = { ...fees[id] };
-        //update amount
-        fee.amount = parseFloat(event.target.value).toFixed(2);
+
+        //default input amount as $0
+        let inputAmount = 0;
+
+        //if input is not empty or value is not 0, set inputAmount as the input value
+        if (event.target.value !== "" && parseFloat(event.target.value) > 0) {
+            inputAmount = parseFloat(event.target.value);
+        }
+
+        //get updated grandtotal
+        //start with subtotal
+        newTotal = this.props.subtotal;
+        //go through each fee amounts
+        for (let i = 0; i < this.state.fees.length; i++) {
+            //if not selected fee, add to new total
+            if (i !== id) {
+                newTotal = newTotal + parseFloat(this.state.fees[i].amount);
+            }
+        }
+        //add current fee
+        newTotal = newTotal + inputAmount;
+        //update amount & update fee to 2 decimal places string
+        fee.amount = inputAmount.toFixed(2);
+
         //set object to updated object
         fees[id] = fee;
 

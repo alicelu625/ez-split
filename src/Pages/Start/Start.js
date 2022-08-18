@@ -49,7 +49,7 @@ class Start extends Component {
             <div className={classes.Start}>
                 <p className={classes.Brand}>ezSplit</p>
                 <div className={classes.Intro}>
-                    <img className={classes.Icon} src={startIcon} altText="ezSplit"/>
+                    <img className={classes.Icon} src={startIcon} alt="ezSplit"/>
                     <h1 style={{marginTop:'0px'}}>Split a Bill</h1>
                     <h2 style={{fontSize:'16px'}}>Taxes, tips, we got you covered</h2>
                 </div>
