@@ -1,20 +1,21 @@
 {
   "files": {
-    "main.css": "/ez-split/static/css/main.4df45bae.chunk.css",
-    "main.js": "/ez-split/static/js/main.1123a081.chunk.js",
-    "main.js.map": "/ez-split/static/js/main.1123a081.chunk.js.map",
+    "main.css": "/ez-split/static/css/main.6908fd35.chunk.css",
+    "main.js": "/ez-split/static/js/main.d878fbd0.chunk.js",
+    "main.js.map": "/ez-split/static/js/main.d878fbd0.chunk.js.map",
     "runtime-main.js": "/ez-split/static/js/runtime-main.f8bed794.js",
     "runtime-main.js.map": "/ez-split/static/js/runtime-main.f8bed794.js.map",
     "static/js/2.805f37f9.chunk.js": "/ez-split/static/js/2.805f37f9.chunk.js",
     "static/js/2.805f37f9.chunk.js.map": "/ez-split/static/js/2.805f37f9.chunk.js.map",
     "index.html": "/ez-split/index.html",
-    "static/css/main.4df45bae.chunk.css.map": "/ez-split/static/css/main.4df45bae.chunk.css.map",
-    "static/js/2.805f37f9.chunk.js.LICENSE.txt": "/ez-split/static/js/2.805f37f9.chunk.js.LICENSE.txt"
+    "static/css/main.6908fd35.chunk.css.map": "/ez-split/static/css/main.6908fd35.chunk.css.map",
+    "static/js/2.805f37f9.chunk.js.LICENSE.txt": "/ez-split/static/js/2.805f37f9.chunk.js.LICENSE.txt",
+    "static/media/start-icon.371c7da5.png": "/ez-split/static/media/start-icon.371c7da5.png"
   },
   "entrypoints": [
     "static/js/runtime-main.f8bed794.js",
     "static/js/2.805f37f9.chunk.js",
-    "static/css/main.4df45bae.chunk.css",
-    "static/js/main.1123a081.chunk.js"
+    "static/css/main.6908fd35.chunk.css",
+    "static/js/main.d878fbd0.chunk.js"
   ]
 }
