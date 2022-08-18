@@ -4,6 +4,7 @@ import ProceedDiv from '../../shared/ProceedDiv/ProceedDiv';
 
 import * as actionTypes from '../../store/actions';
 import classes from './Start.module.css';
+import startIcon from '../../assets/start-icon.png';
 
 class Start extends Component {
     state = {
@@ -46,10 +47,11 @@ class Start extends Component {
     render() {
         return (
             <div className={classes.Start}>
-                <p className={classes.Brand}>ez split</p>
+                <p className={classes.Brand}>ezSplit</p>
                 <div className={classes.Intro}>
+                    <img src={startIcon}/>
                     <h1 style={{marginTop:'0px'}}>Split a Bill</h1>
-                    <p>Taxes, tips, we got you covered</p>
+                    <h2 style={{fontSize:'16px'}}>Taxes, tips, we got you covered</h2>
                 </div>
                 <div className={classes.InputFields}>
                     <p className={classes.InputLabel}>Event name</p>
