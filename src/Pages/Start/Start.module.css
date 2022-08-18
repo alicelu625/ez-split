@@ -10,6 +10,10 @@
     font-weight: bold;
 }
 
+.Icon {
+    max-width: 158px;
+}
+
 .Intro {
     text-align: center;
     padding: 30px 0px 15px 0px;
