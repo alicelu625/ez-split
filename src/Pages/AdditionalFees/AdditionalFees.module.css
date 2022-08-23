@@ -37,9 +37,11 @@
 }
 
 .ModalInputField {
+    -webkit-appearance: none;
     border: 0px;
     border-bottom: 1px solid #000000;
     font-size: 16px;
+    width: 90%;
 }
 
 .Buttons {
@@ -67,6 +69,7 @@
 }
 
 .InputField {
+    -webkit-appearance: none;
     border: 0px;
     border-bottom: 1px solid #000000;
     width: 64px;
@@ -82,7 +85,7 @@
 }
 
 .FixedAmount {
-    width: 78px;
+    width: 77px;
     font-size: 16px;
 }
 
