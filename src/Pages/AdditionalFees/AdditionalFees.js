@@ -207,7 +207,7 @@ class AdditionalFees extends Component {
         //new fee object
         let newFee = {
             name: this.state.addFeeName,
-            amount: parseFloat(this.state.addFeeAmount)
+            amount: parseFloat(this.state.addFeeAmount).toFixed(2)
         };
 
         //update grand total
@@ -243,6 +243,7 @@ class AdditionalFees extends Component {
                     <div className={classes.ModalContent}>
                         <input
                             className={classes.ModalInputField}
+                            style={{marginLeft:"7px"}}
                             ref="input2"
                             type="text"
                             placeholder="e.g. Service Fee"

@@ -130,6 +130,7 @@ class AddItems extends Component {
                     <div className={classes.ModalContent}>
                     <input
                         className={classes.InputField}
+                        style={{marginLeft:"7px"}}
                         type="text"
                         placeholder="e.g. Coffee"
                         onChange={(event) => this.itemNameChangedHandler(event)}

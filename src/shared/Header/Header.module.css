@@ -2,6 +2,12 @@
     width: 100vw;
     height: 60px;
     background-color: #DB6400;
+}
+
+.FixedWidthContainer {
+    position: relative;
+    width: 100vw;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,7 +16,7 @@
 
 .BackButton {
     position: absolute;
-    left: 30px;
+    left: 15px;
     font-size: x-large;
     border: none;
     color: white;
@@ -21,4 +27,10 @@
     color: white;
     font-weight: bold;
     margin-bottom: 4px;
+}
+
+@media (min-width: 768px) {
+    .FixedWidthContainer {
+        width: 50vw;
+    }
 }
