@@ -30,7 +30,7 @@ class Receipt extends Component {
                         ))}
                         <div className={classes.GrandTotal}>
                             <span className={classes.GrandTotalText}>Grand Total</span>
-                            <span className={classes.Amount}>{this.props.total.toFixed(2)}</span>
+                            <span className={classes.Amount}>${this.props.total.toFixed(2)}</span>
                         </div>
                     </div>
                 </div>
