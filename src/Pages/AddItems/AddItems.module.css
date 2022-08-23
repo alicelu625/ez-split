@@ -50,6 +50,8 @@
 
 .ModalContent {
     margin-top: 25px;
+    max-width: 200px;
+    margin: 25px auto 0px auto;
 }
 
 .InputField {
